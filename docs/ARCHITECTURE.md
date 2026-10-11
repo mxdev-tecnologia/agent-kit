@@ -122,6 +122,7 @@ The largest kind is `task` (53,420 bytes); `observation` is the smallest (11,059
 `cortex.*/v1` schemas follow SemVer and the `$id` carries the major. A published schema is compatible when every instance valid under the published version stays valid under the new one.
 
 - **Compatible (same major):** relaxing a limit, or adding an `enum` value.
+  Readers must update before producers: an older reader that validates against the published schema rejects an instance that uses a relaxed limit or a new `enum` value, so a compatible change is rolled out to consumers first.
 - **Needs a new major in a new file (`...:v2`):** tightening a limit, removing an `enum` value, or adding a property. Schemas use `additionalProperties: false`, so older readers would reject instances that carry the new property.
 
 A `v1` schema is never edited in an incompatible way after its first release: an incompatible change always ships as `v2` in a new file (for example `schemas/cortex/task.v2.schema.json`), and `v1` stays as published.

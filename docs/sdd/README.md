@@ -23,7 +23,7 @@ Goal: a public, provider-neutral SDD brain that installs with one `npx` command 
 | spec-01a | CLI foundation: toolchain (Node, TypeScript, Biome, Vitest, pnpm) and the `agent-kit` command skeleton (`--version`, `--help`, `check --self`) | — | lite | delivered |
 | spec-01b | CI and community files: GitHub Actions workflow, Dependabot, CONTRIBUTING and SECURITY | spec-01a | lite | delivered |
 | spec-02a | Contracts core: JSON Schema subset validator, schema registry, common definitions and the frontmatter format for agents, skills, workflows and rules | spec-01a | full | delivered |
-| spec-02b | Cortex envelopes: the nine `cortex.*/v1` JSON Schemas | spec-02a | full | in progress |
+| spec-02b | Cortex envelopes: the nine `cortex.*/v1` JSON Schemas | spec-02a | full | validated |
 | spec-03 | Installer: `agent-kit init`, `update`, `sync` and `check`; CLI detection, per-provider install, `agent-kit.lock.json`, merge with `.agents/local/`, name-collision checks | spec-02b | full | planned |
 | spec-04 | SDD brain: skills, workflows and rules (original content, in English) | spec-02a | lite | planned |
 | spec-05 | Agents: 13 roles with full job titles, and the provider catalog (Claude Code, Codex, Antigravity, any OpenAI-compatible endpoint) with concurrency limits | spec-02a | lite | planned |

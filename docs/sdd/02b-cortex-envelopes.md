@@ -1,6 +1,6 @@
 # Spec 02b — cortex.*/v1 envelopes
 
-- **Status:** em andamento
+- **Status:** validada
 - **Nível:** completo
 - **Risco:** médio
 - **Depende de:** spec-02a
@@ -216,30 +216,34 @@ pnpm --silent test:smoke                            # all pass, exit 0
 ## Traceability matrix
 | Requirement | CA | Verification | Files | Evidence |
 |---|---|---|---|---|
-| RF-01 | CA-01 | test | `schemas/cortex/defs.schema.json`, `tests/schemas-conformance.test.ts`, `tests/fixtures/schemas/cortex-defs/` | |
-| RF-02 | CA-02 | test | `schemas/cortex/*.schema.json`, `tests/cortex-envelopes.test.ts` | |
-| RF-03 | CA-03, CA-04 | test | `schemas/cortex/*.schema.json`, `tests/cortex-envelopes.test.ts`, `tests/schemas-conformance.test.ts` | |
-| RF-04 | CA-05 | test | `schemas/cortex/*.schema.json`, `tests/cortex-envelopes.test.ts` | |
-| RF-05 | CA-06 | test | `schemas/cortex/task.schema.json`, `tests/fixtures/schemas/cortex-task/` | |
-| RF-06 | CA-07 | test | `schemas/cortex/result.schema.json`, `tests/fixtures/schemas/cortex-result/` | |
-| RF-07 | CA-08 | test | `schemas/cortex/blocked.schema.json`, `tests/fixtures/schemas/cortex-blocked/` | |
-| RF-08 | CA-09 | test | `schemas/cortex/verdict.schema.json`, `tests/fixtures/schemas/cortex-verdict/` | |
-| RF-09 | CA-10 | test | `schemas/cortex/plan.schema.json`, `tests/fixtures/schemas/cortex-plan/` | |
-| RF-10 | CA-11 | test | `schemas/cortex/handoff.schema.json`, `tests/fixtures/schemas/cortex-handoff/` | |
-| RF-11 | CA-12 | test | `schemas/cortex/lesson.schema.json`, `tests/fixtures/schemas/cortex-lesson/` | |
-| RF-12 | CA-13 | test | `schemas/cortex/design.schema.json`, `tests/fixtures/schemas/cortex-design/` | |
-| RF-13 | CA-14 | test | `schemas/cortex/observation.schema.json`, `tests/fixtures/schemas/cortex-observation/` | |
-| RF-14 | CA-09 | test + manual | `docs/ARCHITECTURE.md`, `schemas/cortex/verdict.schema.json`, `tests/fixtures/schemas/cortex-verdict/` | |
-| RF-15 | CA-15 | manual | `docs/ARCHITECTURE.md`, `README.md` | |
-| RNF-01 | CA-16 | test | `schemas/cortex/*.schema.json`, `tests/cortex-envelopes.test.ts` | |
-| RNF-02 | CA-17 | test | `schemas/cortex/*.schema.json`, `tests/cortex-envelopes.test.ts` | |
-| RNF-03 | CA-18 | manual | `docs/ARCHITECTURE.md` | |
-| RNF-04 | CA-19 | test | `schemas/cortex/*.schema.json`, `tests/cortex-envelopes.test.ts` | |
-| RNF-05 | CA-20 | test | `tests/schemas-conformance.test.ts`, `tests/fixtures/schemas/cortex-*/` | |
-| RNF-06 | CA-21 | test | `schemas/cortex/*.schema.json`, `tests/cortex-envelopes.test.ts` | |
+| RF-01 | CA-01 | test | `schemas/cortex/defs.schema.json`, `tests/schemas-conformance.test.ts`, `tests/fixtures/schemas/cortex-defs/` || conformance `test_ca_26_every_schema_and_definition_has_fixtures`; 17 defs with boundary fixtures |
+| RF-02 | CA-02 | test | `schemas/cortex/*.schema.json`, `tests/cortex-envelopes.test.ts` || `test_ca_02_registry_has_defs_and_the_nine_kinds` |
+| RF-03 | CA-03, CA-04 | test | `schemas/cortex/*.schema.json`, `tests/cortex-envelopes.test.ts`, `tests/schemas-conformance.test.ts` || `test_ca_03_root_header_of_every_envelope`; `cortex-task/invalid/` header cases (CA-04) |
+| RF-04 | CA-05 | test | `schemas/cortex/*.schema.json`, `tests/cortex-envelopes.test.ts` || `test_ca_05_no_forbidden_keywords_and_refs_point_to_definitions` (self-test) |
+| RF-05 | CA-06 | test | `schemas/cortex/task.schema.json`, `tests/fixtures/schemas/cortex-task/` || `cortex-task/` valid 3, invalid 6+ (conformance) |
+| RF-06 | CA-07 | test | `schemas/cortex/result.schema.json`, `tests/fixtures/schemas/cortex-result/` || `cortex-result/` valid 3, invalid 5 (conformance) |
+| RF-07 | CA-08 | test | `schemas/cortex/blocked.schema.json`, `tests/fixtures/schemas/cortex-blocked/` || `cortex-blocked/` 0 and 4 options valid; 5 options invalid (conformance) |
+| RF-08 | CA-09 | test | `schemas/cortex/verdict.schema.json`, `tests/fixtures/schemas/cortex-verdict/` || `cortex-verdict/` incl. `rejected-without-findings` (conformance) |
+| RF-09 | CA-10 | test | `schemas/cortex/plan.schema.json`, `tests/fixtures/schemas/cortex-plan/` || `cortex-plan/` max_agents 1 and 10 valid; 0 and 11 invalid (conformance) |
+| RF-10 | CA-11 | test | `schemas/cortex/handoff.schema.json`, `tests/fixtures/schemas/cortex-handoff/` || `cortex-handoff/` commit 6 and 65 digits invalid (conformance) |
+| RF-11 | CA-12 | test | `schemas/cortex/lesson.schema.json`, `tests/fixtures/schemas/cortex-lesson/` || `cortex-lesson/` (conformance) |
+| RF-12 | CA-13 | test | `schemas/cortex/design.schema.json`, `tests/fixtures/schemas/cortex-design/` || `cortex-design/` (conformance) |
+| RF-13 | CA-14 | test | `schemas/cortex/observation.schema.json`, `tests/fixtures/schemas/cortex-observation/` || `cortex-observation/` 32 keys valid, 33 invalid (conformance) |
+| RF-14 | CA-09 | test + manual | `docs/ARCHITECTURE.md`, `schemas/cortex/verdict.schema.json`, `tests/fixtures/schemas/cortex-verdict/` || verdict fixtures + manual: ARCHITECTURE "Rules the schemas do not encode" (checked) |
+| RF-15 | CA-15 | manual | `docs/ARCHITECTURE.md`, `README.md` || manual: ARCHITECTURE "Cortex envelopes" table + README Schemas row (checked) |
+| RNF-01 | CA-16 | test | `schemas/cortex/*.schema.json`, `tests/cortex-envelopes.test.ts` || `test_ca_16_every_node_is_bounded` (self-test) |
+| RNF-02 | CA-17 | test | `schemas/cortex/*.schema.json`, `tests/cortex-envelopes.test.ts` || `test_ca_17_worst_case_size_is_bounded`; values confirmed by independent calculation and max instances |
+| RNF-03 | CA-18 | manual | `docs/ARCHITECTURE.md` || manual: ARCHITECTURE "Compatibility rule" (checked) |
+| RNF-04 | CA-19 | test | `schemas/cortex/*.schema.json`, `tests/cortex-envelopes.test.ts` || `test_ca_19_required_names_are_domain_neutral` (self-test) |
+| RNF-05 | CA-20 | test | `tests/schemas-conformance.test.ts`, `tests/fixtures/schemas/cortex-*/` || conformance `test_ca_27_oracle_and_own_validator_agree_on_every_fixture` + `test_ca_20_invalid_fixtures_cover_each_category` |
+| RNF-06 | CA-21 | test | `schemas/cortex/*.schema.json`, `tests/cortex-envelopes.test.ts` || `test_ca_21_largest_valid_fixture_validates_quickly` |
 
 ## Execution notes
 Size model results match the Design table exactly (task 53,420; result 52,205; verdict 48,606; plan 39,935; lesson 36,274; handoff 33,580; design 26,912; blocked 14,531; observation 11,059). No limit changed. Docs task (ARCHITECTURE, README) left to doc-writer.
 
 ## Validation report
 <!-- Filled by the validators (spec review and delivery validation). -->
+**Delivery (2026-10-11):**
+- spec-checker (mechanical): APROVADO. Scope inside the Design and the docs allowlist; gate OK; smoke `SMOKE OK`; manual CA-09, CA-15, CA-18 checked.
+- spec-validator: APROVADO. Every schema matches the Design tables; each invalid fixture fails with exactly one error; size model reproduced independently and confirmed as an upper bound with synthetic max instances.
+- Follow-ups applied in this branch: test requiring ≥3 invalid fixtures per kind with one per category (`required`, `enum`, `additionalProperties`); ARCHITECTURE "Size bound" documents the `body.metrics` rule; "Compatibility rule" states that readers update before producers (decision: option (a)).
