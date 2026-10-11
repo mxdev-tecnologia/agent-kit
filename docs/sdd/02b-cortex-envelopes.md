@@ -1,6 +1,6 @@
 # Spec 02b — cortex.*/v1 envelopes
 
-- **Status:** em PR (#11)
+- **Status:** entregue (2026-10-11)
 - **Nível:** completo
 - **Risco:** médio
 - **Depende de:** spec-02a
