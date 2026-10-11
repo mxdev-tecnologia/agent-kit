@@ -1,6 +1,6 @@
 # Spec 01a — CLI foundation: toolchain and command skeleton
 
-- **Status:** em PR (#2)
+- **Status:** entregue (2026-10-11)
 - **Nível:** lite
 - **Risco:** médio
 - **Depende de:** —
