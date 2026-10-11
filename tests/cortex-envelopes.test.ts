@@ -322,6 +322,19 @@ describe("cortex envelopes", () => {
     expect(refs.required).toBeUndefined();
   });
 
+  it("test_ca_20_invalid_fixtures_cover_each_category", () => {
+    for (const kind of KINDS) {
+      const cases = JSON.parse(
+        readFileSync(join(FIXTURES, `cortex-${kind}`, "invalid", "cases.json"), "utf8"),
+      ) as Record<string, { keyword?: string }>;
+      const keywords = Object.values(cases).map((c) => c.keyword);
+      expect(keywords.length, kind).toBeGreaterThanOrEqual(3);
+      for (const keyword of ["required", "enum", "additionalProperties"]) {
+        expect(keywords, `${kind} needs a ${keyword} case`).toContain(keyword);
+      }
+    }
+  });
+
   it("test_ca_21_largest_valid_fixture_validates_quickly", () => {
     const limit = process.platform === "win32" ? 80 : 20;
     for (const kind of KINDS) {
