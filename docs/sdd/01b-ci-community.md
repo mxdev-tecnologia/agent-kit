@@ -1,6 +1,6 @@
 # Spec 01b — CI and community files
 
-- **Status:** em PR (#3)
+- **Status:** entregue (2026-10-11)
 - **Nível:** lite
 - **Risco:** médio
 - **Depende de:** spec-01a
@@ -95,7 +95,7 @@ pnpm -s test:smoke                                  # all pass, exit 0
 | RNF-03 | CA-08 | test | `.github/workflows/ci.yml`, `tests/ci-policy.test.ts` | `tests/ci-policy.test.ts:72` passes; `ci.yml:42-43` corepack + `package.json` `packageManager: pnpm@12.7.0` |
 
 ## Execution notes
-No deviations. pnpm via corepack (`packageManager`); actions pinned: checkout v7.0.1, setup-node v7.0.0 (published more than 14 days ago). Pending after the PR: RNF-02 duration under 10 minutes and CA-09 green checks on the three matrix legs.
+No deviations. pnpm via corepack (`packageManager`); actions pinned: checkout v7.0.1, setup-node v7.0.0 (published more than 14 days ago). After the PR: CA-09 green on the three matrix legs of PR #3 (ubuntu node 22 and 24, windows node 22); RNF-02 met, CI on `develop` (4165b79) took 38 s.
 
 .gitattributes added with owner approval to fix CRLF on the Windows CI leg.
 
