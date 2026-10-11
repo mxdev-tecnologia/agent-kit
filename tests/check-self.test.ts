@@ -51,7 +51,7 @@ describe("check --self", () => {
   });
 
   it("test_ca_06_root_option_overrides_cwd", () => {
-    // process.cwd() is the (invalid) test cwd of this suite: no catalog dirs there.
+    // Two temp roots, one invalid and one valid: --root decides which one is checked.
     const invalid = makeRoot({ complete: false });
     const valid = makeRoot({ complete: true });
     expect(run(["check", "--self", "--root", invalid]).code).toBe(1);
