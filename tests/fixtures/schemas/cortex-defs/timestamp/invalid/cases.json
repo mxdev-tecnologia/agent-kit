@@ -1,0 +1,26 @@
+{
+  "offset.json": {
+    "keyword": "pattern",
+    "instancePath": ""
+  },
+  "lowercase-t.json": {
+    "keyword": "pattern",
+    "instancePath": ""
+  },
+  "lowercase-z.json": {
+    "keyword": "pattern",
+    "instancePath": ""
+  },
+  "impossible-date.json": {
+    "keyword": "format",
+    "instancePath": ""
+  },
+  "too-long.json": {
+    "keyword": "maxLength",
+    "instancePath": ""
+  },
+  "not-a-string.json": {
+    "keyword": "type",
+    "instancePath": ""
+  }
+}

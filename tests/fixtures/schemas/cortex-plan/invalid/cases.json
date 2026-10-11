@@ -1,0 +1,30 @@
+{
+  "agents-zero.json": {
+    "keyword": "minimum",
+    "instancePath": "/body/max_agents"
+  },
+  "agents-eleven.json": {
+    "keyword": "maximum",
+    "instancePath": "/body/max_agents"
+  },
+  "mode-serial.json": {
+    "keyword": "enum",
+    "instancePath": "/body/mode"
+  },
+  "zero-steps.json": {
+    "keyword": "minItems",
+    "instancePath": "/body/steps"
+  },
+  "missing-steps.json": {
+    "keyword": "required",
+    "instancePath": "/body"
+  },
+  "duplicate-depends-on.json": {
+    "keyword": "uniqueItems",
+    "instancePath": "/body/steps/0/depends_on"
+  },
+  "extra-property.json": {
+    "keyword": "additionalProperties",
+    "instancePath": ""
+  }
+}

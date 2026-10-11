@@ -1,0 +1,26 @@
+{
+  "commit-xyz.json": {
+    "keyword": "pattern",
+    "instancePath": "/body/refs/commit"
+  },
+  "commit-six-digits.json": {
+    "keyword": "pattern",
+    "instancePath": "/body/refs/commit"
+  },
+  "commit-65-digits.json": {
+    "keyword": "maxLength",
+    "instancePath": "/body/refs/commit"
+  },
+  "reason-tired.json": {
+    "keyword": "enum",
+    "instancePath": "/body/reason"
+  },
+  "missing-next.json": {
+    "keyword": "required",
+    "instancePath": "/body"
+  },
+  "extra-property.json": {
+    "keyword": "additionalProperties",
+    "instancePath": ""
+  }
+}

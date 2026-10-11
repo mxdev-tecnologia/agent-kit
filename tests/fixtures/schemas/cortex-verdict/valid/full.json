@@ -1,0 +1,123 @@
+{
+  "schema": "cortex.verdict/v1",
+  "id": "123e4567-e89b-42d3-a456-426614174000",
+  "created_at": "2026-01-02T03:04:05Z",
+  "producer": {
+    "agent": "builder",
+    "run": "run-001"
+  },
+  "work_item": "spec-02b",
+  "body": {
+    "decision": "rejected",
+    "findings": [
+      {
+        "id": "s1",
+        "severity": "blocker",
+        "criterion": "CA-01",
+        "location": "src/file0.ts:10",
+        "message": "Finding 1."
+      },
+      {
+        "id": "s2",
+        "severity": "major",
+        "criterion": "CA-02",
+        "location": "src/file1.ts:10",
+        "message": "Finding 2."
+      },
+      {
+        "id": "s3",
+        "severity": "minor",
+        "criterion": "CA-03",
+        "location": "src/file2.ts:10",
+        "message": "Finding 3."
+      },
+      {
+        "id": "s4",
+        "severity": "info",
+        "criterion": "CA-04",
+        "location": "src/file3.ts:10",
+        "message": "Finding 4."
+      },
+      {
+        "id": "s5",
+        "severity": "blocker",
+        "criterion": "CA-05",
+        "location": "src/file4.ts:10",
+        "message": "Finding 5."
+      },
+      {
+        "id": "s6",
+        "severity": "major",
+        "criterion": "CA-06",
+        "location": "src/file5.ts:10",
+        "message": "Finding 6."
+      },
+      {
+        "id": "s7",
+        "severity": "minor",
+        "criterion": "CA-07",
+        "location": "src/file6.ts:10",
+        "message": "Finding 7."
+      },
+      {
+        "id": "s8",
+        "severity": "info",
+        "criterion": "CA-08",
+        "location": "src/file7.ts:10",
+        "message": "Finding 8."
+      },
+      {
+        "id": "s9",
+        "severity": "blocker",
+        "criterion": "CA-09",
+        "location": "src/file8.ts:10",
+        "message": "Finding 9."
+      },
+      {
+        "id": "s10",
+        "severity": "major",
+        "criterion": "CA-10",
+        "location": "src/file9.ts:10",
+        "message": "Finding 10."
+      },
+      {
+        "id": "s11",
+        "severity": "minor",
+        "criterion": "CA-11",
+        "location": "src/file10.ts:10",
+        "message": "Finding 11."
+      },
+      {
+        "id": "s12",
+        "severity": "info",
+        "criterion": "CA-12",
+        "location": "src/file11.ts:10",
+        "message": "Finding 12."
+      }
+    ],
+    "checked": [
+      "CA-01",
+      "CA-02",
+      "CA-03",
+      "CA-04",
+      "CA-05",
+      "CA-06",
+      "CA-07",
+      "CA-08",
+      "CA-09",
+      "CA-10",
+      "CA-11",
+      "CA-12",
+      "CA-13",
+      "CA-14",
+      "CA-15",
+      "CA-16",
+      "CA-17",
+      "CA-18",
+      "CA-19",
+      "CA-20"
+    ]
+  },
+  "parent_id": "123e4567-e89b-42d3-a456-426614174001",
+  "correlation_id": "corr-001"
+}

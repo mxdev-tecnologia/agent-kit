@@ -1,0 +1,23 @@
+{
+  "schema": "cortex.handoff/v1",
+  "id": "123e4567-e89b-42d3-a456-426614174000",
+  "created_at": "2026-01-02T03:04:05Z",
+  "producer": {
+    "agent": "builder",
+    "run": "run-001"
+  },
+  "work_item": "spec-02b",
+  "body": {
+    "reason": "quota",
+    "summary": "Quota reached mid-task.",
+    "done": ["Parser"],
+    "next": ["Tests"],
+    "open_questions": [],
+    "refs": {
+      "branch": "feature/spec-02b-cortex-envelopes",
+      "commit": "abc1234",
+      "worktree": "/work/spec-02b",
+      "patch": "handoff.patch"
+    }
+  }
+}

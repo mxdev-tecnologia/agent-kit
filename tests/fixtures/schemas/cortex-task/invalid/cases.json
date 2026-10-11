@@ -1,0 +1,70 @@
+{
+  "missing-id.json": {
+    "keyword": "required",
+    "instancePath": ""
+  },
+  "id-not-uuid.json": {
+    "keyword": "format",
+    "instancePath": "/id"
+  },
+  "created-at-offset.json": {
+    "keyword": "pattern",
+    "instancePath": "/created_at"
+  },
+  "created-at-lowercase-t.json": {
+    "keyword": "pattern",
+    "instancePath": "/created_at"
+  },
+  "created-at-lowercase-z.json": {
+    "keyword": "pattern",
+    "instancePath": "/created_at"
+  },
+  "created-at-impossible-date.json": {
+    "keyword": "format",
+    "instancePath": "/created_at"
+  },
+  "work-item-empty.json": {
+    "keyword": "minLength",
+    "instancePath": "/work_item"
+  },
+  "work-item-too-long.json": {
+    "keyword": "maxLength",
+    "instancePath": "/work_item"
+  },
+  "producer-run-empty.json": {
+    "keyword": "minLength",
+    "instancePath": "/producer/run"
+  },
+  "extra-root-property.json": {
+    "keyword": "additionalProperties",
+    "instancePath": ""
+  },
+  "wrong-schema-const.json": {
+    "keyword": "const",
+    "instancePath": "/schema"
+  },
+  "missing-acceptance.json": {
+    "keyword": "required",
+    "instancePath": "/body"
+  },
+  "acceptance-id-lowercase.json": {
+    "keyword": "pattern",
+    "instancePath": "/body/acceptance/0/id"
+  },
+  "scope-allow-empty.json": {
+    "keyword": "minItems",
+    "instancePath": "/body/scope/allow"
+  },
+  "input-kind-ftp.json": {
+    "keyword": "enum",
+    "instancePath": "/body/inputs/0/kind"
+  },
+  "scope-allow-duplicate.json": {
+    "keyword": "uniqueItems",
+    "instancePath": "/body/scope/allow"
+  },
+  "extra-body-property.json": {
+    "keyword": "additionalProperties",
+    "instancePath": "/body"
+  }
+}

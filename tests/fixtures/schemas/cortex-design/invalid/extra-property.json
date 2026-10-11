@@ -1,0 +1,21 @@
+{
+  "schema": "cortex.design/v1",
+  "id": "123e4567-e89b-42d3-a456-426614174000",
+  "created_at": "2026-01-02T03:04:05Z",
+  "producer": {
+    "agent": "builder",
+    "run": "run-001"
+  },
+  "work_item": "spec-02b",
+  "body": {
+    "lane": "ui",
+    "status": "proposed",
+    "artifacts": [
+      {
+        "name": "Artifact 1",
+        "ref": "docs/design-0.md"
+      }
+    ]
+  },
+  "extra": 1
+}

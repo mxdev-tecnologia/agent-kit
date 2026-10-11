@@ -1,0 +1,115 @@
+{
+  "schema": "cortex.task/v1",
+  "id": "123e4567-e89b-42d3-a456-426614174000",
+  "created_at": "2026-01-02T03:04:05Z",
+  "producer": {
+    "agent": "builder",
+    "run": "run-001"
+  },
+  "work_item": "spec-02b",
+  "body": {
+    "title": "Implement the parser",
+    "instructions": "Implement the parser as described in the spec.",
+    "assignee": "builder",
+    "acceptance": [
+      {
+        "id": "CA-01",
+        "text": "Criterion 1 holds."
+      },
+      {
+        "id": "CA-02",
+        "text": "Criterion 2 holds."
+      },
+      {
+        "id": "CA-03",
+        "text": "Criterion 3 holds."
+      },
+      {
+        "id": "CA-04",
+        "text": "Criterion 4 holds."
+      },
+      {
+        "id": "CA-05",
+        "text": "Criterion 5 holds."
+      },
+      {
+        "id": "CA-06",
+        "text": "Criterion 6 holds."
+      },
+      {
+        "id": "CA-07",
+        "text": "Criterion 7 holds."
+      },
+      {
+        "id": "CA-08",
+        "text": "Criterion 8 holds."
+      },
+      {
+        "id": "CA-09",
+        "text": "Criterion 9 holds."
+      },
+      {
+        "id": "CA-10",
+        "text": "Criterion 10 holds."
+      }
+    ],
+    "scope": {
+      "allow": [
+        "src/area0/**",
+        "src/area1/**",
+        "src/area2/**",
+        "src/area3/**",
+        "src/area4/**",
+        "src/area5/**"
+      ],
+      "deny": [
+        "secrets0/**",
+        "secrets1/**",
+        "secrets2/**",
+        "secrets3/**",
+        "secrets4/**",
+        "secrets5/**"
+      ]
+    },
+    "inputs": [
+      {
+        "kind": "file",
+        "ref": "ref-0"
+      },
+      {
+        "kind": "url",
+        "ref": "ref-1"
+      },
+      {
+        "kind": "envelope",
+        "ref": "ref-2"
+      },
+      {
+        "kind": "note",
+        "ref": "ref-3"
+      },
+      {
+        "kind": "file",
+        "ref": "ref-4"
+      },
+      {
+        "kind": "url",
+        "ref": "ref-5"
+      },
+      {
+        "kind": "envelope",
+        "ref": "ref-6"
+      },
+      {
+        "kind": "note",
+        "ref": "ref-7"
+      }
+    ],
+    "budget": {
+      "max_tokens": 200000,
+      "max_minutes": 30
+    }
+  },
+  "parent_id": "123e4567-e89b-42d3-a456-426614174001",
+  "correlation_id": "corr-001"
+}

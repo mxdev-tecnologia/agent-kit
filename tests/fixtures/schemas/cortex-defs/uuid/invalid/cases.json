@@ -1,0 +1,14 @@
+{
+  "malformed.json": {
+    "keyword": "format",
+    "instancePath": ""
+  },
+  "too-long.json": {
+    "keyword": "maxLength",
+    "instancePath": ""
+  },
+  "not-a-string.json": {
+    "keyword": "type",
+    "instancePath": ""
+  }
+}

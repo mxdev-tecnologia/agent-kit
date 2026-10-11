@@ -1,0 +1,26 @@
+{
+  "schema": "cortex.task/v1",
+  "id": "123e4567-e89b-42d3-a456-426614174000",
+  "created_at": "2026-02-30T00:00:00Z",
+  "producer": {
+    "agent": "builder",
+    "run": "run-001"
+  },
+  "work_item": "spec-02b",
+  "body": {
+    "title": "Implement the parser",
+    "instructions": "Implement the parser as described in the spec.",
+    "assignee": "builder",
+    "acceptance": [
+      {
+        "id": "CA-01",
+        "text": "The parser accepts valid input."
+      }
+    ],
+    "scope": {
+      "allow": ["src/**"],
+      "deny": []
+    },
+    "inputs": []
+  }
+}

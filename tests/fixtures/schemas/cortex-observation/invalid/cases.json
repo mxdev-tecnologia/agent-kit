@@ -1,0 +1,30 @@
+{
+  "metrics-bad-key.json": {
+    "keyword": "additionalProperties",
+    "instancePath": "/body/metrics"
+  },
+  "metrics-string-value.json": {
+    "keyword": "type",
+    "instancePath": "/body/metrics/tokens"
+  },
+  "metrics-33-keys.json": {
+    "keyword": "maxProperties",
+    "instancePath": "/body/metrics"
+  },
+  "severity-fatal.json": {
+    "keyword": "enum",
+    "instancePath": "/body/severity"
+  },
+  "subject-kind-team.json": {
+    "keyword": "enum",
+    "instancePath": "/body/subject/kind"
+  },
+  "missing-message.json": {
+    "keyword": "required",
+    "instancePath": "/body"
+  },
+  "extra-property.json": {
+    "keyword": "additionalProperties",
+    "instancePath": ""
+  }
+}

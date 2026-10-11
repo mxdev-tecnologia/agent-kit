@@ -1,0 +1,22 @@
+{
+  "unknown-decision.json": {
+    "keyword": "enum",
+    "instancePath": "/body/decision"
+  },
+  "unknown-severity.json": {
+    "keyword": "enum",
+    "instancePath": "/body/findings/0/severity"
+  },
+  "missing-findings.json": {
+    "keyword": "required",
+    "instancePath": "/body"
+  },
+  "duplicate-checked.json": {
+    "keyword": "uniqueItems",
+    "instancePath": "/body/checked"
+  },
+  "extra-property.json": {
+    "keyword": "additionalProperties",
+    "instancePath": ""
+  }
+}

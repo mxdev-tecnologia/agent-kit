@@ -1,0 +1,150 @@
+{
+  "schema": "cortex.plan/v1",
+  "id": "123e4567-e89b-42d3-a456-426614174000",
+  "created_at": "2026-01-02T03:04:05Z",
+  "producer": {
+    "agent": "builder",
+    "run": "run-001"
+  },
+  "work_item": "spec-02b",
+  "body": {
+    "mode": "parallel",
+    "max_agents": 10,
+    "steps": [
+      {
+        "id": "s1",
+        "title": "Step 1",
+        "assignee": "builder",
+        "depends_on": [],
+        "acceptance": ["CA-01", "CA-02", "CA-03", "CA-04", "CA-05", "CA-06", "CA-07", "CA-08"],
+        "estimate": {
+          "human_minutes": 60,
+          "ai_minutes": 5
+        }
+      },
+      {
+        "id": "s2",
+        "title": "Step 2",
+        "assignee": "builder",
+        "depends_on": ["s1"],
+        "acceptance": ["CA-01", "CA-02", "CA-03", "CA-04", "CA-05", "CA-06", "CA-07", "CA-08"],
+        "estimate": {
+          "human_minutes": 60,
+          "ai_minutes": 5
+        }
+      },
+      {
+        "id": "s3",
+        "title": "Step 3",
+        "assignee": "builder",
+        "depends_on": ["s1", "s2"],
+        "acceptance": ["CA-01", "CA-02", "CA-03", "CA-04", "CA-05", "CA-06", "CA-07", "CA-08"],
+        "estimate": {
+          "human_minutes": 60,
+          "ai_minutes": 5
+        }
+      },
+      {
+        "id": "s4",
+        "title": "Step 4",
+        "assignee": "builder",
+        "depends_on": ["s1", "s2", "s3"],
+        "acceptance": ["CA-01", "CA-02", "CA-03", "CA-04", "CA-05", "CA-06", "CA-07", "CA-08"],
+        "estimate": {
+          "human_minutes": 60,
+          "ai_minutes": 5
+        }
+      },
+      {
+        "id": "s5",
+        "title": "Step 5",
+        "assignee": "builder",
+        "depends_on": ["s1", "s2", "s3", "s4"],
+        "acceptance": ["CA-01", "CA-02", "CA-03", "CA-04", "CA-05", "CA-06", "CA-07", "CA-08"],
+        "estimate": {
+          "human_minutes": 60,
+          "ai_minutes": 5
+        }
+      },
+      {
+        "id": "s6",
+        "title": "Step 6",
+        "assignee": "builder",
+        "depends_on": ["s1", "s2", "s3", "s4", "s5"],
+        "acceptance": ["CA-01", "CA-02", "CA-03", "CA-04", "CA-05", "CA-06", "CA-07", "CA-08"],
+        "estimate": {
+          "human_minutes": 60,
+          "ai_minutes": 5
+        }
+      },
+      {
+        "id": "s7",
+        "title": "Step 7",
+        "assignee": "builder",
+        "depends_on": ["s1", "s2", "s3", "s4", "s5", "s6"],
+        "acceptance": ["CA-01", "CA-02", "CA-03", "CA-04", "CA-05", "CA-06", "CA-07", "CA-08"],
+        "estimate": {
+          "human_minutes": 60,
+          "ai_minutes": 5
+        }
+      },
+      {
+        "id": "s8",
+        "title": "Step 8",
+        "assignee": "builder",
+        "depends_on": ["s1", "s2", "s3", "s4", "s5", "s6"],
+        "acceptance": ["CA-01", "CA-02", "CA-03", "CA-04", "CA-05", "CA-06", "CA-07", "CA-08"],
+        "estimate": {
+          "human_minutes": 60,
+          "ai_minutes": 5
+        }
+      },
+      {
+        "id": "s9",
+        "title": "Step 9",
+        "assignee": "builder",
+        "depends_on": ["s1", "s2", "s3", "s4", "s5", "s6"],
+        "acceptance": ["CA-01", "CA-02", "CA-03", "CA-04", "CA-05", "CA-06", "CA-07", "CA-08"],
+        "estimate": {
+          "human_minutes": 60,
+          "ai_minutes": 5
+        }
+      },
+      {
+        "id": "s10",
+        "title": "Step 10",
+        "assignee": "builder",
+        "depends_on": ["s1", "s2", "s3", "s4", "s5", "s6"],
+        "acceptance": ["CA-01", "CA-02", "CA-03", "CA-04", "CA-05", "CA-06", "CA-07", "CA-08"],
+        "estimate": {
+          "human_minutes": 60,
+          "ai_minutes": 5
+        }
+      },
+      {
+        "id": "s11",
+        "title": "Step 11",
+        "assignee": "builder",
+        "depends_on": ["s1", "s2", "s3", "s4", "s5", "s6"],
+        "acceptance": ["CA-01", "CA-02", "CA-03", "CA-04", "CA-05", "CA-06", "CA-07", "CA-08"],
+        "estimate": {
+          "human_minutes": 60,
+          "ai_minutes": 5
+        }
+      },
+      {
+        "id": "s12",
+        "title": "Step 12",
+        "assignee": "builder",
+        "depends_on": ["s1", "s2", "s3", "s4", "s5", "s6"],
+        "acceptance": ["CA-01", "CA-02", "CA-03", "CA-04", "CA-05", "CA-06", "CA-07", "CA-08"],
+        "estimate": {
+          "human_minutes": 60,
+          "ai_minutes": 5
+        }
+      }
+    ]
+  },
+  "parent_id": "123e4567-e89b-42d3-a456-426614174001",
+  "correlation_id": "corr-001"
+}
