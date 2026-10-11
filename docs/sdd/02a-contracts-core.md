@@ -1,6 +1,6 @@
 # Spec 02a — Contracts core: schema validator, common definitions and frontmatter format
 
-- **Status:** em PR (#9)
+- **Status:** entregue (2026-10-11)
 - **Nível:** completo
 - **Risco:** médio
 - **Depende de:** spec-01a
