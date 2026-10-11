@@ -208,6 +208,7 @@ describe("check --self: catalog", () => {
       put(root, `catalog/${d}/.gitkeep`, "");
     const r = run(["check", "--self", "--root", root]);
     expect(r.code).toBe(0);
+    expect(r.out).toContain(", 0 catalog files)");
     expect(checkSelfReport(root)).toEqual({ failures: [], catalogFiles: 0 });
   });
 });

@@ -113,6 +113,7 @@ Merge order: spec 01a is merged. Spec 02b builds on this one and relies on the c
 - `src/schemas/formats.ts` — the `date-time` and `uuid` checks, shared by the validator and the oracle
 - `src/schemas/registry.ts` — `loadRegistry(dir)`, `validate(id, value)`, `$id`, `$schema` and path rules
 - `src/schemas/frontmatter.ts` — extraction and YAML-subset parser
+- `src/cli.ts` (added with owner approval: catalog file count in the success message)
 - `src/commands/check-self.ts` — extended with the schema and catalog checks (RF-21 to RF-24)
 - `schemas/common.schema.json`
 - `schemas/frontmatter/agent.schema.json`, `schemas/frontmatter/skill.schema.json`, `schemas/frontmatter/workflow.schema.json`, `schemas/frontmatter/rule.schema.json`
@@ -163,7 +164,7 @@ pnpm --silent lint                                  # exit 0
 pnpm --silent typecheck                             # exit 0
 pnpm --silent test                                  # all pass, including conformance
 pnpm --silent build                                 # exit 0
-node dist/cli.js check --self                       # exit 0, OK summary (0 catalog files)
+node dist/cli.js check --self                       # exit 0, "OK: repository invariants hold (<root>, 0 catalog files)"
 pnpm --silent test:smoke                            # all pass, exit 0
 ```
 
@@ -206,7 +207,7 @@ pnpm --silent test:smoke                            # all pass, exit 0
 | RF-21 | CA-22 | test | `src/commands/check-self.ts`, `tests/check-self.test.ts` |  `tests/check-self.test.ts::test_ca_22_*`; `src/commands/check-self.ts` (`loadSchemas`) |
 | RF-22 | CA-23 | test | `src/commands/check-self.ts`, `tests/check-self.test.ts` |  `tests/check-self.test.ts::test_ca_23_*` |
 | RF-23 | CA-24 | test | `src/commands/check-self.ts`, `tests/check-self.test.ts` |  `tests/check-self.test.ts::test_ca_24_names_must_match_files_folders_and_not_collide` |
-| RF-24 | CA-25 | test | `src/commands/check-self.ts`, `tests/check-self.test.ts` |  `tests/check-self.test.ts::test_ca_25_*` |
+| RF-24 | CA-25 | test | `src/commands/check-self.ts`, `src/cli.ts`, `tests/check-self.test.ts` |  `tests/check-self.test.ts::test_ca_25_*` |
 | RF-25 | CA-26 | test | `tests/schemas-conformance.test.ts`, `tests/fixtures/schemas/**` |  `tests/schemas-conformance.test.ts::test_ca_26_*` (harness self-tests and repository run) |
 | RNF-01 | CA-28 | test + command | `package.json`, `pnpm-lock.yaml`, `tests/package-policy.test.ts` |  `tests/package-policy.test.ts::test_ca_28_*`; Execution notes (npm view) |
 | RNF-02 | CA-03, CA-04, CA-05, CA-08, CA-12 | test | `src/schemas/validate.ts`, `src/schemas/registry.ts`, `tests/schemas-validator.test.ts` |  `tests/schemas-validator.test.ts::test_ca_03_*`, `test_ca_04_*`, `test_ca_05_*`, `test_ca_08_*`, `test_ca_12_*` |
@@ -234,7 +235,7 @@ Implementation (Sonnet), 2026-10-11.
   - ajv (default options, no `ownProperties`) reads inherited members for property names declared in `properties` (`hasOwnProperty`) when the instance lacks them, and ignores a `properties.__proto__` entry. The oracle fixtures therefore use only instance keys that are present (`constructor`, `__proto__`, `hasOwnProperty`, `toString`) plus the `required: [toString]` case, as in CA-07; the declared-`__proto__` and absent-`hasOwnProperty` cases are covered by the own validator only (`test_ca_07_prototype_names_are_ordinary_data`).
   - Folded block scalars with whitespace-only lines longer than the indentation are rejected (not covered by the grammar, avoids a divergence from YAML 1.2).
 - **Deviations from the Design:**
-  - `src/cli.ts` is not in the Design list, so the success line still reads `OK: repository invariants hold (<root>)` without the "(0 catalog files)" suffix mentioned in the Aceite block. The count is available through `checkSelfReport(root).catalogFiles` (exported from `check-self.ts`) and is asserted in `test_ca_25_empty_catalog_passes_with_zero_files`. Adding the suffix needs a one-line change in `src/cli.ts`.
+  - `src/cli.ts` was added to the Design with owner approval: the success line is now `OK: repository invariants hold (<root>, N catalog files)`, using `checkSelfReport(root).catalogFiles`; asserted in `tests/check-self.test.ts` (`tests/cli.test.ts` and the smoke test do not check this message).
   - The harness lives inside `tests/schemas-conformance.test.ts` (no helper file in the Design); spec 02b can copy `checkConformance` or move it to a shared helper.
   - CA-30 (CI matrix) and CA-32 (ARCHITECTURE note) have no automatic evidence yet: CA-30 is the PR checks tab; CA-32 is the doc-writer step.
 
