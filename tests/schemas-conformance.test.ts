@@ -510,6 +510,7 @@ interface Item {
   text: string;
   quantified: boolean;
   unbounded: boolean;
+  max: number; // largest repeat count; Infinity when unbounded, 1 when not quantified
 }
 
 function parseRegex(src: string, problems: string[]): Item[][] {
@@ -540,12 +541,12 @@ function parseRegex(src: string, problems: string[]): Item[][] {
         i += prefix.length;
         const group = parseAlternatives(depth + 1);
         i++; // the closing parenthesis
-        item = { group, text: "(...)", quantified: false, unbounded: false };
+        item = { group, text: "(...)", quantified: false, unbounded: false, max: 1 };
       } else if (ch === "[") {
         const start = i++;
         while (i < src.length && src[i] !== "]") i += src[i] === "\\" ? 2 : 1;
         i++;
-        item = { text: src.slice(start, i), quantified: false, unbounded: false };
+        item = { text: src.slice(start, i), quantified: false, unbounded: false, max: 1 };
       } else if (ch === "\\") {
         const next = src[i + 1] ?? "";
         const start = i;
@@ -557,15 +558,19 @@ function parseRegex(src: string, problems: string[]): Item[][] {
         else if (next === "u") i += 4;
         else if (next === "x") i += 2;
         else if ((next === "p" || next === "P") && src[i] === "{") i = src.indexOf("}", i) + 1;
-        item = { text: src.slice(start, i), quantified: false, unbounded: false };
+        item = { text: src.slice(start, i), quantified: false, unbounded: false, max: 1 };
       } else {
-        item = { text: ch, quantified: false, unbounded: false };
+        item = { text: ch, quantified: false, unbounded: false, max: 1 };
         i++;
       }
       const q = /^(\*|\+|\?|\{\d+(,\d*)?\})\??/.exec(src.slice(i));
       if (q) {
         item.quantified = true;
         item.unbounded = q[1] === "*" || q[1] === "+" || /^\{\d+,\}$/.test(q[1] ?? "");
+        const braces = /^\{(\d+)(?:,(\d*))?\}$/.exec(q[1] ?? "");
+        if (item.unbounded) item.max = Number.POSITIVE_INFINITY;
+        else if (braces) item.max = Number(braces[2] || braces[1]);
+        else item.max = 1;
         i += q[0].length;
       }
       seq.push(item);
@@ -581,6 +586,31 @@ function bodyHasQuantifier(alts: Item[][]): boolean {
     alts.length > 1 ||
     alts.some((seq) => seq.some((it) => it.quantified || (it.group && bodyHasQuantifier(it.group))))
   );
+}
+
+function bodyHasUnbounded(alts: Item[][]): boolean {
+  return alts.some((seq) =>
+    seq.some((it) => it.unbounded || (it.group !== undefined && bodyHasUnbounded(it.group))),
+  );
+}
+
+/**
+ * A group repeated more than once over a body with an unbounded quantifier is risky, unless the body
+ * starts with a plain separator atom that none of its unbounded atoms can match
+ * (for example `(-[a-z0-9]+){0,31}`): the separator makes every split of the input unique.
+ */
+function repeatedUnboundedBody(item: Item): boolean {
+  if (!item.group || item.max <= 1 || item.unbounded || !bodyHasUnbounded(item.group)) return false;
+  const body = item.group[0];
+  if (item.group.length === 1 && body) {
+    const [separator, ...rest] = body;
+    const plain = separator && !separator.group && !separator.quantified;
+    const safe =
+      plain &&
+      rest.every((it) => !it.group && (!it.unbounded || !overlap(separator.text, it.text)));
+    if (safe) return false;
+  }
+  return true;
 }
 
 function overlap(a: string, b: string): boolean {
@@ -608,6 +638,9 @@ function analyzePattern(src: string): string[] {
     seq.forEach((item, index) => {
       if (item.group && item.unbounded && bodyHasQuantifier(item.group)) {
         problems.push("unbounded quantifier on a group that contains a quantifier or alternation");
+      }
+      if (repeatedUnboundedBody(item)) {
+        problems.push("repeated group over a body with an unbounded quantifier");
       }
       const next = seq[index + 1];
       if (!next || !item.unbounded || !next.unbounded) return;
@@ -669,6 +702,9 @@ describe("static ReDoS rules", () => {
     "(?<n>a)\\k<n>",
     "^(a{2,})*$",
     "^\\w+\\d+$",
+    "^(a+){2,31}$",
+    "^(a+){1,2}$",
+    "^(a|b+){2,3}$",
   ])("test_ca_09_self_test_catches_%s", (pattern) => {
     expect(analyzePattern(pattern).length, pattern).toBeGreaterThan(0);
   });
@@ -680,6 +716,7 @@ describe("static ReDoS rules", () => {
     "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)$",
     "^a*b*c*$",
     "^(?:ab){1,3}$",
+    "^(-[a-z0-9]+){0,31}$",
   ])("test_ca_09_self_test_accepts_%s", (pattern) => {
     expect(analyzePattern(pattern), pattern).toEqual([]);
   });
