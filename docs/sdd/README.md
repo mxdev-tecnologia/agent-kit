@@ -21,7 +21,7 @@ Goal: a public, provider-neutral SDD brain that installs with one `npx` command 
 | Spec | Title | Depends on | Level | Status |
 |---|---|---|---|---|
 | spec-01a | CLI foundation: toolchain (Node, TypeScript, Biome, Vitest, pnpm) and the `agent-kit` command skeleton (`--version`, `--help`, `check --self`) | — | lite | in progress |
-| spec-01b | Repository hygiene: CI, CONTRIBUTING and SECURITY | spec-01a | lite | planned |
+| spec-01b | CI and community files: GitHub Actions workflow, Dependabot, CONTRIBUTING and SECURITY | spec-01a | lite | planned |
 | spec-02 | Contracts: `cortex.*/v1` JSON Schemas and the frontmatter format for agents, skills, workflows and rules | spec-01a | full | planned |
 | spec-03 | Installer: `agent-kit init`, `update`, `sync` and `check`; CLI detection, per-provider install, `agent-kit.lock.json`, merge with `.agents/local/`, name-collision checks | spec-02 | full | planned |
 | spec-04 | SDD brain: skills, workflows and rules (original content, in English) | spec-02 | lite | planned |
