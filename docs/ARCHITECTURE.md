@@ -107,13 +107,13 @@ These rules need cross-field checks that the validator subset cannot express. Th
 
 #### Size bound
 
-Any valid envelope, serialized as compact JSON (no spaces), is at most 64 KiB (65,536 bytes). The limits make this hold by design: every string has `maxLength`, every array has `maxItems`, and every object is closed. A test computes the worst case per kind with this model:
+Any valid envelope, serialized as compact JSON (no spaces), is at most 64 KiB (65,536 bytes). The limits make this hold by design: every string has `maxLength`, every array has `maxItems`, and every object is closed (`additionalProperties: false`; `body.metrics` is closed by `patternProperties` and `maxProperties` instead). A test computes the worst case per kind with this model:
 
 - A string costs 6 bytes per `maxLength` unit plus 2 (UTF-8 takes up to 4 bytes per code point, and an escaped control character takes 6). A `const` or `enum` string costs its longest value plus 2.
 - A number costs 24 bytes and a boolean 5.
 - An object costs 2 plus, for every declared property (required or optional), the key length, 3 for quotes and colon, the value cost and 1 for the comma.
 - An array costs 2 plus `maxItems` times (element cost plus 1). `$ref` is followed, and `oneOf`/`anyOf` take the largest branch.
-- A node without a finite bound makes the test fail.
+- The only object with `patternProperties` is `body.metrics`: it costs its key bound of 64 characters (from the pattern `{0,63}` after one leading letter) times `maxProperties`, plus the value cost. Any other `patternProperties` object, and any node without a finite bound, costs `Infinity` and fails the test.
 
 The largest kind is `task` (53,420 bytes); `observation` is the smallest (11,059 bytes).
 
