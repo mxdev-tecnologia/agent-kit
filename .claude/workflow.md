@@ -24,6 +24,12 @@ docs/adr/
 docs/sdd/
 docs/ARCHITECTURE.md
 docs/INSTRUCTIONS.md
+README.md
+AGENTS.md
+CLAUDE.md
+CONTRIBUTING.md
+SECURITY.md
+CHANGELOG.md
 ```
 
 ## Manifests de versão
@@ -41,6 +47,7 @@ pnpm install --frozen-lockfile --silent
 <!-- Rodado pelo runner a cada implementação. -->
 ```bash
 pnpm -s lint
+pnpm -s typecheck
 pnpm -s test
 pnpm -s build
 node dist/cli.js check --self
