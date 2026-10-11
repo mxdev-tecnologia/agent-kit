@@ -1,0 +1,14 @@
+{
+  "unknown.json": {
+    "keyword": "enum",
+    "instancePath": ""
+  },
+  "upper.json": {
+    "keyword": "enum",
+    "instancePath": ""
+  },
+  "empty.json": {
+    "keyword": "enum",
+    "instancePath": ""
+  }
+}

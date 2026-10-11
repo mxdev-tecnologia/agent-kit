@@ -1,0 +1,10 @@
+{
+  "format": "agent-kit/v1",
+  "name": "demo",
+  "description": "A demo.",
+  "argument-hint": "[spec-id]",
+  "agents": ["planner", "code-reviewer"],
+  "x-owner": "team",
+  "x-count": 3,
+  "x-flag": true
+}

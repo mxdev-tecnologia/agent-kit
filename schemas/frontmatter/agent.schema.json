@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agent-kit:frontmatter:agent:v1",
+  "title": "Agent frontmatter",
+  "description": "Frontmatter of a catalog agent.",
+  "type": "object",
+  "required": ["format", "name", "description", "title", "capabilities", "tier"],
+  "properties": {
+    "format": {
+      "type": "string",
+      "const": "agent-kit/v1"
+    },
+    "name": {
+      "$ref": "urn:agent-kit:common:v1#/$defs/name"
+    },
+    "description": {
+      "$ref": "urn:agent-kit:common:v1#/$defs/description"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 80,
+      "description": "Full job title."
+    },
+    "capabilities": {
+      "type": "array",
+      "uniqueItems": true,
+      "minItems": 1,
+      "items": {
+        "$ref": "urn:agent-kit:common:v1#/$defs/capability"
+      }
+    },
+    "tier": {
+      "$ref": "urn:agent-kit:common:v1#/$defs/tier"
+    },
+    "emits": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:agent-kit:common:v1#/$defs/envelope-ref"
+      }
+    },
+    "verifier": {
+      "type": "boolean",
+      "default": false,
+      "description": "The agent only validates and never changes anything."
+    }
+  },
+  "patternProperties": {
+    "^x-[a-z0-9-]{1,62}$": {
+      "type": ["string", "integer", "boolean"],
+      "maxLength": 1024
+    }
+  },
+  "additionalProperties": false
+}

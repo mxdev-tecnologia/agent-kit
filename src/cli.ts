@@ -3,7 +3,7 @@ import { realpathSync } from "node:fs";
 import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { parseArgs } from "node:util";
-import { checkSelf } from "./commands/check-self.js";
+import { checkSelfReport } from "./commands/check-self.js";
 import { readVersion } from "./version.js";
 
 export interface Io {
@@ -52,12 +52,12 @@ export function main(argv: string[], io: Io): number {
   if (!values.self) return usageError("check requires --self");
 
   const root = resolve(values.root ?? process.cwd());
-  const failures = checkSelf(root);
+  const { failures, catalogFiles } = checkSelfReport(root);
   if (failures.length > 0) {
     io.err(`${failures.map((f) => `FAIL ${f}`).join("\n")}\n`);
     return 1;
   }
-  io.out(`OK: repository invariants hold (${root})\n`);
+  io.out(`OK: repository invariants hold (${root}, ${catalogFiles} catalog files)\n`);
   return 0;
 }
 

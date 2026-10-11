@@ -22,14 +22,15 @@ Goal: a public, provider-neutral SDD brain that installs with one `npx` command 
 |---|---|---|---|---|
 | spec-01a | CLI foundation: toolchain (Node, TypeScript, Biome, Vitest, pnpm) and the `agent-kit` command skeleton (`--version`, `--help`, `check --self`) | — | lite | delivered |
 | spec-01b | CI and community files: GitHub Actions workflow, Dependabot, CONTRIBUTING and SECURITY | spec-01a | lite | delivered |
-| spec-02 | Contracts: `cortex.*/v1` JSON Schemas and the frontmatter format for agents, skills, workflows and rules | spec-01a | full | planned |
-| spec-03 | Installer: `agent-kit init`, `update`, `sync` and `check`; CLI detection, per-provider install, `agent-kit.lock.json`, merge with `.agents/local/`, name-collision checks | spec-02 | full | planned |
-| spec-04 | SDD brain: skills, workflows and rules (original content, in English) | spec-02 | lite | planned |
-| spec-05 | Agents: 13 roles with full job titles, and the provider catalog (Claude Code, Codex, Antigravity, any OpenAI-compatible endpoint) with concurrency limits | spec-02 | lite | planned |
-| spec-06 | Validators: `agent-kit validate spec`, `tasks`, `commit`, `verdict` | spec-02 | lite | planned |
+| spec-02a | Contracts core: JSON Schema subset validator, schema registry, common definitions and the frontmatter format for agents, skills, workflows and rules | spec-01a | full | in PR |
+| spec-02b | Cortex envelopes: the nine `cortex.*/v1` JSON Schemas | spec-02a | full | approved |
+| spec-03 | Installer: `agent-kit init`, `update`, `sync` and `check`; CLI detection, per-provider install, `agent-kit.lock.json`, merge with `.agents/local/`, name-collision checks | spec-02b | full | planned |
+| spec-04 | SDD brain: skills, workflows and rules (original content, in English) | spec-02a | lite | planned |
+| spec-05 | Agents: 13 roles with full job titles, and the provider catalog (Claude Code, Codex, Antigravity, any OpenAI-compatible endpoint) with concurrency limits | spec-02a | lite | planned |
+| spec-06 | Validators: `agent-kit validate spec`, `tasks`, `commit`, `verdict` | spec-02b | lite | planned |
 | spec-07 | Publishing: `@mxdev-tecnologia/agent-kit` on npm with provenance from GitHub Actions; `next` pre-releases from `develop` | spec-03, spec-06 | full | planned |
 
-Suggested order: spec-01a → spec-01b → spec-02 → spec-03, spec-04, spec-05 and spec-06 in parallel → spec-07.
+Suggested order: spec-01a → spec-01b → spec-02a → spec-02b → spec-03 and spec-06 (spec-04 and spec-05 only need spec-02a, so they can start as soon as it is merged) → spec-07.
 
 ## Consumers
 

@@ -1,0 +1,18 @@
+{
+  "no-version.json": {
+    "keyword": "pattern",
+    "instancePath": ""
+  },
+  "uppercase.json": {
+    "keyword": "pattern",
+    "instancePath": ""
+  },
+  "wrong-prefix.json": {
+    "keyword": "pattern",
+    "instancePath": ""
+  },
+  "too-long.json": {
+    "keyword": "maxLength",
+    "instancePath": ""
+  }
+}

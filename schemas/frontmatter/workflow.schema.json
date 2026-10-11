@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agent-kit:frontmatter:workflow:v1",
+  "title": "Workflow frontmatter",
+  "description": "Frontmatter of a catalog workflow.",
+  "type": "object",
+  "required": ["format", "name", "description"],
+  "properties": {
+    "format": {
+      "type": "string",
+      "const": "agent-kit/v1"
+    },
+    "name": {
+      "$ref": "urn:agent-kit:common:v1#/$defs/name"
+    },
+    "description": {
+      "$ref": "urn:agent-kit:common:v1#/$defs/description"
+    },
+    "argument-hint": {
+      "type": "string",
+      "maxLength": 120
+    },
+    "agents": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "urn:agent-kit:common:v1#/$defs/name"
+      }
+    }
+  },
+  "patternProperties": {
+    "^x-[a-z0-9-]{1,62}$": {
+      "type": ["string", "integer", "boolean"],
+      "maxLength": 1024
+    }
+  },
+  "additionalProperties": false
+}

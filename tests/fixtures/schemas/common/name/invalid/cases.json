@@ -1,0 +1,39 @@
+{
+  "empty.json": {
+    "keyword": "minLength",
+    "instancePath": "",
+    "errorCount": 2
+  },
+  "len65.json": {
+    "keyword": "maxLength",
+    "instancePath": ""
+  },
+  "double-hyphen.json": {
+    "keyword": "pattern",
+    "instancePath": ""
+  },
+  "trailing-hyphen.json": {
+    "keyword": "pattern",
+    "instancePath": ""
+  },
+  "leading-hyphen.json": {
+    "keyword": "pattern",
+    "instancePath": ""
+  },
+  "upper.json": {
+    "keyword": "pattern",
+    "instancePath": ""
+  },
+  "digit-first.json": {
+    "keyword": "pattern",
+    "instancePath": ""
+  },
+  "underscore.json": {
+    "keyword": "pattern",
+    "instancePath": ""
+  },
+  "not-string.json": {
+    "keyword": "type",
+    "instancePath": ""
+  }
+}

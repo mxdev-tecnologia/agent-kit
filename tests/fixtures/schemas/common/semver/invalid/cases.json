@@ -1,0 +1,22 @@
+{
+  "leading-zero.json": {
+    "keyword": "pattern",
+    "instancePath": ""
+  },
+  "two-parts.json": {
+    "keyword": "pattern",
+    "instancePath": ""
+  },
+  "v-prefix.json": {
+    "keyword": "pattern",
+    "instancePath": ""
+  },
+  "too-long.json": {
+    "keyword": "maxLength",
+    "instancePath": ""
+  },
+  "empty.json": {
+    "keyword": "pattern",
+    "instancePath": ""
+  }
+}

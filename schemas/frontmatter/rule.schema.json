@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agent-kit:frontmatter:rule:v1",
+  "title": "Rule frontmatter",
+  "description": "Frontmatter of a catalog rule.",
+  "type": "object",
+  "required": ["format", "name", "description"],
+  "properties": {
+    "format": {
+      "type": "string",
+      "const": "agent-kit/v1"
+    },
+    "name": {
+      "$ref": "urn:agent-kit:common:v1#/$defs/name"
+    },
+    "description": {
+      "$ref": "urn:agent-kit:common:v1#/$defs/description"
+    },
+    "always": {
+      "type": "boolean",
+      "default": true
+    },
+    "applies-to": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:agent-kit:common:v1#/$defs/glob"
+      }
+    }
+  },
+  "patternProperties": {
+    "^x-[a-z0-9-]{1,62}$": {
+      "type": ["string", "integer", "boolean"],
+      "maxLength": 1024
+    }
+  },
+  "additionalProperties": false
+}
