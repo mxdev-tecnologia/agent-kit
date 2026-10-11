@@ -1,0 +1,19 @@
+# Node
+node_modules/
+dist/
+coverage/
+*.tgz
+
+# Claude (pessoal)
+.claude/settings.local.json
+CLAUDE.local.md
+
+# Segredos
+.env
+.env.*
+!.env.example
+
+# SO / editores
+.DS_Store
+.idea/
+.vscode/
