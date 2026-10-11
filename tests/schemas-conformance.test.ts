@@ -37,7 +37,7 @@ function makeOracle(registry: Registry): AjvLike {
 }
 
 /** Fixture folder of a schema id: `urn:agent-kit:a:b:v1` -> `a-b`, `...:v2` -> `a-b-v2`. */
-export function fixtureFolder(id: string): string {
+function fixtureFolder(id: string): string {
   const m = /^urn:agent-kit:(.+):v(\d+)$/.exec(id);
   if (!m) throw new Error(`unexpected id ${id}`);
   const major = Number(m[2]);
@@ -76,7 +76,7 @@ const readJson = (path: string): unknown => JSON.parse(readFileSync(path, "utf8"
  * Conformance harness (RF-25): discovers every schema (or `$defs` entry of a definitions-only
  * schema) and its fixtures, and compares the own validator, the cases and the ajv oracle.
  */
-export function checkConformance(
+function checkConformance(
   schemasDir: string,
   fixturesDir: string,
   options: { oracle?: boolean } = {},
@@ -601,7 +601,7 @@ function walkSequences(alts: Item[][], visit: (seq: Item[]) => void): void {
 }
 
 /** Returns the ReDoS-risk findings of one regular expression source (empty when it is safe). */
-export function analyzePattern(src: string): string[] {
+function analyzePattern(src: string): string[] {
   const problems: string[] = [];
   const alts = parseRegex(src, problems);
   walkSequences(alts, (seq) => {
@@ -707,7 +707,7 @@ const DENYLIST = new Set([
 ]);
 
 /** Findings for denylisted words (whole words, case-insensitive) in any key or string value. */
-export function neutralityFindings(node: unknown, path = ""): string[] {
+function neutralityFindings(node: unknown, path = ""): string[] {
   const findings: string[] = [];
   const scan = (text: string, where: string) => {
     for (const token of text.toLowerCase().split(/[^a-z0-9]+/)) {
@@ -717,7 +717,9 @@ export function neutralityFindings(node: unknown, path = ""): string[] {
   if (typeof node === "string") {
     scan(node, path);
   } else if (Array.isArray(node)) {
-    node.forEach((child, i) => findings.push(...neutralityFindings(child, `${path}/${i}`)));
+    for (const [i, child] of node.entries()) {
+      findings.push(...neutralityFindings(child, `${path}/${i}`));
+    }
   } else if (typeof node === "object" && node !== null) {
     for (const [key, value] of Object.entries(node)) {
       scan(key, `${path}/${key} (key)`);
