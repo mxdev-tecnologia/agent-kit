@@ -1,13 +1,13 @@
 # Spec 02b — cortex.*/v1 envelopes
 
-- **Status:** validada
+- **Status:** em PR (#11)
 - **Nível:** completo
 - **Risco:** médio
 - **Depende de:** spec-02a
 - **Épico:** agent-kit v1
 - **Branch:** feature/spec-02b-cortex-envelopes
 - **Jira:** —
-- **PR:** —
+- **PR:** #11
 - **Versão:** —
 - **ADR:** ADR-0002
 - **Contexto:** `docs/sdd/02a-contracts-core.md`, `docs/adr/0002-own-json-schema-subset-validator.md`, `docs/ARCHITECTURE.md`, `.claude/workflow.md`
