@@ -1,4 +1,4 @@
-import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
+import { existsSync, lstatSync, readdirSync, readFileSync, statSync } from "node:fs";
 import { join } from "node:path";
 import { parseFrontmatter } from "../schemas/frontmatter.js";
 import { loadRegistry, type Registry, RegistryLoadError } from "../schemas/registry.js";
@@ -36,7 +36,11 @@ interface CatalogFile {
   path?: string;
   /** Name the frontmatter must declare (file name without `.md`, or the skill folder). */
   expectedName: string;
+  /** Set when the entry cannot be used (reported as a failure). */
+  problem?: string;
 }
+
+const SYMLINK = "symbolic links are not allowed in the catalog";
 
 const CATALOG_DIRS: [CatalogType, string][] = [
   ["agent", "agents"],
@@ -54,12 +58,22 @@ function entries(dir: string) {
   }
 }
 
+function lstatOrUndefined(path: string) {
+  try {
+    return lstatSync(path);
+  } catch {
+    return undefined;
+  }
+}
+
 function listCatalog(root: string): CatalogFile[] {
   const files: CatalogFile[] = [];
   for (const [type, folder] of CATALOG_DIRS) {
     for (const entry of entries(join(root, "catalog", folder))) {
-      if (!entry.isFile() || !entry.name.endsWith(".md")) continue;
+      if (!entry.name.endsWith(".md")) continue;
+      if (!entry.isFile() && !entry.isSymbolicLink()) continue;
       files.push({
+        problem: entry.isSymbolicLink() ? SYMLINK : undefined,
         type,
         display: `catalog/${folder}/${entry.name}`,
         path: join(root, "catalog", folder, entry.name),
@@ -68,13 +82,34 @@ function listCatalog(root: string): CatalogFile[] {
     }
   }
   for (const entry of entries(join(root, "catalog", "skills"))) {
-    if (!entry.isDirectory()) continue;
+    if (entry.isSymbolicLink()) {
+      files.push({
+        type: "skill",
+        display: `catalog/skills/${entry.name}`,
+        expectedName: entry.name,
+        problem: SYMLINK,
+      });
+      continue;
+    }
+    if (!entry.isDirectory()) {
+      if (entry.name.endsWith(".md")) {
+        files.push({
+          type: "skill",
+          display: `catalog/skills/${entry.name}`,
+          expectedName: entry.name,
+          problem: "loose file in catalog/skills (a skill is <name>/SKILL.md)",
+        });
+      }
+      continue;
+    }
     const skill = join(root, "catalog", "skills", entry.name, "SKILL.md");
+    const info = lstatOrUndefined(skill);
     files.push({
       type: "skill",
       display: `catalog/skills/${entry.name}/SKILL.md`,
-      path: existsSync(skill) && statSync(skill).isFile() ? skill : undefined,
+      path: info?.isFile() ? skill : undefined,
       expectedName: entry.name,
+      problem: info?.isSymbolicLink() ? SYMLINK : undefined,
     });
   }
   return files;
@@ -102,6 +137,10 @@ function checkCatalog(root: string, failures: string[]): number {
   const names = new Map<string, string>();
 
   for (const file of files) {
+    if (file.problem) {
+      failures.push(`${file.display}: ${file.problem}`);
+      continue;
+    }
     if (!file.path) {
       failures.push(`${file.display}: skill folder has no SKILL.md`);
       continue;

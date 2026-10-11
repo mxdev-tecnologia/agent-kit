@@ -1,4 +1,4 @@
-import { cpSync, mkdirSync, mkdtempSync, rmSync, writeFileSync } from "node:fs";
+import { cpSync, mkdirSync, mkdtempSync, rmSync, symlinkSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
@@ -210,5 +210,45 @@ describe("check --self: catalog", () => {
     expect(r.code).toBe(0);
     expect(r.out).toContain(", 0 catalog files)");
     expect(checkSelfReport(root)).toEqual({ failures: [], catalogFiles: 0 });
+  });
+});
+
+describe("check --self: fail closed on unexpected catalog entries", () => {
+  it("test_ca_23_loose_markdown_in_skills_is_a_failure", () => {
+    const root = rootWithSchemas();
+    put(root, "catalog/skills/loose.md", plain("loose"));
+    const r = run(["check", "--self", "--root", root]);
+    expect(r.code).toBe(1);
+    expect(r.err).toMatch(/catalog\/skills\/loose\.md: .*loose/);
+    expect(r.err.trim().split("\n")).toHaveLength(1);
+  });
+
+  it("test_ca_23_symlinks_in_the_catalog_are_failures", (ctx) => {
+    const root = rootWithSchemas();
+    put(root, "outside/real.md", agent("linked"));
+    put(root, "outside/skill/SKILL.md", plain("linked-skill"));
+    put(root, "catalog/skills/own/real.md", "x");
+    try {
+      symlinkSync(join(root, "outside", "real.md"), join(root, "catalog", "agents", "linked.md"));
+      symlinkSync(
+        join(root, "outside", "skill"),
+        join(root, "catalog", "skills", "linked-skill"),
+        "dir",
+      );
+      symlinkSync(
+        join(root, "outside", "real.md"),
+        join(root, "catalog", "skills", "own", "SKILL.md"),
+      );
+    } catch {
+      // Creating symlinks may need privileges (win32); the skip is visible in the test report.
+      ctx.skip();
+      return;
+    }
+    const r = run(["check", "--self", "--root", root]);
+    expect(r.code).toBe(1);
+    expect(r.err).toMatch(/catalog\/agents\/linked\.md: .*symbolic link/);
+    expect(r.err).toMatch(/catalog\/skills\/linked-skill: .*symbolic link/);
+    expect(r.err).toMatch(/catalog\/skills\/own\/SKILL\.md: .*symbolic link/);
+    expect(r.err.trim().split("\n")).toHaveLength(3);
   });
 });
