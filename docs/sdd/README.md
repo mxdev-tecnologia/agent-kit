@@ -4,7 +4,9 @@ Spec-driven development plan for the public agent-kit repository. Each spec live
 
 ## Lifecycle
 
-`planned` → `draft` → `review` → `approved` → `in progress` → `in PR` → `delivered` → `released`
+`planned` → `draft` → `review` → `approved` → `in progress` → `validated` → `in PR` → `delivered` → `released`
+
+In the tooling, the Status column of each spec file uses the Portuguese values: rascunho (draft), aprovada (approved), em andamento (in progress), validada (validated), em PR (in PR), entregue (delivered), publicada (released).
 
 - **planned:** listed below, no spec file yet.
 - **draft / review:** spec file exists; the validator reviews requirements (EARS), NFRs and acceptance criteria.
@@ -18,15 +20,16 @@ Goal: a public, provider-neutral SDD brain that installs with one `npx` command 
 
 | Spec | Title | Depends on | Level | Status |
 |---|---|---|---|---|
-| spec-01 | Foundation: repository layout, TypeScript CLI skeleton, lint, tests, build, CI, CONTRIBUTING and SECURITY | — | lite | planned |
-| spec-02 | Contracts: `cortex.*/v1` JSON Schemas and the frontmatter format for agents, skills, workflows and rules | spec-01 | full | planned |
+| spec-01a | CLI foundation: toolchain (Node, TypeScript, Biome, Vitest, pnpm) and the `agent-kit` command skeleton (`--version`, `--help`, `check --self`) | — | lite | in progress |
+| spec-01b | CI and community files: GitHub Actions workflow, Dependabot, CONTRIBUTING and SECURITY | spec-01a | lite | planned |
+| spec-02 | Contracts: `cortex.*/v1` JSON Schemas and the frontmatter format for agents, skills, workflows and rules | spec-01a | full | planned |
 | spec-03 | Installer: `agent-kit init`, `update`, `sync` and `check`; CLI detection, per-provider install, `agent-kit.lock.json`, merge with `.agents/local/`, name-collision checks | spec-02 | full | planned |
 | spec-04 | SDD brain: skills, workflows and rules (original content, in English) | spec-02 | lite | planned |
 | spec-05 | Agents: 13 roles with full job titles, and the provider catalog (Claude Code, Codex, Antigravity, any OpenAI-compatible endpoint) with concurrency limits | spec-02 | lite | planned |
 | spec-06 | Validators: `agent-kit validate spec`, `tasks`, `commit`, `verdict` | spec-02 | lite | planned |
 | spec-07 | Publishing: `@mxdev-tecnologia/agent-kit` on npm with provenance from GitHub Actions; `next` pre-releases from `develop` | spec-03, spec-06 | full | planned |
 
-Suggested order: spec-01 → spec-02 → spec-03, spec-04, spec-05 and spec-06 in parallel → spec-07.
+Suggested order: spec-01a → spec-01b → spec-02 → spec-03, spec-04, spec-05 and spec-06 in parallel → spec-07.
 
 ## Consumers
 

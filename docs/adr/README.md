@@ -10,4 +10,4 @@ Each ADR has: **Status** (proposed, accepted, superseded by ADR-NNNN), **Context
 
 | ADR | Title | Status |
 |---|---|---|
-| — | No ADRs yet | — |
+| [0001](0001-typescript-cli-zero-runtime-deps.md) | TypeScript CLI with zero runtime dependencies | proposed |

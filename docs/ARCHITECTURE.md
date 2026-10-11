@@ -27,7 +27,11 @@ agent-kit/
 │   ├── workflows/    # slash-command procedures
 │   └── rules/        # always-on rules
 ├── schemas/          # JSON Schema 2020-12 for cortex.*/v1 envelopes
-├── src/              # CLI: install, check, sync, validate
+├── src/              # CLI (TypeScript, ESM, zero runtime dependencies)
+│   ├── cli.ts        # exports main(argv, io) returning the exit code; argument parsing, dispatch
+│   ├── version.ts    # reads the package version at runtime
+│   └── commands/     # one module per command (check-self today; install, sync, validate later)
+├── tests/            # Vitest unit tests; tests/smoke runs the built dist/
 └── docs/
 ```
 

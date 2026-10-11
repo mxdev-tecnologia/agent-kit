@@ -1,0 +1,35 @@
+{
+  "name": "@mxdev-tecnologia/agent-kit",
+  "version": "0.1.0",
+  "description": "Portable SDD brain (skills, agents, workflows, rules, schemas, validators) for AI coding CLIs.",
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "agent-kit": "dist/cli.js"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "packageManager": "pnpm@12.7.0",
+  "files": [
+    "dist",
+    "catalog",
+    "schemas",
+    "LICENSE",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "lint": "biome check .",
+    "format": "biome format --write .",
+    "test": "vitest run",
+    "test:smoke": "vitest run --config vitest.config.ts tests/smoke"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.5.14",
+    "@types/node": "24.19.0",
+    "typescript": "7.0.2",
+    "vitest": "5.0.1"
+  }
+}

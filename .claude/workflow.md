@@ -24,6 +24,12 @@ docs/adr/
 docs/sdd/
 docs/ARCHITECTURE.md
 docs/INSTRUCTIONS.md
+README.md
+AGENTS.md
+CLAUDE.md
+CONTRIBUTING.md
+SECURITY.md
+CHANGELOG.md
 ```
 
 ## Manifests de versão
@@ -40,9 +46,10 @@ pnpm install --frozen-lockfile --silent
 ## Gate
 <!-- Rodado pelo runner a cada implementação. -->
 ```bash
-pnpm -s lint
-pnpm -s test
-pnpm -s build
+pnpm --silent lint
+pnpm --silent typecheck
+pnpm --silent test
+pnpm --silent build
 node dist/cli.js check --self
 ```
 
@@ -51,8 +58,8 @@ node dist/cli.js check --self
 ```bash
 smoke_db_up()    { :; }
 smoke_db_admin() { cat >/dev/null; }
-smoke_app()      { exec sleep 3600; }
-smoke_tests()    { pnpm -s test:smoke; }
+smoke_app()      { d="$(mktemp -d)"; echo ok >"$d/health"; exec python3 -m http.server "$SMOKE_PORT" --bind 127.0.0.1 --directory "$d"; }
+smoke_tests()    { pnpm --silent test:smoke; }
 ```
 
 ## Hotspots
