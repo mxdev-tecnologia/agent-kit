@@ -84,17 +84,31 @@ pnpm -s test:smoke                                  # all pass, exit 0
 ## Traceability matrix
 | Requirement | CA | Verification | Files | Evidence |
 |---|---|---|---|---|
-| RF-01 | CA-01, CA-09 | test + manual | `.github/workflows/ci.yml`, `tests/ci-policy.test.ts` | |
-| RF-02 | CA-02, CA-09 | test + manual | `.github/workflows/ci.yml`, `tests/ci-policy.test.ts` | |
-| RF-03 | CA-03 | test | `.github/dependabot.yml`, `tests/ci-policy.test.ts` | |
-| RF-04 | CA-04 | manual | `CONTRIBUTING.md` | |
-| RF-05 | CA-05 | manual | `SECURITY.md` | |
-| RNF-01 | CA-06 | test | `.github/workflows/ci.yml`, `tests/ci-policy.test.ts` | |
-| RNF-02 | CA-07 | test + manual | `.github/workflows/ci.yml`, `tests/ci-policy.test.ts` | |
-| RNF-03 | CA-08 | test | `.github/workflows/ci.yml`, `tests/ci-policy.test.ts` | |
+| RF-01 | CA-01, CA-09 | test + manual | `.github/workflows/ci.yml`, `tests/ci-policy.test.ts` | CA-01: `tests/ci-policy.test.ts:17` `test_ca_01_triggers_matrix_and_steps` passes; `ci.yml:3-7` triggers, `:24-30` matrix, `:45-64` steps. CA-09: pending after PR |
+| RF-02 | CA-02, CA-09 | test + manual | `.github/workflows/ci.yml`, `tests/ci-policy.test.ts` | CA-02: `tests/ci-policy.test.ts:37` passes (mutation `continue-on-error: true` and `lint \|\| true` make it fail); `ci.yml:22` `fail-fast: false` keeps each leg reporting. CA-09: pending after PR |
+| RF-03 | CA-03 | test | `.github/dependabot.yml`, `tests/ci-policy.test.ts` | `tests/ci-policy.test.ts:41` passes; `.github/dependabot.yml:3-12` |
+| RF-04 | CA-04 | manual | `CONTRIBUTING.md` | Manual review by validator: setup `CONTRIBUTING.md:5`, SDD flow `:22`, branches `:31`, commits pt-BR `:37-39`, language rule `:45` |
+| RF-05 | CA-05 | manual | `SECURITY.md` | Manual review by validator: GitHub Security Advisories `SECURITY.md:3-8`, supported versions `:12`, response time `:20` |
+| RNF-01 | CA-06 | test | `.github/workflows/ci.yml`, `tests/ci-policy.test.ts` | `tests/ci-policy.test.ts:52` passes (mutations `pull_request_target` and `@v7` make it fail); `ci.yml:9-10`, `:33`, `:38`; SHAs confirmed with `gh api` as the commits of tags v7.0.1 / v7.0.0; `persist-credentials: false` `ci.yml:35` |
+| RNF-02 | CA-07 | test + manual | `.github/workflows/ci.yml`, `tests/ci-policy.test.ts` | Concurrency: `tests/ci-policy.test.ts:66` passes; `ci.yml:12-14`; `timeout-minutes: 15` `ci.yml:20`. Duration under 10 min: pending after PR |
+| RNF-03 | CA-08 | test | `.github/workflows/ci.yml`, `tests/ci-policy.test.ts` | `tests/ci-policy.test.ts:72` passes; `ci.yml:42-43` corepack + `package.json` `packageManager: pnpm@12.7.0` |
 
 ## Execution notes
 No deviations. pnpm via corepack (`packageManager`); actions pinned: checkout v7.0.1, setup-node v7.0.0 (published more than 14 days ago). Pending after the PR: RNF-02 duration under 10 minutes and CA-09 green checks on the three matrix legs.
 
 ## Validation report
-<Filled by the validator: spec review (pre-approval) and delivery validation.>
+### Delivery validation (2026-10-11)
+```
+MODO: B · VEREDITO: APROVADO · VALIDADOR: spec-validator (Opus high)
+SMOKE: OK (test:smoke 1/1; gate re-run: test 18/18, ci-policy 6/6)
+ACHADOS:
+- [importante] tests/ci-policy.test.ts:53 — adding a job-level `permissions: write-all` under `ci.yml:19` keeps all 6 tests green (mutation confirmed), so a future edit can grant write access without the policy test noticing → assert a single `permissions:` block (or no `write` anywhere). Non-blocking: the current workflow meets RNF-01.
+CA SEM EVIDÊNCIA: nenhum   · MANUAIS: CA-04, CA-05 (reviewed, OK); CA-07 (duration) and CA-09 pending after PR
+DECISÃO HUMANA NECESSÁRIA: nenhuma
+```
+Notes:
+- Actions pins verified with `gh api`: `actions/checkout` tag v7.0.1 -> 3d3c42e5aac5ba805825da76410c181273ba90b1; `actions/setup-node` tag v7.0.0 -> 820762786026740c76f36085b0efc47a31fe5020 (both tags point directly to these commits).
+- Hardening: top-level `contents: read`, `pull_request` only, no `secrets.`, `persist-credentials: false`, no `continue-on-error`, concurrency per ref, job timeout 15 min.
+- Scope: besides the Design list, the branch touches `docs/ARCHITECTURE.md` (one layout line for `.github/`, living-docs rule, in allowlist) and lifecycle fields in `docs/sdd/README.md` and `docs/sdd/01a-cli-foundation.md`. Accepted; all inside the docs allowlist.
+- Commits follow `<type>(<scope>): <pt-BR>` with `Refs: spec-01b`.
+- After merge (owner): enable "Private vulnerability reporting" so the `SECURITY.md` flow works.
