@@ -1,13 +1,13 @@
 # Spec 01b — CI and community files
 
-- **Status:** validada
+- **Status:** em PR (#3)
 - **Nível:** lite
 - **Risco:** médio
 - **Depende de:** spec-01a
 - **Épico:** agent-kit v1
 - **Branch:** feature/spec-01b-ci-community
 - **Jira:** —
-- **PR:** —
+- **PR:** #3
 - **Versão:** —
 - **ADR:** nenhum
 - **Contexto:** `docs/sdd/01a-cli-foundation.md`, `docs/INSTRUCTIONS.md`, `.claude/workflow.md`
