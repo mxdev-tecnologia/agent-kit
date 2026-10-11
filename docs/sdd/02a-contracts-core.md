@@ -155,7 +155,7 @@ Merge order: spec 01a is merged. Spec 02b builds on this one and relies on the c
 - [x] `schemas/common.schema.json` and the four frontmatter schemas, with fixtures and `cases.json`
 - [x] `tests/schemas-conformance.test.ts`: harness, `ajv` oracle, static ReDoS test, neutrality scan; `package.json`, `pnpm-lock.yaml`, `tests/package-policy.test.ts`
 - [x] `check-self.ts` extension and `tests/check-self.test.ts` cases; remove `schemas/.gitkeep`
-- [ ] Docs updated (`docs/ARCHITECTURE.md`, `README.md` if needed)
+- [x] Docs updated (`docs/ARCHITECTURE.md`, `docs/INSTRUCTIONS.md`; `README.md` needed no change)
 
 ## Aceite
 ```bash
@@ -170,6 +170,7 @@ pnpm --silent test:smoke                            # all pass, exit 0
 
 ## Changelog
 - **Adicionado:** validador de JSON Schema (subconjunto declarado), registro de schemas, formato de frontmatter para agentes, skills, workflows e regras, e verificação desses contratos em `agent-kit check --self`.
+- **Alterado:** a mensagem de sucesso de `agent-kit check --self` agora informa o número de arquivos do catálogo verificados.
 - **Atenção no deploy:** nenhuma
 
 ## Out of scope
@@ -219,7 +220,7 @@ pnpm --silent test:smoke                            # all pass, exit 0
 | RNF-08 | CA-05, CA-26, CA-27 | test | `tests/schemas-conformance.test.ts`, `tests/fixtures/schemas/**` |  `tests/schemas-conformance.test.ts::test_ca_27_oracle_and_own_validator_agree_on_every_fixture`, `test_ca_26_every_schema_and_definition_has_fixtures` |
 | RNF-09 | CA-18, CA-30 | test + manual | `tests/frontmatter.test.ts` |  `tests/frontmatter.test.ts::test_ca_18_lf_and_crlf_give_equal_results`; CA-30 pending (CI of the PR) |
 | RNF-10 | CA-21 | test | `schemas/**`, `tests/schemas-conformance.test.ts` |  `tests/schemas-conformance.test.ts::test_ca_21_*` (including the planted-name self-test) |
-| RNF-11 | CA-12, CA-32 | test + manual | `src/schemas/registry.ts`, `docs/ARCHITECTURE.md` |  `docs/ARCHITECTURE.md` (pending doc-writer); `test_ca_12_*` for the `$id` major |
+| RNF-11 | CA-12, CA-32 | test + manual | `src/schemas/registry.ts`, `docs/ARCHITECTURE.md` |  `docs/ARCHITECTURE.md:81-86` ("Compatibility rule", CA-32); `tests/schemas-validator.test.ts::test_ca_12_*` for the `$id` major |
 
 ## Execution notes
 Implementation (Sonnet), 2026-10-11.
@@ -237,7 +238,7 @@ Implementation (Sonnet), 2026-10-11.
 - **Deviations from the Design:**
   - `src/cli.ts` was added to the Design with owner approval: the success line is now `OK: repository invariants hold (<root>, N catalog files)`, using `checkSelfReport(root).catalogFiles`; asserted in `tests/check-self.test.ts` (`tests/cli.test.ts` and the smoke test do not check this message).
   - The harness lives inside `tests/schemas-conformance.test.ts` (no helper file in the Design); spec 02b can copy `checkConformance` or move it to a shared helper.
-  - CA-30 (CI matrix) and CA-32 (ARCHITECTURE note) have no automatic evidence yet: CA-30 is the PR checks tab; CA-32 is the doc-writer step.
+  - CA-30 (CI matrix) and CA-32 (ARCHITECTURE note) have no automatic evidence: CA-30 is the PR checks tab; CA-32 is the "Compatibility rule" section of `docs/ARCHITECTURE.md`.
 
 
 ## Validation report
