@@ -21,6 +21,7 @@ flowchart LR
 
 ```text
 agent-kit/
+├── .github/          # workflows/ci.yml (CI) and dependabot.yml
 ├── catalog/
 │   ├── agents/       # one Markdown file per role, with frontmatter
 │   ├── skills/       # <name>/SKILL.md, references/, scripts/
