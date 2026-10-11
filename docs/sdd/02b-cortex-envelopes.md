@@ -189,7 +189,7 @@ Header (all kinds): `schema` const, req; `id` `uuid`, req; `created_at` `timesta
 - [x] The nine envelope schemas
 - [x] Fixtures: at least 1 valid and 3 invalid per kind, with `cases.json`
 - [x] `tests/cortex-envelopes.test.ts` (structure, size model, neutrality, performance)
-- [ ] Docs updated (`docs/ARCHITECTURE.md`, `README.md`)
+- [x] Docs updated (`docs/ARCHITECTURE.md`, `README.md`)
 
 ## Aceite
 ```bash
