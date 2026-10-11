@@ -244,4 +244,20 @@ Implementation (Sonnet), 2026-10-11.
   - Validator findings fixed: the parser rejects a lone `-` plain scalar (block and inline), `:` followed by a tab, control characters (C0 except tab/LF/CR, DEL, C1, U+FFFE/U+FFFF) and a leading blank line of a block scalar indented deeper than the content; `$defs` are compiled after the root leaves the in-progress set, so a def that refers to its own root is not a false cycle; the static ReDoS test also rejects bounded repetition (max > 1) of a group with an unbounded body, with the separator exception documented in RNF-07; symlinks and loose `.md` files in `catalog/skills/` are failures (the symlink test is skipped when the platform refuses to create symlinks, for example Windows without privileges, and the skip shows in the report).
 
 ## Validation report
-<!-- Filled by the validators (spec review and delivery validation). -->
+Modo A — ciclo 1: REPROVADO (spec-validator, 1 blocker e 10 major: segurança de protótipo no validador, ReDoS, gramática YAML aberta, semântica de `format`, regra `$id`↔versão, fail-open no `check --self`, conformidade sem resultado esperado); todos corrigidos. Ciclo 2: APROVADO, com 10 minors corrigidos sem novo ciclo.
+
+Modo B — spec-checker (mecânico): APROVADO, `SMOKE OK`, 209 testes; nenhum CA sem evidência.
+
+Modo B — spec-validator, ciclo 1: APROVADO com 1 achado importante (o parser de frontmatter aceitava `- -`, `-` sozinho, `:` seguido de tab, caracteres de controle e linha em branco inicial mais indentada em bloco `|`) e 3 minors (falso ciclo de `$defs` que referencia a raiz, ReDoS com repetição limitada sobre corpo ilimitado, symlinks e `.md` soltos no catálogo pulados em silêncio). Corrigidos em 0076dfa, c43d771, f8b58d2, 404742d e 6923d4b, com testes que falhavam antes.
+
+Modo B — ciclo 2 (spec-checker, revalidação indicada pelo spec-validator):
+```
+MODO: B · VEREDITO: APROVADO · VALIDADOR: spec-checker + spec-validator (Opus high)
+SMOKE: OK (smoke.sh + pnpm --silent test:smoke)
+GATE: lint, typecheck, test (229), build, check --self → exit 0
+ACHADOS: nenhum bloqueante (info: $schema do biome.json em 2.5.14, fora do diff)
+CA SEM EVIDÊNCIA: nenhum   · MANUAIS: CA-30 (CI da PR), CA-32 (regra de compatibilidade no ARCHITECTURE)
+DECISÃO HUMANA NECESSÁRIA: nenhuma
+```
+- RNF-03 medido pelo spec-validator: carga dos schemas 0,35 ms (limite 50 ms); 1.000 validações 2,8 ms (limite 500 ms).
+- Desvio aprovado pelo dono: `src/cli.ts` incluído no Design (contagem de arquivos do catálogo na mensagem de sucesso).
