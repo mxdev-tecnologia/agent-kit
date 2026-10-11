@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agent-kit:frontmatter:skill:v1",
+  "title": "Skill frontmatter",
+  "description": "Frontmatter of a catalog skill.",
+  "type": "object",
+  "required": ["format", "name", "description"],
+  "properties": {
+    "format": {
+      "type": "string",
+      "const": "agent-kit/v1"
+    },
+    "name": {
+      "$ref": "urn:agent-kit:common:v1#/$defs/name"
+    },
+    "description": {
+      "$ref": "urn:agent-kit:common:v1#/$defs/description"
+    },
+    "capabilities": {
+      "type": "array",
+      "uniqueItems": true,
+      "minItems": 1,
+      "items": {
+        "$ref": "urn:agent-kit:common:v1#/$defs/capability"
+      }
+    },
+    "user-invocable": {
+      "type": "boolean"
+    }
+  },
+  "patternProperties": {
+    "^x-[a-z0-9-]{1,62}$": {
+      "type": ["string", "integer", "boolean"],
+      "maxLength": 1024
+    }
+  },
+  "additionalProperties": false
+}

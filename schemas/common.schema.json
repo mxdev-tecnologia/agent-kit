@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agent-kit:common:v1",
+  "title": "Common definitions",
+  "description": "Building blocks shared by the agent-kit contracts.",
+  "$defs": {
+    "name": {
+      "description": "Lowercase identifier with hyphen-separated parts, 1 to 64 characters.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64,
+      "pattern": "^[a-z][a-z0-9]*(-[a-z0-9]+){0,31}$"
+    },
+    "description": {
+      "description": "Short human-readable description.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 1024
+    },
+    "semver": {
+      "description": "Semantic version.",
+      "type": "string",
+      "maxLength": 128,
+      "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)(-[0-9A-Za-z.-]+)?(\\+[0-9A-Za-z.-]+)?$"
+    },
+    "glob": {
+      "description": "File path glob.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "capability": {
+      "description": "Abstract capability an agent or skill may use.",
+      "type": "string",
+      "enum": ["read", "search", "edit", "shell", "web", "mcp"]
+    },
+    "tier": {
+      "description": "Abstract effort level; the provider catalog maps it to a concrete engine.",
+      "type": "string",
+      "enum": ["fast", "standard", "deep"]
+    },
+    "envelope-ref": {
+      "description": "Reference to a message envelope, for example cortex.task/v1.",
+      "type": "string",
+      "maxLength": 64,
+      "pattern": "^cortex\\.[a-z]+/v[0-9]+$"
+    }
+  }
+}
