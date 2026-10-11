@@ -3,6 +3,8 @@
 export const MAX_FRONTMATTER_BYTES = 16 * 1024;
 const MAX_SAFE = Number.MAX_SAFE_INTEGER;
 const FORBIDDEN_KEYS = new Set(["__proto__", "constructor", "prototype"]);
+// C0 (except tab, LF, CR), DEL, C1 and the noncharacters U+FFFE and U+FFFF.
+const FORBIDDEN_CHARS = /(?![\t\n\r])[\p{Cc}\uFFFE\uFFFF]/u;
 const KEY = /^[A-Za-z][A-Za-z0-9_-]*$/;
 
 export type FrontmatterScalar = string | number | boolean;
@@ -30,7 +32,14 @@ export function parseFrontmatter(input: string): FrontmatterResult {
     if (Buffer.byteLength(block, "utf8") > MAX_FRONTMATTER_BYTES) {
       throw new FrontmatterError(1, "frontmatter block is larger than 16 KiB");
     }
-    return { ok: true, data: parseBlock(block.replace(/\r\n/g, "\n")), body };
+    const normalized = block.replace(/\r\n/g, "\n");
+    const bad = FORBIDDEN_CHARS.exec(normalized);
+    if (bad) {
+      const line = normalized.slice(0, bad.index).split("\n").length + 1;
+      const code = (bad[0].codePointAt(0) ?? 0).toString(16).toUpperCase().padStart(4, "0");
+      throw new FrontmatterError(line, `control character U+${code} is not allowed`);
+    }
+    return { ok: true, data: parseBlock(normalized), body };
   } catch (error) {
     if (error instanceof FrontmatterError) {
       return { ok: false, error: error.message, line: error.line };
@@ -203,9 +212,11 @@ function parseBlockScalar(
   let i = keyIndex + 1;
   let indent = -1;
   const content: string[] = [];
+  const leadingBlanks: { length: number; line: number }[] = [];
   while (i < lines.length) {
     const line = lines[i] ?? "";
     if (isBlank(line)) {
+      if (indent < 0) leadingBlanks.push({ length: line.length, line: i + 2 });
       content.push(indent >= 0 && line.length > indent ? line.slice(indent) : "");
       i++;
       continue;
@@ -217,6 +228,14 @@ function parseBlockScalar(
         throw new FrontmatterError(i + 2, "block scalar content must be indented");
       }
       indent = here;
+      for (const blank of leadingBlanks) {
+        if (blank.length > indent) {
+          throw new FrontmatterError(
+            blank.line,
+            "a leading blank line is indented more than the block scalar content",
+          );
+        }
+      }
     } else if (here < indent) {
       break;
     } else if (line.slice(0, indent).includes("\t")) {
@@ -271,10 +290,10 @@ function checkPlain(text: string, no: number): void {
             : `a plain scalar cannot start with "${c}" (quote it)`;
     throw new FrontmatterError(no, why);
   }
-  if (/^-( |$)/.test(text) && text !== "-") {
-    throw new FrontmatterError(no, "a plain scalar cannot start with `- ` (nested list)");
+  if (/^-( |$)/.test(text)) {
+    throw new FrontmatterError(no, "a plain scalar cannot be `-` or start with `- ` (nested list)");
   }
-  if (text.includes(": ") || text.endsWith(":")) {
+  if (/:[ \t]/.test(text) || text.endsWith(":")) {
     throw new FrontmatterError(no, "a plain scalar cannot contain `: ` (nested map; quote it)");
   }
 }

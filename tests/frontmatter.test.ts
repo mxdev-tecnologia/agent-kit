@@ -82,7 +82,7 @@ describe("accepted grammar", () => {
     ).toEqual({ i: 42, neg: -5, zero: 0, negzero: 0, t: true, f: false, max: 9007199254740991 });
     expect(
       data(
-        "n: null\ntilde: ~\ndate: 2026-01-02\nfloat: 1.5\nT: True\nF: FALSE\ny: yes\nu: 1_000\nexp: 1e3\ndash: -",
+        "n: null\ntilde: ~\ndate: 2026-01-02\nfloat: 1.5\nT: True\nF: FALSE\ny: yes\nu: 1_000\nexp: 1e3",
       ),
     ).toEqual({
       n: "null",
@@ -94,7 +94,6 @@ describe("accepted grammar", () => {
       y: "yes",
       u: "1_000",
       exp: "1e3",
-      dash: "-",
     });
   });
 
@@ -211,6 +210,19 @@ describe("rejected grammar", () => {
     ["merge key", "<<: x", 2],
     ["complex key", "? a", 2],
     ["document end marker", "a: 1\n...", 3],
+    ["lone dash in a block list", "a:\n  - -", 3],
+    ["lone dash as value", "a: -", 2],
+    ["lone dash in an inline list", "a: [-]", 2],
+    ["colon followed by tab", "a: x:\ty", 2],
+    ["colon followed by tab in inline list", "a: [x:\ty]", 2],
+    ["C0 control character", "a: 1\nb: x\u0007y", 3],
+    ["DEL control character", "a: x\u007fy", 2],
+    ["C1 control character", "a: x\u0085y", 2],
+    ["noncharacter U+FFFE", "a: x\ufffey", 2],
+    ["noncharacter U+FFFF", "a: x\uffffy", 2],
+    ["control character in a comment", "# c\u0001\na: 1", 2],
+    ["control character in a block scalar", "a: |\n  x\u0002", 3],
+    ["leading blank line deeper than content", "a: |\n     \n  x", 3],
   ];
 
   it.each(cases)("test_ca_15_rejects_%s", (_name, block, line) => {
