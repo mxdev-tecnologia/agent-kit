@@ -311,6 +311,22 @@ describe("schema loading", () => {
     expect(message).toMatch(/\/\$defs\/[ab]\/\$ref/);
   });
 
+  it("test_ca_04_def_that_refers_to_its_own_root_is_not_a_cycle", () => {
+    const r = one({ type: "object", $defs: { a: { $ref: ID } } });
+    expect(ok(r, {})).toBe(true);
+    expect(r.validate(`${ID}#/$defs/a`, {}).valid).toBe(true);
+    expect(r.validate(`${ID}#/$defs/a`, 1).valid).toBe(false);
+    // A real cycle through the root is still an error.
+    const message = loadError({
+      "t.schema.json": withId({
+        type: "object",
+        properties: { p: { $ref: "#/$defs/a" } },
+        $defs: { a: { $ref: ID } },
+      }),
+    });
+    expect(message).toContain("cycle");
+  });
+
   it("test_ca_04_self_and_cross_file_cycles_fail", () => {
     expect(loadError({ "t.schema.json": withId({ properties: { p: { $ref: ID } } }) })).toContain(
       "cycle",

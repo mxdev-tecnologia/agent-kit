@@ -211,7 +211,7 @@ export class Compiler {
     try {
       let check: Check;
       if (defName === undefined) {
-        check = this.compileRoot(source);
+        check = this.compileNode(source, source.schema, "", true);
       } else {
         const defs = own(source.schema, "$defs");
         check = this.compileNode(
@@ -222,22 +222,23 @@ export class Compiler {
         );
       }
       this.memo.set(key, check);
+      this.inProgress.delete(key);
+      if (defName === undefined) this.compileDefs(source);
       return check;
     } catch (error) {
-      if (error instanceof SchemaLoadError) this.memo.set(key, error);
+      if (error instanceof SchemaLoadError && !this.memo.has(key)) this.memo.set(key, error);
       throw error;
     } finally {
       this.inProgress.delete(key);
     }
   }
 
-  private compileRoot(source: SchemaSource): Check {
-    const check = this.compileNode(source, source.schema, "", true);
+  /** Compiles the `$defs` of a schema after its root is done, so a def may refer to the root. */
+  private compileDefs(source: SchemaSource): void {
     const defs = own(source.schema, "$defs");
     if (isObject(defs)) {
       for (const name of Object.keys(defs)) this.def(source.id, name);
     }
-    return check;
   }
 
   private resolveRef(source: SchemaSource, ref: string, pointer: string): Check {
