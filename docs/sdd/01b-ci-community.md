@@ -1,6 +1,6 @@
 # Spec 01b — CI and community files
 
-- **Status:** em andamento
+- **Status:** validada
 - **Nível:** lite
 - **Risco:** médio
 - **Depende de:** spec-01a
@@ -112,3 +112,5 @@ Notes:
 - Scope: besides the Design list, the branch touches `docs/ARCHITECTURE.md` (one layout line for `.github/`, living-docs rule, in allowlist) and lifecycle fields in `docs/sdd/README.md` and `docs/sdd/01a-cli-foundation.md`. Accepted; all inside the docs allowlist.
 - Commits follow `<type>(<scope>): <pt-BR>` with `Refs: spec-01b`.
 - After merge (owner): enable "Private vulnerability reporting" so the `SECURITY.md` flow works.
+
+- Follow-up: the job-level `permissions` finding was fixed in 60eb568 (`tests/ci-policy.test.ts` now requires a single `permissions:` block and no `write` grant anywhere; verified by mutation).
