@@ -1,13 +1,13 @@
 # Spec 01a — CLI foundation: toolchain and command skeleton
 
-- **Status:** validada
+- **Status:** em PR (#2)
 - **Nível:** lite
 - **Risco:** médio
 - **Depende de:** —
 - **Épico:** agent-kit v1
 - **Branch:** feature/spec-01a-cli-foundation
 - **Jira:** —
-- **PR:** —
+- **PR:** #2
 - **Versão:** —
 - **ADR:** ADR-0001
 - **Contexto:** `docs/adr/0001-typescript-cli-zero-runtime-deps.md`, `docs/sdd/README.md`, `.claude/workflow.md` (project gate and smoke)
