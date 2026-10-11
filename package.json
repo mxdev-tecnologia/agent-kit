@@ -27,7 +27,7 @@
     "test:smoke": "vitest run --config vitest.config.ts tests/smoke"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.5.14",
+    "@biomejs/biome": "2.5.15",
     "@types/node": "26.6.4",
     "typescript": "7.0.2",
     "vitest": "5.0.3"
