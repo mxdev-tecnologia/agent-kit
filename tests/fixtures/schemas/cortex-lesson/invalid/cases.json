@@ -1,0 +1,22 @@
+{
+  "confidence-certain.json": {
+    "keyword": "enum",
+    "instancePath": "/body/confidence"
+  },
+  "tag-not-a-name.json": {
+    "keyword": "pattern",
+    "instancePath": "/body/tags/0"
+  },
+  "duplicate-tags.json": {
+    "keyword": "uniqueItems",
+    "instancePath": "/body/tags"
+  },
+  "missing-lesson.json": {
+    "keyword": "required",
+    "instancePath": "/body"
+  },
+  "extra-property.json": {
+    "keyword": "additionalProperties",
+    "instancePath": ""
+  }
+}

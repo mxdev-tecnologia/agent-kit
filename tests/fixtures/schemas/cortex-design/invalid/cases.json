@@ -1,0 +1,18 @@
+{
+  "empty-artifacts.json": {
+    "keyword": "minItems",
+    "instancePath": "/body/artifacts"
+  },
+  "status-draft.json": {
+    "keyword": "enum",
+    "instancePath": "/body/status"
+  },
+  "missing-lane.json": {
+    "keyword": "required",
+    "instancePath": "/body"
+  },
+  "extra-property.json": {
+    "keyword": "additionalProperties",
+    "instancePath": ""
+  }
+}

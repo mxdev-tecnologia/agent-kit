@@ -1,0 +1,109 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agent-kit:cortex:plan:v1",
+  "title": "cortex.plan/v1",
+  "description": "Ordered steps to deliver a work item.",
+  "type": "object",
+  "properties": {
+    "schema": {
+      "type": "string",
+      "const": "cortex.plan/v1"
+    },
+    "id": {
+      "$ref": "urn:agent-kit:cortex:defs:v1#/$defs/uuid"
+    },
+    "created_at": {
+      "$ref": "urn:agent-kit:cortex:defs:v1#/$defs/timestamp"
+    },
+    "producer": {
+      "type": "object",
+      "properties": {
+        "agent": {
+          "$ref": "urn:agent-kit:common:v1#/$defs/name"
+        },
+        "run": {
+          "$ref": "urn:agent-kit:cortex:defs:v1#/$defs/ref-id"
+        }
+      },
+      "required": ["agent"],
+      "additionalProperties": false
+    },
+    "work_item": {
+      "$ref": "urn:agent-kit:cortex:defs:v1#/$defs/item-id"
+    },
+    "parent_id": {
+      "$ref": "urn:agent-kit:cortex:defs:v1#/$defs/uuid"
+    },
+    "correlation_id": {
+      "$ref": "urn:agent-kit:cortex:defs:v1#/$defs/ref-id"
+    },
+    "body": {
+      "type": "object",
+      "properties": {
+        "mode": {
+          "type": "string",
+          "enum": ["sequential", "parallel"]
+        },
+        "max_agents": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10
+        },
+        "steps": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "$ref": "urn:agent-kit:cortex:defs:v1#/$defs/token"
+              },
+              "title": {
+                "$ref": "urn:agent-kit:cortex:defs:v1#/$defs/title"
+              },
+              "assignee": {
+                "$ref": "urn:agent-kit:common:v1#/$defs/name"
+              },
+              "depends_on": {
+                "type": "array",
+                "items": {
+                  "$ref": "urn:agent-kit:cortex:defs:v1#/$defs/token"
+                },
+                "maxItems": 6,
+                "uniqueItems": true
+              },
+              "acceptance": {
+                "type": "array",
+                "items": {
+                  "$ref": "urn:agent-kit:cortex:defs:v1#/$defs/criterion-id"
+                },
+                "maxItems": 8,
+                "uniqueItems": true
+              },
+              "estimate": {
+                "type": "object",
+                "properties": {
+                  "human_minutes": {
+                    "$ref": "urn:agent-kit:cortex:defs:v1#/$defs/count"
+                  },
+                  "ai_minutes": {
+                    "$ref": "urn:agent-kit:cortex:defs:v1#/$defs/count"
+                  }
+                },
+                "required": ["human_minutes", "ai_minutes"],
+                "additionalProperties": false
+              }
+            },
+            "required": ["id", "title", "assignee", "depends_on", "acceptance"],
+            "additionalProperties": false
+          },
+          "minItems": 1,
+          "maxItems": 12
+        }
+      },
+      "required": ["mode", "max_agents", "steps"],
+      "additionalProperties": false
+    }
+  },
+  "required": ["schema", "id", "created_at", "producer", "work_item", "body"],
+  "additionalProperties": false
+}

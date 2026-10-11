@@ -1,0 +1,59 @@
+{
+  "schema": "cortex.design/v1",
+  "id": "123e4567-e89b-42d3-a456-426614174000",
+  "created_at": "2026-01-02T03:04:05Z",
+  "producer": {
+    "agent": "builder",
+    "run": "run-001"
+  },
+  "work_item": "spec-02b",
+  "body": {
+    "lane": "ui",
+    "status": "promoted",
+    "artifacts": [
+      {
+        "name": "Artifact 1",
+        "ref": "docs/design-0.md"
+      },
+      {
+        "name": "Artifact 2",
+        "ref": "docs/design-1.md"
+      },
+      {
+        "name": "Artifact 3",
+        "ref": "docs/design-2.md"
+      },
+      {
+        "name": "Artifact 4",
+        "ref": "docs/design-3.md"
+      },
+      {
+        "name": "Artifact 5",
+        "ref": "docs/design-4.md"
+      },
+      {
+        "name": "Artifact 6",
+        "ref": "docs/design-5.md"
+      },
+      {
+        "name": "Artifact 7",
+        "ref": "docs/design-6.md"
+      },
+      {
+        "name": "Artifact 8",
+        "ref": "docs/design-7.md"
+      },
+      {
+        "name": "Artifact 9",
+        "ref": "docs/design-8.md"
+      },
+      {
+        "name": "Artifact 10",
+        "ref": "docs/design-9.md"
+      }
+    ],
+    "rationale": "It fits the design system."
+  },
+  "parent_id": "123e4567-e89b-42d3-a456-426614174001",
+  "correlation_id": "corr-001"
+}

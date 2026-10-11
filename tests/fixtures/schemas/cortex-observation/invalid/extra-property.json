@@ -1,0 +1,20 @@
+{
+  "schema": "cortex.observation/v1",
+  "id": "123e4567-e89b-42d3-a456-426614174000",
+  "created_at": "2026-01-02T03:04:05Z",
+  "producer": {
+    "agent": "builder",
+    "run": "run-001"
+  },
+  "work_item": "spec-02b",
+  "body": {
+    "kind": "info",
+    "severity": "info",
+    "subject": {
+      "kind": "run",
+      "ref": "run-001"
+    },
+    "message": "Run finished."
+  },
+  "extra": 1
+}

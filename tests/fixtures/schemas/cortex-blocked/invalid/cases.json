@@ -1,0 +1,18 @@
+{
+  "five-options.json": {
+    "keyword": "maxItems",
+    "instancePath": "/body/options"
+  },
+  "unknown-reason.json": {
+    "keyword": "enum",
+    "instancePath": "/body/reason"
+  },
+  "missing-question.json": {
+    "keyword": "required",
+    "instancePath": "/body"
+  },
+  "extra-property.json": {
+    "keyword": "additionalProperties",
+    "instancePath": ""
+  }
+}

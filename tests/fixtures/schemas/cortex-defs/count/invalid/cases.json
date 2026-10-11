@@ -1,0 +1,14 @@
+{
+  "negative.json": {
+    "keyword": "minimum",
+    "instancePath": ""
+  },
+  "above-maximum.json": {
+    "keyword": "maximum",
+    "instancePath": ""
+  },
+  "fraction.json": {
+    "keyword": "type",
+    "instancePath": ""
+  }
+}

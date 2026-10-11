@@ -1,0 +1,22 @@
+{
+  "lowercase.json": {
+    "keyword": "pattern",
+    "instancePath": ""
+  },
+  "one-letter.json": {
+    "keyword": "pattern",
+    "instancePath": ""
+  },
+  "five-letters.json": {
+    "keyword": "pattern",
+    "instancePath": ""
+  },
+  "four-digits.json": {
+    "keyword": "pattern",
+    "instancePath": ""
+  },
+  "too-long.json": {
+    "keyword": "maxLength",
+    "instancePath": ""
+  }
+}

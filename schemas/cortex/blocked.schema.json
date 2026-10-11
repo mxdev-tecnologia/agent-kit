@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agent-kit:cortex:blocked:v1",
+  "title": "cortex.blocked/v1",
+  "description": "An agent cannot continue and asks for a decision.",
+  "type": "object",
+  "properties": {
+    "schema": {
+      "type": "string",
+      "const": "cortex.blocked/v1"
+    },
+    "id": {
+      "$ref": "urn:agent-kit:cortex:defs:v1#/$defs/uuid"
+    },
+    "created_at": {
+      "$ref": "urn:agent-kit:cortex:defs:v1#/$defs/timestamp"
+    },
+    "producer": {
+      "type": "object",
+      "properties": {
+        "agent": {
+          "$ref": "urn:agent-kit:common:v1#/$defs/name"
+        },
+        "run": {
+          "$ref": "urn:agent-kit:cortex:defs:v1#/$defs/ref-id"
+        }
+      },
+      "required": ["agent"],
+      "additionalProperties": false
+    },
+    "work_item": {
+      "$ref": "urn:agent-kit:cortex:defs:v1#/$defs/item-id"
+    },
+    "parent_id": {
+      "$ref": "urn:agent-kit:cortex:defs:v1#/$defs/uuid"
+    },
+    "correlation_id": {
+      "$ref": "urn:agent-kit:cortex:defs:v1#/$defs/ref-id"
+    },
+    "body": {
+      "type": "object",
+      "properties": {
+        "reason": {
+          "type": "string",
+          "enum": ["question", "conflict", "missing-access", "out-of-scope", "budget", "failure"]
+        },
+        "question": {
+          "$ref": "urn:agent-kit:cortex:defs:v1#/$defs/text"
+        },
+        "options": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "$ref": "urn:agent-kit:cortex:defs:v1#/$defs/token"
+              },
+              "label": {
+                "$ref": "urn:agent-kit:cortex:defs:v1#/$defs/title"
+              },
+              "recommended": {
+                "type": "boolean"
+              }
+            },
+            "required": ["id", "label", "recommended"],
+            "additionalProperties": false
+          },
+          "maxItems": 4
+        },
+        "context": {
+          "$ref": "urn:agent-kit:cortex:defs:v1#/$defs/text"
+        }
+      },
+      "required": ["reason", "question", "options"],
+      "additionalProperties": false
+    }
+  },
+  "required": ["schema", "id", "created_at", "producer", "work_item", "body"],
+  "additionalProperties": false
+}

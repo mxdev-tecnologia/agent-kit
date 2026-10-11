@@ -1,0 +1,39 @@
+{
+  "schema": "cortex.blocked/v1",
+  "id": "123e4567-e89b-42d3-a456-426614174000",
+  "created_at": "2026-01-02T03:04:05Z",
+  "producer": {
+    "agent": "builder",
+    "run": "run-001"
+  },
+  "work_item": "spec-02b",
+  "body": {
+    "reason": "conflict",
+    "question": "Spec and code conflict. Which wins?",
+    "options": [
+      {
+        "id": "s1",
+        "label": "Option 1",
+        "recommended": true
+      },
+      {
+        "id": "s2",
+        "label": "Option 2",
+        "recommended": false
+      },
+      {
+        "id": "s3",
+        "label": "Option 3",
+        "recommended": false
+      },
+      {
+        "id": "s4",
+        "label": "Option 4",
+        "recommended": false
+      }
+    ],
+    "context": "The spec says A and the code does B."
+  },
+  "parent_id": "123e4567-e89b-42d3-a456-426614174001",
+  "correlation_id": "corr-001"
+}

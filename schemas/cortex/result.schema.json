@@ -1,0 +1,122 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agent-kit:cortex:result:v1",
+  "title": "cortex.result/v1",
+  "description": "Outcome of a task.",
+  "type": "object",
+  "properties": {
+    "schema": {
+      "type": "string",
+      "const": "cortex.result/v1"
+    },
+    "id": {
+      "$ref": "urn:agent-kit:cortex:defs:v1#/$defs/uuid"
+    },
+    "created_at": {
+      "$ref": "urn:agent-kit:cortex:defs:v1#/$defs/timestamp"
+    },
+    "producer": {
+      "type": "object",
+      "properties": {
+        "agent": {
+          "$ref": "urn:agent-kit:common:v1#/$defs/name"
+        },
+        "run": {
+          "$ref": "urn:agent-kit:cortex:defs:v1#/$defs/ref-id"
+        }
+      },
+      "required": ["agent"],
+      "additionalProperties": false
+    },
+    "work_item": {
+      "$ref": "urn:agent-kit:cortex:defs:v1#/$defs/item-id"
+    },
+    "parent_id": {
+      "$ref": "urn:agent-kit:cortex:defs:v1#/$defs/uuid"
+    },
+    "correlation_id": {
+      "$ref": "urn:agent-kit:cortex:defs:v1#/$defs/ref-id"
+    },
+    "body": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["done", "partial"]
+        },
+        "summary": {
+          "$ref": "urn:agent-kit:cortex:defs:v1#/$defs/text"
+        },
+        "changes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "path": {
+                "$ref": "urn:agent-kit:cortex:defs:v1#/$defs/ref"
+              },
+              "action": {
+                "type": "string",
+                "enum": ["add", "modify", "delete"]
+              }
+            },
+            "required": ["path", "action"],
+            "additionalProperties": false
+          },
+          "maxItems": 20
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "criterion": {
+                "$ref": "urn:agent-kit:cortex:defs:v1#/$defs/criterion-id"
+              },
+              "kind": {
+                "type": "string",
+                "enum": ["test", "command", "manual", "inspection"]
+              },
+              "ref": {
+                "$ref": "urn:agent-kit:cortex:defs:v1#/$defs/ref"
+              },
+              "outcome": {
+                "type": "string",
+                "enum": ["pass", "fail", "pending"]
+              }
+            },
+            "required": ["criterion", "kind", "ref", "outcome"],
+            "additionalProperties": false
+          },
+          "maxItems": 20
+        },
+        "usage": {
+          "type": "object",
+          "properties": {
+            "input_tokens": {
+              "$ref": "urn:agent-kit:cortex:defs:v1#/$defs/count"
+            },
+            "output_tokens": {
+              "$ref": "urn:agent-kit:cortex:defs:v1#/$defs/count"
+            },
+            "duration_ms": {
+              "$ref": "urn:agent-kit:cortex:defs:v1#/$defs/count"
+            },
+            "cost_usd": {
+              "$ref": "urn:agent-kit:cortex:defs:v1#/$defs/money"
+            }
+          },
+          "required": ["input_tokens", "output_tokens", "duration_ms"],
+          "additionalProperties": false
+        },
+        "notes": {
+          "$ref": "urn:agent-kit:cortex:defs:v1#/$defs/text"
+        }
+      },
+      "required": ["status", "summary", "changes", "evidence"],
+      "additionalProperties": false
+    }
+  },
+  "required": ["schema", "id", "created_at", "producer", "work_item", "body"],
+  "additionalProperties": false
+}

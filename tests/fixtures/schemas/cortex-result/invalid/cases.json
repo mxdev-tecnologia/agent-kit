@@ -1,0 +1,26 @@
+{
+  "status-finished.json": {
+    "keyword": "enum",
+    "instancePath": "/body/status"
+  },
+  "outcome-ok.json": {
+    "keyword": "enum",
+    "instancePath": "/body/evidence/0/outcome"
+  },
+  "action-rename.json": {
+    "keyword": "enum",
+    "instancePath": "/body/changes/0/action"
+  },
+  "missing-summary.json": {
+    "keyword": "required",
+    "instancePath": "/body"
+  },
+  "negative-cost.json": {
+    "keyword": "minimum",
+    "instancePath": "/body/usage/cost_usd"
+  },
+  "extra-property.json": {
+    "keyword": "additionalProperties",
+    "instancePath": ""
+  }
+}

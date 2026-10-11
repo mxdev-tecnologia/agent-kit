@@ -1,0 +1,14 @@
+{
+  "negative.json": {
+    "keyword": "minimum",
+    "instancePath": ""
+  },
+  "above-maximum.json": {
+    "keyword": "maximum",
+    "instancePath": ""
+  },
+  "not-a-number.json": {
+    "keyword": "type",
+    "instancePath": ""
+  }
+}

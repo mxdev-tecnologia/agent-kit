@@ -1,0 +1,227 @@
+{
+  "schema": "cortex.result/v1",
+  "id": "123e4567-e89b-42d3-a456-426614174000",
+  "created_at": "2026-01-02T03:04:05Z",
+  "producer": {
+    "agent": "builder",
+    "run": "run-001"
+  },
+  "work_item": "spec-02b",
+  "body": {
+    "status": "partial",
+    "summary": "Most criteria are met.",
+    "changes": [
+      {
+        "path": "src/file0.ts",
+        "action": "add"
+      },
+      {
+        "path": "src/file1.ts",
+        "action": "modify"
+      },
+      {
+        "path": "src/file2.ts",
+        "action": "delete"
+      },
+      {
+        "path": "src/file3.ts",
+        "action": "add"
+      },
+      {
+        "path": "src/file4.ts",
+        "action": "modify"
+      },
+      {
+        "path": "src/file5.ts",
+        "action": "delete"
+      },
+      {
+        "path": "src/file6.ts",
+        "action": "add"
+      },
+      {
+        "path": "src/file7.ts",
+        "action": "modify"
+      },
+      {
+        "path": "src/file8.ts",
+        "action": "delete"
+      },
+      {
+        "path": "src/file9.ts",
+        "action": "add"
+      },
+      {
+        "path": "src/file10.ts",
+        "action": "modify"
+      },
+      {
+        "path": "src/file11.ts",
+        "action": "delete"
+      },
+      {
+        "path": "src/file12.ts",
+        "action": "add"
+      },
+      {
+        "path": "src/file13.ts",
+        "action": "modify"
+      },
+      {
+        "path": "src/file14.ts",
+        "action": "delete"
+      },
+      {
+        "path": "src/file15.ts",
+        "action": "add"
+      },
+      {
+        "path": "src/file16.ts",
+        "action": "modify"
+      },
+      {
+        "path": "src/file17.ts",
+        "action": "delete"
+      },
+      {
+        "path": "src/file18.ts",
+        "action": "add"
+      },
+      {
+        "path": "src/file19.ts",
+        "action": "modify"
+      }
+    ],
+    "evidence": [
+      {
+        "criterion": "CA-01",
+        "kind": "test",
+        "ref": "ev-0",
+        "outcome": "pass"
+      },
+      {
+        "criterion": "CA-02",
+        "kind": "command",
+        "ref": "ev-1",
+        "outcome": "fail"
+      },
+      {
+        "criterion": "CA-03",
+        "kind": "manual",
+        "ref": "ev-2",
+        "outcome": "pending"
+      },
+      {
+        "criterion": "CA-04",
+        "kind": "inspection",
+        "ref": "ev-3",
+        "outcome": "pass"
+      },
+      {
+        "criterion": "CA-05",
+        "kind": "test",
+        "ref": "ev-4",
+        "outcome": "fail"
+      },
+      {
+        "criterion": "CA-06",
+        "kind": "command",
+        "ref": "ev-5",
+        "outcome": "pending"
+      },
+      {
+        "criterion": "CA-07",
+        "kind": "manual",
+        "ref": "ev-6",
+        "outcome": "pass"
+      },
+      {
+        "criterion": "CA-08",
+        "kind": "inspection",
+        "ref": "ev-7",
+        "outcome": "fail"
+      },
+      {
+        "criterion": "CA-09",
+        "kind": "test",
+        "ref": "ev-8",
+        "outcome": "pending"
+      },
+      {
+        "criterion": "CA-10",
+        "kind": "command",
+        "ref": "ev-9",
+        "outcome": "pass"
+      },
+      {
+        "criterion": "CA-11",
+        "kind": "manual",
+        "ref": "ev-10",
+        "outcome": "fail"
+      },
+      {
+        "criterion": "CA-12",
+        "kind": "inspection",
+        "ref": "ev-11",
+        "outcome": "pending"
+      },
+      {
+        "criterion": "CA-13",
+        "kind": "test",
+        "ref": "ev-12",
+        "outcome": "pass"
+      },
+      {
+        "criterion": "CA-14",
+        "kind": "command",
+        "ref": "ev-13",
+        "outcome": "fail"
+      },
+      {
+        "criterion": "CA-15",
+        "kind": "manual",
+        "ref": "ev-14",
+        "outcome": "pending"
+      },
+      {
+        "criterion": "CA-16",
+        "kind": "inspection",
+        "ref": "ev-15",
+        "outcome": "pass"
+      },
+      {
+        "criterion": "CA-17",
+        "kind": "test",
+        "ref": "ev-16",
+        "outcome": "fail"
+      },
+      {
+        "criterion": "CA-18",
+        "kind": "command",
+        "ref": "ev-17",
+        "outcome": "pending"
+      },
+      {
+        "criterion": "CA-19",
+        "kind": "manual",
+        "ref": "ev-18",
+        "outcome": "pass"
+      },
+      {
+        "criterion": "CA-20",
+        "kind": "inspection",
+        "ref": "ev-19",
+        "outcome": "fail"
+      }
+    ],
+    "usage": {
+      "input_tokens": 1000,
+      "output_tokens": 500,
+      "duration_ms": 60000,
+      "cost_usd": 0.25
+    },
+    "notes": "Follow-up needed for the remaining criterion."
+  },
+  "parent_id": "123e4567-e89b-42d3-a456-426614174001",
+  "correlation_id": "corr-001"
+}
