@@ -1,13 +1,13 @@
 # Spec 02a — Contracts core: schema validator, common definitions and frontmatter format
 
-- **Status:** validada
+- **Status:** em PR (#9)
 - **Nível:** completo
 - **Risco:** médio
 - **Depende de:** spec-01a
 - **Épico:** agent-kit v1
 - **Branch:** feature/spec-02a-contracts-core
 - **Jira:** —
-- **PR:** —
+- **PR:** #9
 - **Versão:** —
 - **ADR:** ADR-0002
 - **Contexto:** `docs/adr/0002-own-json-schema-subset-validator.md`, `docs/adr/0001-typescript-cli-zero-runtime-deps.md`, `docs/ARCHITECTURE.md`, `docs/sdd/01a-cli-foundation.md`, `.claude/workflow.md`
