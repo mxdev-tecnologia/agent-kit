@@ -1,6 +1,6 @@
 # Spec 01a — CLI foundation: toolchain and command skeleton
 
-- **Status:** em andamento
+- **Status:** validada
 - **Nível:** lite
 - **Risco:** médio
 - **Depende de:** —
@@ -106,17 +106,17 @@ pnpm -s test:smoke                                  # all pass, exit 0
 ## Traceability matrix
 | Requirement | CA | Verification | Files | Evidence |
 |---|---|---|---|---|
-| RF-01 | CA-01 | test | `src/cli.ts`, `src/version.ts`, `tests/cli.test.ts` | |
-| RF-02 | CA-02 | test | `src/cli.ts`, `tests/cli.test.ts` | |
-| RF-03 | CA-03 | test | `src/cli.ts`, `tests/cli.test.ts` | |
-| RF-04 | CA-04 | test | `src/commands/check-self.ts`, `tests/check-self.test.ts` | |
-| RF-05 | CA-05 | test | `src/commands/check-self.ts`, `tests/check-self.test.ts` | |
-| RF-06 | CA-06 | test | `src/cli.ts`, `src/commands/check-self.ts`, `tests/check-self.test.ts` | |
-| RNF-01 | CA-07 | test | `package.json`, `tests/package-policy.test.ts` | |
-| RNF-02 | CA-08 | test (smoke) | `src/cli.ts`, `tests/smoke/cli.smoke.test.ts` | |
-| RNF-03 | CA-09 | command | `src/**` | |
-| RNF-04 | CA-10 | command | `.claude/workflow.md`, `biome.json`, `tsconfig.json`, `src/**`, `tests/**` | |
-| RNF-05 | CA-11 | command | `package.json`, `pnpm-lock.yaml` | |
+| RF-01 | CA-01 | test | `src/cli.ts`, `src/version.ts`, `tests/cli.test.ts` | `tests/cli.test.ts:16` (`--version`, `-v`; stdout exato); `node dist/cli.js -v` → `0.1.0`, exit 0 |
+| RF-02 | CA-02 | test | `src/cli.ts`, `tests/cli.test.ts` | `tests/cli.test.ts:22` (`--help`, `-h`, sem args) |
+| RF-03 | CA-03 | test | `src/cli.ts`, `tests/cli.test.ts` | `tests/cli.test.ts:30` (`bogus`, `--bogus`, `check` sem `--self`; stdout vazio, exit 2); `node dist/cli.js --bogus` → exit 2 |
+| RF-04 | CA-04 | test | `src/commands/check-self.ts`, `tests/check-self.test.ts` | `tests/check-self.test.ts:35`; `node dist/cli.js check --self` no repo → OK, exit 0 |
+| RF-05 | CA-05 | test | `src/commands/check-self.ts`, `tests/check-self.test.ts` | `tests/check-self.test.ts:42` (11 linhas = 5 arquivos + 5 dirs + VERSION mismatch, exit 1) |
+| RF-06 | CA-06 | test | `src/cli.ts`, `src/commands/check-self.ts`, `tests/check-self.test.ts` | `tests/check-self.test.ts:53` (`--root` inválido → 1 com cwd válido; `--root` válido → 0). Obs.: o comentário em `:54` diz que o cwd é inválido, mas o cwd do teste é a raiz do repo (válida); o teste ainda discrimina |
+| RNF-01 | CA-07 | test | `package.json`, `tests/package-policy.test.ts` | `tests/package-policy.test.ts:10`; `package.json` sem `dependencies`, 4 devDeps exatas |
+| RNF-02 | CA-08 | test (smoke) | `src/cli.ts`, `tests/smoke/cli.smoke.test.ts` | `tests/smoke/cli.smoke.test.ts:10` via `pnpm -s test:smoke` OK (local e `CI=1`) |
+| RNF-03 | CA-09 | command | `src/**` | `! grep -rnE "child_process\|execSync\|spawn" src` → nenhum; `node:path` em `src/cli.ts:3`, `src/version.ts:2`, `src/commands/check-self.ts:2` |
+| RNF-04 | CA-10 | command | `.claude/workflow.md`, `biome.json`, `tsconfig.json`, `src/**`, `tests/**` | `pnpm -s lint` (11 arquivos, 0 erros) e `pnpm -s typecheck` → exit 0 |
+| RNF-05 | CA-11 | command | `package.json`, `pnpm-lock.yaml` | `npm view` reconferido em 2026-10-10: typescript 7.0.2 (07-08), biome 2.5.14 (09-16), vitest 5.0.1 (09-15), @types/node 24.19.0 (09-25) — todas ≥ 14 dias; lockfile só com registry npm e integrity |
 
 ## Execution notes
 Implementation date: 2026-10-10 (cutoff for 14 days: 2026-09-26). `npm view <pkg> time --json`, pinned version:
@@ -135,3 +135,16 @@ Decisions:
 
 ## Validation report
 Modo A — ciclo 1: ESCALAR/ajustes aplicados; ciclo 2: APROVADO (spec-checker). Risco médio: validação da entrega pelo spec-validator.
+
+Modo B — entrega:
+```
+MODO: B · VEREDITO: APROVADO · VALIDADOR: spec-validator (Opus high)
+SMOKE: FALHOU no harness (timeout esperando /health: a seção Smoke do projeto não sobe HTTP; pré-existente, fora do diff) · smoke_tests direto (`pnpm -s test:smoke`) OK, local e CI=1
+ACHADOS:
+- [importante] package.json:13 — `pnpm@12.11.2` saiu em 2026-10-09 (1 dia); o corepack o executa em todo install e a regra de 14 dias (RNF-05) só cobre devDependencies → fixar uma versão com ≥ 14 dias (ex.: `pnpm@12.7.0`, 2026-09-25) e regerar o lockfile, ou aceitar e registrar a exceção
+- [importante] .claude/workflow.md:61 — `smoke_app` não serve `/health`, então `smoke.sh` sempre reprova por timeout → adaptar o harness para projetos sem HTTP (ou um health stub) numa mudança de ferramenta separada
+- [importante] docs/sdd/README.md:7 — o ciclo de vida em inglês não tem `validated`, mas a linha 9 o mapeia para `validada` → incluir `validated` entre `in progress` e `in PR`
+CA SEM EVIDÊNCIA: nenhum   · MANUAIS: nenhum
+DECISÃO HUMANA NECESSÁRIA: pnpm 12.11.2 (1 dia) — (a) baixar para 12.7.0 antes da PR (recomendado) ou (b) manter e registrar a exceção nas Execution notes
+```
+Escopo: os 25 arquivos do diff estão todos no Design. Supply chain: zero runtime deps, devDeps exatas, `packageManager` fixado. Docs (AGENTS.md, INSTRUCTIONS, ARCHITECTURE, sdd/README, ADR) batem com o código. Repo público: nenhuma referência privada nas linhas adicionadas.
