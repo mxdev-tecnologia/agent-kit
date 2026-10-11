@@ -45,6 +45,11 @@ Later, `agent-kit update` merges new versions while keeping your project-specifi
 | Codex | `AGENTS.md` | `.agents/skills/` | roles in `AGENTS.md` | as skills |
 | Antigravity | `AGENTS.md` | `.agents/skills/` | `.agents/agents/` | `.agents/workflows/` |
 
+## Contributing and security
+
+- Contribution guide: [`CONTRIBUTING.md`](CONTRIBUTING.md)
+- Reporting vulnerabilities: [`SECURITY.md`](SECURITY.md)
+
 ## License
 
 [MIT](LICENSE)

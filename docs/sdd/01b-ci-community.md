@@ -56,10 +56,10 @@ Spec 01a created the CLI and the local gate. This spec runs the same gate in Git
 **Decisions:** the workflow follows the hardening rules in RNF-01 to RNF-03; the policy test adds no dependency (plain regex over text).
 
 ## Tasks
-- [ ] `.github/workflows/ci.yml` and `.github/dependabot.yml`
-- [ ] `CONTRIBUTING.md` and `SECURITY.md`
-- [ ] `tests/ci-policy.test.ts`
-- [ ] Docs updated (`README.md`, `docs/INSTRUCTIONS.md`)
+- [x] `.github/workflows/ci.yml` and `.github/dependabot.yml`
+- [x] `CONTRIBUTING.md` and `SECURITY.md`
+- [x] `tests/ci-policy.test.ts`
+- [x] Docs updated (`README.md`, `docs/INSTRUCTIONS.md`)
 
 ## Aceite
 ```bash
@@ -94,7 +94,7 @@ pnpm -s test:smoke                                  # all pass, exit 0
 | RNF-03 | CA-08 | test | `.github/workflows/ci.yml`, `tests/ci-policy.test.ts` | |
 
 ## Execution notes
-<Deviations from the Design and decisions made during implementation.>
+No deviations. pnpm via corepack (`packageManager`); actions pinned: checkout v7.0.1, setup-node v7.0.0 (published more than 14 days ago). Pending after the PR: RNF-02 duration under 10 minutes and CA-09 green checks on the three matrix legs.
 
 ## Validation report
 <Filled by the validator: spec review (pre-approval) and delivery validation.>
