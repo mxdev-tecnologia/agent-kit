@@ -1,0 +1,10 @@
+{
+  "format": "agent-kit/v1",
+  "name": "demo",
+  "description": "A demo.",
+  "capabilities": ["read", "web"],
+  "user-invocable": true,
+  "x-owner": "team",
+  "x-count": 3,
+  "x-flag": true
+}

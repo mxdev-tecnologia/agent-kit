@@ -1,0 +1,8 @@
+{
+  "format": "agent-kit/v1",
+  "name": "demo",
+  "description": "A demo.",
+  "title": "",
+  "capabilities": ["read", "search"],
+  "tier": "standard"
+}

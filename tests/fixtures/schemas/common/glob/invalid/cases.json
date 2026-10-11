@@ -1,0 +1,14 @@
+{
+  "empty.json": {
+    "keyword": "minLength",
+    "instancePath": ""
+  },
+  "len257.json": {
+    "keyword": "maxLength",
+    "instancePath": ""
+  },
+  "not-string.json": {
+    "keyword": "type",
+    "instancePath": ""
+  }
+}

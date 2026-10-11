@@ -1,0 +1,98 @@
+{
+  "missing-name.json": {
+    "keyword": "required",
+    "instancePath": ""
+  },
+  "missing-description.json": {
+    "keyword": "required",
+    "instancePath": ""
+  },
+  "missing-format.json": {
+    "keyword": "required",
+    "instancePath": ""
+  },
+  "wrong-format.json": {
+    "keyword": "const",
+    "instancePath": "/format"
+  },
+  "unknown-key.json": {
+    "keyword": "additionalProperties",
+    "instancePath": ""
+  },
+  "model-field.json": {
+    "keyword": "additionalProperties",
+    "instancePath": ""
+  },
+  "upper-x-key.json": {
+    "keyword": "additionalProperties",
+    "instancePath": ""
+  },
+  "x-key-too-long.json": {
+    "keyword": "additionalProperties",
+    "instancePath": ""
+  },
+  "x-key-bad-value.json": {
+    "keyword": "type",
+    "instancePath": "/x-n"
+  },
+  "x-key-long-value.json": {
+    "keyword": "maxLength",
+    "instancePath": "/x-v"
+  },
+  "bad-name.json": {
+    "keyword": "pattern",
+    "instancePath": "/name"
+  },
+  "empty-description.json": {
+    "keyword": "minLength",
+    "instancePath": "/description"
+  },
+  "missing-title.json": {
+    "keyword": "required",
+    "instancePath": ""
+  },
+  "missing-capabilities.json": {
+    "keyword": "required",
+    "instancePath": ""
+  },
+  "missing-tier.json": {
+    "keyword": "required",
+    "instancePath": ""
+  },
+  "duplicate-capabilities.json": {
+    "keyword": "uniqueItems",
+    "instancePath": "/capabilities"
+  },
+  "empty-capabilities.json": {
+    "keyword": "minItems",
+    "instancePath": "/capabilities"
+  },
+  "unknown-capability.json": {
+    "keyword": "enum",
+    "instancePath": "/capabilities/0"
+  },
+  "verifier-string.json": {
+    "keyword": "type",
+    "instancePath": "/verifier"
+  },
+  "bad-emits.json": {
+    "keyword": "pattern",
+    "instancePath": "/emits/0"
+  },
+  "emits-not-list.json": {
+    "keyword": "type",
+    "instancePath": "/emits"
+  },
+  "title-too-long.json": {
+    "keyword": "maxLength",
+    "instancePath": "/title"
+  },
+  "empty-title.json": {
+    "keyword": "minLength",
+    "instancePath": "/title"
+  },
+  "bad-tier.json": {
+    "keyword": "enum",
+    "instancePath": "/tier"
+  }
+}

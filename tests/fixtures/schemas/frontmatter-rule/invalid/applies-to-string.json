@@ -1,0 +1,6 @@
+{
+  "format": "agent-kit/v1",
+  "name": "demo",
+  "description": "A demo.",
+  "applies-to": "**/*.md"
+}

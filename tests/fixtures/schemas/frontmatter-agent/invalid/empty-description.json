@@ -1,0 +1,8 @@
+{
+  "format": "agent-kit/v1",
+  "name": "demo",
+  "description": "",
+  "title": "Code reviewer",
+  "capabilities": ["read", "search"],
+  "tier": "standard"
+}
