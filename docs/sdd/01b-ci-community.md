@@ -51,6 +51,7 @@ Spec 01a created the CLI and the local gate. This spec runs the same gate in Git
 - `CONTRIBUTING.md`
 - `SECURITY.md`
 - `tests/ci-policy.test.ts` — regex checks over the workflow and Dependabot files
+- `.gitattributes` — approved addition (see Execution notes)
 - Docs: `README.md` (short "Contributing" and "Security" links), `docs/INSTRUCTIONS.md` (CI section)
 
 **Decisions:** the workflow follows the hardening rules in RNF-01 to RNF-03; the policy test adds no dependency (plain regex over text).
@@ -95,6 +96,8 @@ pnpm -s test:smoke                                  # all pass, exit 0
 
 ## Execution notes
 No deviations. pnpm via corepack (`packageManager`); actions pinned: checkout v7.0.1, setup-node v7.0.0 (published more than 14 days ago). Pending after the PR: RNF-02 duration under 10 minutes and CA-09 green checks on the three matrix legs.
+
+.gitattributes added with owner approval to fix CRLF on the Windows CI leg.
 
 ## Validation report
 ### Delivery validation (2026-10-11)
