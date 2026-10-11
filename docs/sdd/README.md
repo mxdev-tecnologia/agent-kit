@@ -4,7 +4,7 @@ Spec-driven development plan for the public agent-kit repository. Each spec live
 
 ## Lifecycle
 
-`planned` → `draft` → `review` → `approved` → `in progress` → `in PR` → `delivered` → `released`
+`planned` → `draft` → `review` → `approved` → `in progress` → `validated` → `in PR` → `delivered` → `released`
 
 In the tooling, the Status column of each spec file uses the Portuguese values: rascunho (draft), aprovada (approved), em andamento (in progress), validada (validated), em PR (in PR), entregue (delivered), publicada (released).
 

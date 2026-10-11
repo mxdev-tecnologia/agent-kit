@@ -22,10 +22,10 @@ This repository builds **agent-kit**, a portable SDD brain (skills, agents, work
 
 ```bash
 corepack enable && pnpm install --frozen-lockfile   # setup
-pnpm -s lint                                        # Biome
-pnpm -s typecheck                                   # tsc --noEmit
-pnpm -s test                                        # Vitest (unit)
-pnpm -s build                                       # tsc to dist/
+pnpm --silent lint                                        # Biome
+pnpm --silent typecheck                                   # tsc --noEmit
+pnpm --silent test                                        # Vitest (unit)
+pnpm --silent build                                       # tsc to dist/
 node dist/cli.js check --self                       # repository invariants
-pnpm -s test:smoke                                  # smoke tests against dist/
+pnpm --silent test:smoke                                  # smoke tests against dist/
 ```

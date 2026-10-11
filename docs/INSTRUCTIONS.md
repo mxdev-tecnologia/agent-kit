@@ -17,13 +17,13 @@ Requirements: Node.js 22+ and pnpm (provided by corepack).
 ```bash
 corepack enable
 pnpm install --frozen-lockfile
-pnpm -s lint          # Biome
-pnpm -s typecheck     # tsc --noEmit
-pnpm -s test          # Vitest, unit tests
-pnpm -s build         # compiles src/ to dist/
+pnpm --silent lint          # Biome
+pnpm --silent typecheck     # tsc --noEmit
+pnpm --silent test          # Vitest, unit tests
+pnpm --silent build         # compiles src/ to dist/
 node dist/cli.js check --self   # repository invariants
-pnpm -s test:smoke    # smoke tests (need a built dist/)
-pnpm -s format        # Biome formatter
+pnpm --silent test:smoke    # smoke tests (need a built dist/)
+pnpm --silent format        # Biome formatter
 ```
 
 CLI exit codes: `0` success, `1` a `check` invariant failed, `2` usage error (unknown command or option, or `check` without `--self`). Until the installer lands (spec-03), `check` only works with `--self` (optionally `--root <dir>`).
