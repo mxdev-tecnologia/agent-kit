@@ -51,6 +51,8 @@ describe("ci policy", () => {
 
   it("test_ca_06_hardening", () => {
     expect(ciCode).toMatch(/^permissions:\s*\n\s+contents: read\s*$/m);
+    expect(ciCode.match(/^\s*permissions:/gm)).toHaveLength(1);
+    expect(ciCode).not.toMatch(/:\s*write\b|write-all/);
     expect(ciCode).not.toMatch(/pull_request_target/);
     expect(ciCode).not.toMatch(/secrets\./);
     const uses = [...ci.matchAll(/^\s+(?:-\s+)?uses:\s*(\S+)(.*)$/gm)];
