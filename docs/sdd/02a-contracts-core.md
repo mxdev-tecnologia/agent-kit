@@ -1,6 +1,6 @@
 # Spec 02a — Contracts core: schema validator, common definitions and frontmatter format
 
-- **Status:** em andamento
+- **Status:** validada
 - **Nível:** completo
 - **Risco:** médio
 - **Depende de:** spec-01a
