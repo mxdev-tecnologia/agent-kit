@@ -1,0 +1,111 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agent-kit:cortex:defs:v1",
+  "title": "Cortex shared definitions",
+  "description": "Building blocks shared by the cortex.*/v1 envelopes.",
+  "$defs": {
+    "uuid": {
+      "description": "UUID, 8-4-4-4-12 hexadecimal digits.",
+      "type": "string",
+      "format": "uuid",
+      "maxLength": 36
+    },
+    "timestamp": {
+      "description": "RFC 3339 UTC timestamp; T and Z are uppercase.",
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]{1,9})?Z$",
+      "maxLength": 30
+    },
+    "item-id": {
+      "description": "Id of the work item (a spec, a brief, a campaign).",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "ref-id": {
+      "description": "Opaque reference id.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "token": {
+      "description": "Short id of a step, option or finding.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 32
+    },
+    "criterion-id": {
+      "description": "Acceptance criterion id, such as CA-01.",
+      "type": "string",
+      "pattern": "^[A-Z]{2,4}-[0-9]{2,3}$",
+      "maxLength": 8
+    },
+    "title": {
+      "description": "Title.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 120
+    },
+    "short-text": {
+      "description": "Short text.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160
+    },
+    "note": {
+      "description": "Note.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 400
+    },
+    "text": {
+      "description": "Text.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 600
+    },
+    "long-text": {
+      "description": "Long text.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 2000
+    },
+    "ref": {
+      "description": "Reference: path, URL, id or branch name.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160
+    },
+    "commit-hash": {
+      "description": "Commit hash, 7 to 64 lowercase hexadecimal digits (SHA-1 and SHA-256).",
+      "type": "string",
+      "pattern": "^[0-9a-f]{7,64}$",
+      "maxLength": 64
+    },
+    "positive-int": {
+      "description": "Positive integer.",
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 10000000
+    },
+    "count": {
+      "description": "Non-negative integer.",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 10000000
+    },
+    "money": {
+      "description": "Amount, zero or more.",
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1000000
+    },
+    "metric": {
+      "description": "Measured value.",
+      "type": "number",
+      "minimum": -1000000000000,
+      "maximum": 1000000000000
+    }
+  }
+}

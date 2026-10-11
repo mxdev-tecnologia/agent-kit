@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agent-kit:cortex:observation:v1",
+  "title": "cortex.observation/v1",
+  "description": "A signal about a run, an agent or a task.",
+  "type": "object",
+  "properties": {
+    "schema": {
+      "type": "string",
+      "const": "cortex.observation/v1"
+    },
+    "id": {
+      "$ref": "urn:agent-kit:cortex:defs:v1#/$defs/uuid"
+    },
+    "created_at": {
+      "$ref": "urn:agent-kit:cortex:defs:v1#/$defs/timestamp"
+    },
+    "producer": {
+      "type": "object",
+      "properties": {
+        "agent": {
+          "$ref": "urn:agent-kit:common:v1#/$defs/name"
+        },
+        "run": {
+          "$ref": "urn:agent-kit:cortex:defs:v1#/$defs/ref-id"
+        }
+      },
+      "required": ["agent"],
+      "additionalProperties": false
+    },
+    "work_item": {
+      "$ref": "urn:agent-kit:cortex:defs:v1#/$defs/item-id"
+    },
+    "parent_id": {
+      "$ref": "urn:agent-kit:cortex:defs:v1#/$defs/uuid"
+    },
+    "correlation_id": {
+      "$ref": "urn:agent-kit:cortex:defs:v1#/$defs/ref-id"
+    },
+    "body": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": ["stall", "loop", "budget", "error", "summary", "info"]
+        },
+        "severity": {
+          "type": "string",
+          "enum": ["info", "warning", "critical"]
+        },
+        "subject": {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "type": "string",
+              "enum": ["run", "agent", "task"]
+            },
+            "ref": {
+              "$ref": "urn:agent-kit:cortex:defs:v1#/$defs/ref"
+            }
+          },
+          "required": ["kind", "ref"],
+          "additionalProperties": false
+        },
+        "message": {
+          "$ref": "urn:agent-kit:cortex:defs:v1#/$defs/text"
+        },
+        "metrics": {
+          "type": "object",
+          "patternProperties": {
+            "^[a-z][a-z0-9_]{0,63}$": {
+              "$ref": "urn:agent-kit:cortex:defs:v1#/$defs/metric"
+            }
+          },
+          "additionalProperties": false,
+          "maxProperties": 32
+        }
+      },
+      "required": ["kind", "severity", "subject", "message"],
+      "additionalProperties": false
+    }
+  },
+  "required": ["schema", "id", "created_at", "producer", "work_item", "body"],
+  "additionalProperties": false
+}

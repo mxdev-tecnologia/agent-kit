@@ -1,0 +1,132 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agent-kit:cortex:task:v1",
+  "title": "cortex.task/v1",
+  "description": "Work assigned to an agent.",
+  "type": "object",
+  "properties": {
+    "schema": {
+      "type": "string",
+      "const": "cortex.task/v1"
+    },
+    "id": {
+      "$ref": "urn:agent-kit:cortex:defs:v1#/$defs/uuid"
+    },
+    "created_at": {
+      "$ref": "urn:agent-kit:cortex:defs:v1#/$defs/timestamp"
+    },
+    "producer": {
+      "type": "object",
+      "properties": {
+        "agent": {
+          "$ref": "urn:agent-kit:common:v1#/$defs/name"
+        },
+        "run": {
+          "$ref": "urn:agent-kit:cortex:defs:v1#/$defs/ref-id"
+        }
+      },
+      "required": ["agent"],
+      "additionalProperties": false
+    },
+    "work_item": {
+      "$ref": "urn:agent-kit:cortex:defs:v1#/$defs/item-id"
+    },
+    "parent_id": {
+      "$ref": "urn:agent-kit:cortex:defs:v1#/$defs/uuid"
+    },
+    "correlation_id": {
+      "$ref": "urn:agent-kit:cortex:defs:v1#/$defs/ref-id"
+    },
+    "body": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "$ref": "urn:agent-kit:cortex:defs:v1#/$defs/title"
+        },
+        "instructions": {
+          "$ref": "urn:agent-kit:cortex:defs:v1#/$defs/long-text"
+        },
+        "assignee": {
+          "$ref": "urn:agent-kit:common:v1#/$defs/name"
+        },
+        "acceptance": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "$ref": "urn:agent-kit:cortex:defs:v1#/$defs/criterion-id"
+              },
+              "text": {
+                "$ref": "urn:agent-kit:cortex:defs:v1#/$defs/short-text"
+              }
+            },
+            "required": ["id", "text"],
+            "additionalProperties": false
+          },
+          "minItems": 1,
+          "maxItems": 10
+        },
+        "scope": {
+          "type": "object",
+          "properties": {
+            "allow": {
+              "type": "array",
+              "items": {
+                "$ref": "urn:agent-kit:common:v1#/$defs/glob"
+              },
+              "minItems": 1,
+              "maxItems": 6,
+              "uniqueItems": true
+            },
+            "deny": {
+              "type": "array",
+              "items": {
+                "$ref": "urn:agent-kit:common:v1#/$defs/glob"
+              },
+              "maxItems": 6,
+              "uniqueItems": true
+            }
+          },
+          "required": ["allow", "deny"],
+          "additionalProperties": false
+        },
+        "inputs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "kind": {
+                "type": "string",
+                "enum": ["file", "url", "envelope", "note"]
+              },
+              "ref": {
+                "$ref": "urn:agent-kit:cortex:defs:v1#/$defs/ref"
+              }
+            },
+            "required": ["kind", "ref"],
+            "additionalProperties": false
+          },
+          "maxItems": 8
+        },
+        "budget": {
+          "type": "object",
+          "properties": {
+            "max_tokens": {
+              "$ref": "urn:agent-kit:cortex:defs:v1#/$defs/positive-int"
+            },
+            "max_minutes": {
+              "$ref": "urn:agent-kit:cortex:defs:v1#/$defs/positive-int"
+            }
+          },
+          "required": ["max_tokens", "max_minutes"],
+          "additionalProperties": false
+        }
+      },
+      "required": ["title", "instructions", "assignee", "acceptance", "scope", "inputs"],
+      "additionalProperties": false
+    }
+  },
+  "required": ["schema", "id", "created_at", "producer", "work_item", "body"],
+  "additionalProperties": false
+}

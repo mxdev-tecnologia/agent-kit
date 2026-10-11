@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agent-kit:cortex:lesson:v1",
+  "title": "cortex.lesson/v1",
+  "description": "A reusable learning.",
+  "type": "object",
+  "properties": {
+    "schema": {
+      "type": "string",
+      "const": "cortex.lesson/v1"
+    },
+    "id": {
+      "$ref": "urn:agent-kit:cortex:defs:v1#/$defs/uuid"
+    },
+    "created_at": {
+      "$ref": "urn:agent-kit:cortex:defs:v1#/$defs/timestamp"
+    },
+    "producer": {
+      "type": "object",
+      "properties": {
+        "agent": {
+          "$ref": "urn:agent-kit:common:v1#/$defs/name"
+        },
+        "run": {
+          "$ref": "urn:agent-kit:cortex:defs:v1#/$defs/ref-id"
+        }
+      },
+      "required": ["agent"],
+      "additionalProperties": false
+    },
+    "work_item": {
+      "$ref": "urn:agent-kit:cortex:defs:v1#/$defs/item-id"
+    },
+    "parent_id": {
+      "$ref": "urn:agent-kit:cortex:defs:v1#/$defs/uuid"
+    },
+    "correlation_id": {
+      "$ref": "urn:agent-kit:cortex:defs:v1#/$defs/ref-id"
+    },
+    "body": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "$ref": "urn:agent-kit:cortex:defs:v1#/$defs/short-text"
+        },
+        "lesson": {
+          "$ref": "urn:agent-kit:cortex:defs:v1#/$defs/long-text"
+        },
+        "context": {
+          "$ref": "urn:agent-kit:cortex:defs:v1#/$defs/text"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:agent-kit:common:v1#/$defs/name"
+          },
+          "maxItems": 10,
+          "uniqueItems": true
+        },
+        "applies_to": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:agent-kit:common:v1#/$defs/glob"
+          },
+          "maxItems": 8,
+          "uniqueItems": true
+        },
+        "confidence": {
+          "type": "string",
+          "enum": ["low", "medium", "high"]
+        }
+      },
+      "required": ["title", "lesson", "tags", "applies_to", "confidence"],
+      "additionalProperties": false
+    }
+  },
+  "required": ["schema", "id", "created_at", "producer", "work_item", "body"],
+  "additionalProperties": false
+}

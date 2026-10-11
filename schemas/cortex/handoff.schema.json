@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agent-kit:cortex:handoff:v1",
+  "title": "cortex.handoff/v1",
+  "description": "State passed to the next agent or session.",
+  "type": "object",
+  "properties": {
+    "schema": {
+      "type": "string",
+      "const": "cortex.handoff/v1"
+    },
+    "id": {
+      "$ref": "urn:agent-kit:cortex:defs:v1#/$defs/uuid"
+    },
+    "created_at": {
+      "$ref": "urn:agent-kit:cortex:defs:v1#/$defs/timestamp"
+    },
+    "producer": {
+      "type": "object",
+      "properties": {
+        "agent": {
+          "$ref": "urn:agent-kit:common:v1#/$defs/name"
+        },
+        "run": {
+          "$ref": "urn:agent-kit:cortex:defs:v1#/$defs/ref-id"
+        }
+      },
+      "required": ["agent"],
+      "additionalProperties": false
+    },
+    "work_item": {
+      "$ref": "urn:agent-kit:cortex:defs:v1#/$defs/item-id"
+    },
+    "parent_id": {
+      "$ref": "urn:agent-kit:cortex:defs:v1#/$defs/uuid"
+    },
+    "correlation_id": {
+      "$ref": "urn:agent-kit:cortex:defs:v1#/$defs/ref-id"
+    },
+    "body": {
+      "type": "object",
+      "properties": {
+        "reason": {
+          "type": "string",
+          "enum": ["quota", "timeout", "manual", "failure"]
+        },
+        "summary": {
+          "$ref": "urn:agent-kit:cortex:defs:v1#/$defs/text"
+        },
+        "done": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:agent-kit:cortex:defs:v1#/$defs/title"
+          },
+          "maxItems": 12
+        },
+        "next": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:agent-kit:cortex:defs:v1#/$defs/title"
+          },
+          "maxItems": 12
+        },
+        "open_questions": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:agent-kit:cortex:defs:v1#/$defs/title"
+          },
+          "maxItems": 8
+        },
+        "refs": {
+          "type": "object",
+          "properties": {
+            "branch": {
+              "$ref": "urn:agent-kit:cortex:defs:v1#/$defs/ref"
+            },
+            "commit": {
+              "$ref": "urn:agent-kit:cortex:defs:v1#/$defs/commit-hash"
+            },
+            "worktree": {
+              "$ref": "urn:agent-kit:cortex:defs:v1#/$defs/ref"
+            },
+            "patch": {
+              "$ref": "urn:agent-kit:cortex:defs:v1#/$defs/ref"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "required": ["reason", "summary", "done", "next", "open_questions"],
+      "additionalProperties": false
+    }
+  },
+  "required": ["schema", "id", "created_at", "producer", "work_item", "body"],
+  "additionalProperties": false
+}
