@@ -148,12 +148,12 @@ Merge order: spec 01a is merged. Spec 02b builds on this one and relies on the c
 - `name` uses `{0,31}` instead of `*` in the hyphen group (identical set of strings within the 64-character cap) so that the ReDoS rule in RNF-07 holds.
 
 ## Tasks
-- [ ] `src/schemas/formats.ts` and `src/schemas/validate.ts` with tests (keywords, `$ref`, formats, errors, prototype safety, pattern gate, performance)
-- [ ] `src/schemas/registry.ts` and its tests (`$id` and path rules)
-- [ ] `src/schemas/frontmatter.ts` and `tests/frontmatter.test.ts`
-- [ ] `schemas/common.schema.json` and the four frontmatter schemas, with fixtures and `cases.json`
-- [ ] `tests/schemas-conformance.test.ts`: harness, `ajv` oracle, static ReDoS test, neutrality scan; `package.json`, `pnpm-lock.yaml`, `tests/package-policy.test.ts`
-- [ ] `check-self.ts` extension and `tests/check-self.test.ts` cases; remove `schemas/.gitkeep`
+- [x] `src/schemas/formats.ts` and `src/schemas/validate.ts` with tests (keywords, `$ref`, formats, errors, prototype safety, pattern gate, performance)
+- [x] `src/schemas/registry.ts` and its tests (`$id` and path rules)
+- [x] `src/schemas/frontmatter.ts` and `tests/frontmatter.test.ts`
+- [x] `schemas/common.schema.json` and the four frontmatter schemas, with fixtures and `cases.json`
+- [x] `tests/schemas-conformance.test.ts`: harness, `ajv` oracle, static ReDoS test, neutrality scan; `package.json`, `pnpm-lock.yaml`, `tests/package-policy.test.ts`
+- [x] `check-self.ts` extension and `tests/check-self.test.ts` cases; remove `schemas/.gitkeep`
 - [ ] Docs updated (`docs/ARCHITECTURE.md`, `README.md` if needed)
 
 ## Aceite
@@ -183,45 +183,61 @@ pnpm --silent test:smoke                            # all pass, exit 0
 ## Traceability matrix
 | Requirement | CA | Verification | Files | Evidence |
 |---|---|---|---|---|
-| RF-01 | CA-01 | test | `src/schemas/validate.ts`, `src/schemas/registry.ts`, `tests/schemas-validator.test.ts` | |
-| RF-02 | CA-02 | test | `src/schemas/validate.ts`, `tests/schemas-validator.test.ts` | |
-| RF-03 | CA-03 | test | `src/schemas/validate.ts`, `tests/schemas-validator.test.ts` | |
-| RF-04 | CA-04 | test | `src/schemas/validate.ts`, `src/schemas/registry.ts`, `tests/schemas-validator.test.ts` | |
-| RF-05 | CA-05 | test | `src/schemas/formats.ts`, `src/schemas/validate.ts`, `tests/schemas-validator.test.ts` | |
-| RF-06 | CA-06 | test | `src/schemas/validate.ts`, `tests/schemas-validator.test.ts` | |
-| RF-07 | CA-07 | test | `src/schemas/validate.ts`, `src/schemas/registry.ts`, `tests/schemas-validator.test.ts`, `tests/schemas-conformance.test.ts` | |
-| RF-08 | CA-08 | test | `src/schemas/validate.ts`, `tests/schemas-validator.test.ts` | |
-| RF-09 | CA-10 | test | `src/schemas/validate.ts`, `tests/schemas-validator.test.ts` | |
-| RF-10 | CA-11 | test | `src/schemas/registry.ts`, `tests/schemas-validator.test.ts` | |
-| RF-11 | CA-12, CA-26 | test | `src/schemas/registry.ts`, `tests/schemas-validator.test.ts`, `tests/schemas-conformance.test.ts` | |
-| RF-12 | CA-01 | test | `src/schemas/registry.ts`, `tests/schemas-validator.test.ts` | |
-| RF-13 | CA-13 | test | `src/schemas/frontmatter.ts`, `tests/frontmatter.test.ts` | |
-| RF-14 | CA-14, CA-15 | test | `src/schemas/frontmatter.ts`, `tests/frontmatter.test.ts` | |
-| RF-15 | CA-16 | test | `src/schemas/frontmatter.ts`, `tests/frontmatter.test.ts` | |
-| RF-16 | CA-17, CA-18 | test | `src/schemas/frontmatter.ts`, `tests/frontmatter.test.ts` | |
-| RF-17 | CA-19 | test | `schemas/common.schema.json`, `tests/schemas-conformance.test.ts`, `tests/fixtures/schemas/common/` | |
-| RF-18 | CA-20 | test | `schemas/frontmatter/*.schema.json`, `tests/schemas-conformance.test.ts`, `tests/fixtures/schemas/frontmatter-*/` | |
-| RF-19 | CA-20 | test | `schemas/frontmatter/*.schema.json`, `tests/schemas-conformance.test.ts`, `tests/fixtures/schemas/frontmatter-*/` | |
-| RF-20 | CA-21 | test | `schemas/**`, `tests/schemas-conformance.test.ts` | |
-| RF-21 | CA-22 | test | `src/commands/check-self.ts`, `tests/check-self.test.ts` | |
-| RF-22 | CA-23 | test | `src/commands/check-self.ts`, `tests/check-self.test.ts` | |
-| RF-23 | CA-24 | test | `src/commands/check-self.ts`, `tests/check-self.test.ts` | |
-| RF-24 | CA-25 | test | `src/commands/check-self.ts`, `tests/check-self.test.ts` | |
-| RF-25 | CA-26 | test | `tests/schemas-conformance.test.ts`, `tests/fixtures/schemas/**` | |
-| RNF-01 | CA-28 | test + command | `package.json`, `pnpm-lock.yaml`, `tests/package-policy.test.ts` | |
-| RNF-02 | CA-03, CA-04, CA-05, CA-08, CA-12 | test | `src/schemas/validate.ts`, `src/schemas/registry.ts`, `tests/schemas-validator.test.ts` | |
-| RNF-03 | CA-29 | test | `src/schemas/validate.ts`, `src/schemas/registry.ts`, `tests/schemas-validator.test.ts` | |
-| RNF-04 | CA-06, CA-31 | test + command | `src/schemas/validate.ts`, `tests/schemas-validator.test.ts` | |
-| RNF-05 | CA-17, CA-31 | test + command | `src/schemas/frontmatter.ts`, `tests/frontmatter.test.ts` | |
-| RNF-06 | CA-07 | test | `src/schemas/validate.ts`, `src/schemas/registry.ts`, `tests/schemas-validator.test.ts`, `tests/schemas-conformance.test.ts` | |
-| RNF-07 | CA-08, CA-09 | test | `src/schemas/validate.ts`, `tests/schemas-validator.test.ts`, `tests/schemas-conformance.test.ts` | |
-| RNF-08 | CA-05, CA-26, CA-27 | test | `tests/schemas-conformance.test.ts`, `tests/fixtures/schemas/**` | |
-| RNF-09 | CA-18, CA-30 | test + manual | `tests/frontmatter.test.ts` | |
-| RNF-10 | CA-21 | test | `schemas/**`, `tests/schemas-conformance.test.ts` | |
-| RNF-11 | CA-12, CA-32 | test + manual | `src/schemas/registry.ts`, `docs/ARCHITECTURE.md` | |
+| RF-01 | CA-01 | test | `src/schemas/validate.ts`, `src/schemas/registry.ts`, `tests/schemas-validator.test.ts` |  `tests/schemas-validator.test.ts::test_ca_01_valid_invalid_frozen_unknown_id_and_fragment` |
+| RF-02 | CA-02 | test | `src/schemas/validate.ts`, `tests/schemas-validator.test.ts` |  `tests/schemas-validator.test.ts::test_ca_02_*` (type, const/enum, string, number, array, object, oneOf/anyOf) |
+| RF-03 | CA-03 | test | `src/schemas/validate.ts`, `tests/schemas-validator.test.ts` |  `tests/schemas-validator.test.ts::test_ca_03_load_error_*` |
+| RF-04 | CA-04 | test | `src/schemas/validate.ts`, `src/schemas/registry.ts`, `tests/schemas-validator.test.ts` |  `tests/schemas-validator.test.ts::test_ca_04_refs_resolve`, `test_ca_04_ref_load_error_*`, `test_ca_04_cyclic_refs_fail` |
+| RF-05 | CA-05 | test | `src/schemas/formats.ts`, `src/schemas/validate.ts`, `tests/schemas-validator.test.ts` |  `tests/schemas-validator.test.ts::test_ca_05_date_time_vectors`, `test_ca_05_uuid_vectors_and_non_strings`, `test_ca_03_load_error_format email` |
+| RF-06 | CA-06 | test | `src/schemas/validate.ts`, `tests/schemas-validator.test.ts` |  `tests/schemas-validator.test.ts::test_ca_06_error_limit_and_truncation` |
+| RF-07 | CA-07 | test | `src/schemas/validate.ts`, `src/schemas/registry.ts`, `tests/schemas-validator.test.ts`, `tests/schemas-conformance.test.ts` |  `tests/schemas-validator.test.ts::test_ca_07_prototype_names_are_ordinary_data`; `tests/schemas-conformance.test.ts::test_ca_07_prototype_named_keys_match_the_oracle` |
+| RF-08 | CA-08 | test | `src/schemas/validate.ts`, `tests/schemas-validator.test.ts` |  `tests/schemas-validator.test.ts::test_ca_08_redos_pattern_is_skipped_after_max_length` |
+| RF-09 | CA-10 | test | `src/schemas/validate.ts`, `tests/schemas-validator.test.ts` |  `tests/schemas-validator.test.ts::test_ca_10_default_never_changes_or_fills_the_instance` |
+| RF-10 | CA-11 | test | `src/schemas/registry.ts`, `tests/schemas-validator.test.ts` |  `tests/schemas-validator.test.ts::test_ca_11_loads_nested_tree_and_ignores_other_files` |
+| RF-11 | CA-12, CA-26 | test | `src/schemas/registry.ts`, `tests/schemas-validator.test.ts`, `tests/schemas-conformance.test.ts` |  `tests/schemas-validator.test.ts::test_ca_12_id_and_schema_rules`, `test_ca_12_path_separators_are_normalized`; `tests/schemas-conformance.test.ts::test_ca_26_maps_versions_to_folder_suffixes` |
+| RF-12 | CA-01 | test | `src/schemas/registry.ts`, `tests/schemas-validator.test.ts` |  `tests/schemas-validator.test.ts::test_ca_01_valid_invalid_frozen_unknown_id_and_fragment` |
+| RF-13 | CA-13 | test | `src/schemas/frontmatter.ts`, `tests/frontmatter.test.ts` |  `tests/frontmatter.test.ts::test_ca_13_*` |
+| RF-14 | CA-14, CA-15 | test | `src/schemas/frontmatter.ts`, `tests/frontmatter.test.ts` |  `tests/frontmatter.test.ts::test_ca_14_*`, `test_ca_15_rejects_*` |
+| RF-15 | CA-16 | test | `src/schemas/frontmatter.ts`, `tests/frontmatter.test.ts` |  `tests/frontmatter.test.ts::test_ca_16_rejects_*` |
+| RF-16 | CA-17, CA-18 | test | `src/schemas/frontmatter.ts`, `tests/frontmatter.test.ts` |  `tests/frontmatter.test.ts::test_ca_17_*`, `test_ca_18_lf_and_crlf_give_equal_results` |
+| RF-17 | CA-19 | test | `schemas/common.schema.json`, `tests/schemas-conformance.test.ts`, `tests/fixtures/schemas/common/` |  `tests/schemas-conformance.test.ts::test_ca_19_common_definitions`; `schemas/common.schema.json` |
+| RF-18 | CA-20 | test | `schemas/frontmatter/*.schema.json`, `tests/schemas-conformance.test.ts`, `tests/fixtures/schemas/frontmatter-*/` |  `tests/schemas-conformance.test.ts::test_ca_20_frontmatter_schemas` |
+| RF-19 | CA-20 | test | `schemas/frontmatter/*.schema.json`, `tests/schemas-conformance.test.ts`, `tests/fixtures/schemas/frontmatter-*/` |  `tests/schemas-conformance.test.ts::test_ca_20_frontmatter_schemas` |
+| RF-20 | CA-21 | test | `schemas/**`, `tests/schemas-conformance.test.ts` |  `tests/schemas-conformance.test.ts::test_ca_21_schemas_name_no_model_or_vendor` |
+| RF-21 | CA-22 | test | `src/commands/check-self.ts`, `tests/check-self.test.ts` |  `tests/check-self.test.ts::test_ca_22_*`; `src/commands/check-self.ts` (`loadSchemas`) |
+| RF-22 | CA-23 | test | `src/commands/check-self.ts`, `tests/check-self.test.ts` |  `tests/check-self.test.ts::test_ca_23_*` |
+| RF-23 | CA-24 | test | `src/commands/check-self.ts`, `tests/check-self.test.ts` |  `tests/check-self.test.ts::test_ca_24_names_must_match_files_folders_and_not_collide` |
+| RF-24 | CA-25 | test | `src/commands/check-self.ts`, `tests/check-self.test.ts` |  `tests/check-self.test.ts::test_ca_25_*` |
+| RF-25 | CA-26 | test | `tests/schemas-conformance.test.ts`, `tests/fixtures/schemas/**` |  `tests/schemas-conformance.test.ts::test_ca_26_*` (harness self-tests and repository run) |
+| RNF-01 | CA-28 | test + command | `package.json`, `pnpm-lock.yaml`, `tests/package-policy.test.ts` |  `tests/package-policy.test.ts::test_ca_28_*`; Execution notes (npm view) |
+| RNF-02 | CA-03, CA-04, CA-05, CA-08, CA-12 | test | `src/schemas/validate.ts`, `src/schemas/registry.ts`, `tests/schemas-validator.test.ts` |  `tests/schemas-validator.test.ts::test_ca_03_*`, `test_ca_04_*`, `test_ca_05_*`, `test_ca_08_*`, `test_ca_12_*` |
+| RNF-03 | CA-29 | test | `src/schemas/validate.ts`, `src/schemas/registry.ts`, `tests/schemas-validator.test.ts` |  `tests/schemas-validator.test.ts::test_ca_29_load_and_validate_within_budget` |
+| RNF-04 | CA-06, CA-31 | test + command | `src/schemas/validate.ts`, `tests/schemas-validator.test.ts` |  `tests/schemas-validator.test.ts::test_ca_06_error_limit_and_truncation`; command in CA-31 (no matches) |
+| RNF-05 | CA-17, CA-31 | test + command | `src/schemas/frontmatter.ts`, `tests/frontmatter.test.ts` |  `tests/frontmatter.test.ts::test_ca_17_*`; command in CA-31 (no matches) |
+| RNF-06 | CA-07 | test | `src/schemas/validate.ts`, `src/schemas/registry.ts`, `tests/schemas-validator.test.ts`, `tests/schemas-conformance.test.ts` |  `tests/schemas-validator.test.ts::test_ca_07_prototype_names_are_ordinary_data`; `tests/schemas-conformance.test.ts::test_ca_07_prototype_named_keys_match_the_oracle` |
+| RNF-07 | CA-08, CA-09 | test | `src/schemas/validate.ts`, `tests/schemas-validator.test.ts`, `tests/schemas-conformance.test.ts` |  `tests/schemas-validator.test.ts::test_ca_08_*`; `tests/schemas-conformance.test.ts::test_ca_09_*` |
+| RNF-08 | CA-05, CA-26, CA-27 | test | `tests/schemas-conformance.test.ts`, `tests/fixtures/schemas/**` |  `tests/schemas-conformance.test.ts::test_ca_27_oracle_and_own_validator_agree_on_every_fixture`, `test_ca_26_every_schema_and_definition_has_fixtures` |
+| RNF-09 | CA-18, CA-30 | test + manual | `tests/frontmatter.test.ts` |  `tests/frontmatter.test.ts::test_ca_18_lf_and_crlf_give_equal_results`; CA-30 pending (CI of the PR) |
+| RNF-10 | CA-21 | test | `schemas/**`, `tests/schemas-conformance.test.ts` |  `tests/schemas-conformance.test.ts::test_ca_21_*` (including the planted-name self-test) |
+| RNF-11 | CA-12, CA-32 | test + manual | `src/schemas/registry.ts`, `docs/ARCHITECTURE.md` |  `docs/ARCHITECTURE.md` (pending doc-writer); `test_ca_12_*` for the `$id` major |
 
 ## Execution notes
-<!-- Filled during implementation: ajv version and publish dates (npm view), lockfile additions, decisions and deviations. -->
+Implementation (Sonnet), 2026-10-11.
+
+- **ajv:** `ajv@8.20.0` (published 2026-04-24), `devDependencies`, exact (`pnpm add -D -E`). New lockfile packages and publish dates (`npm view <pkg> time --json`): `ajv@8.20.0` 2026-04-24; `fast-deep-equal@3.1.3` 2020-06-08; `fast-uri@3.1.8` 2026-09-15 (26 days before implementation); `json-schema-traverse@1.0.0` 2020-12-13; `require-from-string@2.0.2` 2018-04-09. All older than 14 days; all lockfile entries are registry entries with `integrity`.
+- **Gate:** lint, typecheck, test (209 tests), build, `check --self`, `test:smoke` all pass.
+- **Decisions:**
+  - Any `$ref` cycle is a load error, including recursion through `properties` or `items` (the compiler keeps an in-progress set per `$ref` target). `$ref: "#"` and `<id>#` (empty fragment) are load errors.
+  - Truncation (RF-06): longer than 80 code points becomes 79 code points plus `…`, so the result has at most 80 characters.
+  - Frontmatter block size (RF-16): the block is the raw text from the line after the opening `---` up to the start of the closing `---` line, so it includes the last line terminator.
+  - Error order inside one node: `$ref`, `type`, `const`, `enum`, object keywords, array keywords, string keywords, number keywords, `oneOf`/`anyOf`. `cases.json` checks the first error and the total count. `name` with an empty string yields two errors (`minLength`, then `pattern`), so its fixture declares `errorCount: 2`.
+  - `check --self` prints one failure line per invalid file with the error list joined by `; `. A missing `schemas/` directory keeps only the existing "missing directory" line (no extra schema line), but catalog files then fail closed.
+  - ajv (default options, no `ownProperties`) reads inherited members for property names declared in `properties` (`hasOwnProperty`) when the instance lacks them, and ignores a `properties.__proto__` entry. The oracle fixtures therefore use only instance keys that are present (`constructor`, `__proto__`, `hasOwnProperty`, `toString`) plus the `required: [toString]` case, as in CA-07; the declared-`__proto__` and absent-`hasOwnProperty` cases are covered by the own validator only (`test_ca_07_prototype_names_are_ordinary_data`).
+  - Folded block scalars with whitespace-only lines longer than the indentation are rejected (not covered by the grammar, avoids a divergence from YAML 1.2).
+- **Deviations from the Design:**
+  - `src/cli.ts` is not in the Design list, so the success line still reads `OK: repository invariants hold (<root>)` without the "(0 catalog files)" suffix mentioned in the Aceite block. The count is available through `checkSelfReport(root).catalogFiles` (exported from `check-self.ts`) and is asserted in `test_ca_25_empty_catalog_passes_with_zero_files`. Adding the suffix needs a one-line change in `src/cli.ts`.
+  - The harness lives inside `tests/schemas-conformance.test.ts` (no helper file in the Design); spec 02b can copy `checkConformance` or move it to a shared helper.
+  - CA-30 (CI matrix) and CA-32 (ARCHITECTURE note) have no automatic evidence yet: CA-30 is the PR checks tab; CA-32 is the doc-writer step.
+
 
 ## Validation report
 <!-- Filled by the validators (spec review and delivery validation). -->
