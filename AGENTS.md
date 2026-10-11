@@ -20,4 +20,12 @@ This repository builds **agent-kit**, a portable SDD brain (skills, agents, work
 
 ## Commands
 
-_Defined by spec-01 (install, lint, test, build)._
+```bash
+corepack enable && pnpm install --frozen-lockfile   # setup
+pnpm -s lint                                        # Biome
+pnpm -s typecheck                                   # tsc --noEmit
+pnpm -s test                                        # Vitest (unit)
+pnpm -s build                                       # tsc to dist/
+node dist/cli.js check --self                       # repository invariants
+pnpm -s test:smoke                                  # smoke tests against dist/
+```

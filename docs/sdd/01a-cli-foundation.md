@@ -75,12 +75,12 @@ The Design lists many trivial files (configs, `.gitkeep` placeholders, a generat
 - Exit codes: 0 success, 1 check failure, 2 usage error.
 
 ## Tasks
-- [ ] Toolchain configs (`package.json`, `tsconfig.json`, `biome.json`, `vitest.config.ts`) and lockfile
-- [ ] `src/version.ts`, `src/cli.ts` and `src/commands/check-self.ts`
-- [ ] Placeholder directories (`catalog/*`, `schemas`)
-- [ ] Tests for the CA (including the smoke)
-- [ ] `.claude/workflow.md` updated (allowlist and gate)
-- [ ] Docs updated (`AGENTS.md`, `docs/INSTRUCTIONS.md`, `docs/ARCHITECTURE.md`, `docs/sdd/README.md`)
+- [x] Toolchain configs (`package.json`, `tsconfig.json`, `biome.json`, `vitest.config.ts`) and lockfile
+- [x] `src/version.ts`, `src/cli.ts` and `src/commands/check-self.ts`
+- [x] Placeholder directories (`catalog/*`, `schemas`)
+- [x] Tests for the CA (including the smoke)
+- [x] `.claude/workflow.md` updated (allowlist and gate)
+- [x] Docs updated (`AGENTS.md`, `docs/INSTRUCTIONS.md`, `docs/ARCHITECTURE.md`, `docs/sdd/README.md`)
 
 ## Aceite
 ```bash
@@ -119,7 +119,19 @@ pnpm -s test:smoke                                  # all pass, exit 0
 | RNF-05 | CA-11 | command | `package.json`, `pnpm-lock.yaml` | |
 
 ## Execution notes
-<Deviations from the Design and decisions made during implementation. Record here the `npm view <pkg> time --json` result for each devDependency (CA-11).>
+Implementation date: 2026-10-10 (cutoff for 14 days: 2026-09-26). `npm view <pkg> time --json`, pinned version:
+- `typescript` 7.0.2 — published 2026-07-08 (95 days)
+- `@biomejs/biome` 2.5.14 — published 2026-09-16 (24 days)
+- `vitest` 5.0.1 — published 2026-09-15 (25 days)
+- `@types/node` 24.19.0 — published 2026-09-25 (15 days; matches the Node 24 dev runtime)
+- `packageManager`: `pnpm@12.11.2`.
+
+Decisions:
+- `vitest.config.ts` skips `tests/smoke` unless an argv entry contains `smoke`; `test:smoke` passes the folder explicitly.
+- `src/cli.ts` exports `main(argv, io)` so unit tests run without a build (the Gate runs `test` before `build`); the entry point runs only when the file is executed directly (symlink-safe via `realpathSync`).
+- `tsconfig.json` includes only `src`; tests are linted by Biome and run by Vitest, not type-checked by `tsc`.
+- `check` without `--self` is treated as a usage error (exit 2).
+- `docs/adr/README.md` and the ADR status were left as `proposed` (acceptance is the owner's call).
 
 ## Validation report
 Modo A — ciclo 1: ESCALAR/ajustes aplicados; ciclo 2: APROVADO (spec-checker). Risco médio: validação da entrega pelo spec-validator.

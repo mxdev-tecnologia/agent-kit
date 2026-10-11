@@ -12,7 +12,19 @@ npx @mxdev-tecnologia/agent-kit check     # fail on drift or name collisions
 
 ## Develop the kit
 
-Requirements: Node.js 22+ and pnpm. Setup, lint, test and build commands are defined by spec-01.
+Requirements: Node.js 22+ and pnpm (provided by corepack).
+
+```bash
+corepack enable
+pnpm install --frozen-lockfile
+pnpm -s lint          # Biome
+pnpm -s typecheck     # tsc --noEmit
+pnpm -s test          # Vitest, unit tests
+pnpm -s build         # compiles src/ to dist/
+node dist/cli.js check --self   # repository invariants
+pnpm -s test:smoke    # smoke tests (need a built dist/)
+pnpm -s format        # Biome formatter
+```
 
 ## Repository conventions
 
