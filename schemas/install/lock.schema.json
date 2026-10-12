@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agent-kit:install:lock:v1",
+  "title": "Install lock",
+  "description": "agent-kit.lock.json: what the installer wrote, with one SHA-256 per managed file.",
+  "type": "object",
+  "required": ["format", "version", "clis", "files"],
+  "properties": {
+    "format": {
+      "type": "string",
+      "const": "agent-kit-lock/v1"
+    },
+    "version": {
+      "$ref": "urn:agent-kit:common:v1#/$defs/semver"
+    },
+    "clis": {
+      "type": "array",
+      "uniqueItems": true,
+      "maxItems": 3,
+      "items": {
+        "type": "string",
+        "enum": ["claude", "codex", "antigravity"]
+      }
+    },
+    "files": {
+      "type": "object",
+      "maxProperties": 2000,
+      "patternProperties": {
+        "^(\\.agents/(skills|agents|rules|workflows|schemas)(/\\.?[A-Za-z0-9_-][A-Za-z0-9._-]{0,63}){1,8}|\\.agents/providers\\.json|\\.claude/(skills|agents|commands)(/\\.?[A-Za-z0-9_-][A-Za-z0-9._-]{0,63}){1,8}|AGENTS\\.md|CLAUDE\\.md)$": {
+          "type": "string",
+          "maxLength": 71,
+          "pattern": "^sha256-[0-9a-f]{64}$"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}
