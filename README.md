@@ -25,6 +25,7 @@ Later, `agent-kit update` merges new versions while keeping your project-specifi
 |---|---|
 | Workflows | `/triage`, `/spec`, `/design`, `/tasks`, `/build`, `/verify`, `/ship`, `/sync`, `/ui-lanes`, `/debug`, `/critique`, `/learn`, `/progress` |
 | Agents | 13 roles with full job titles: orchestrator, scout, planner, architect, builder, verifier, reviewer, ui-designer, doc-writer, runner, security, releaser, observer |
+| Providers | A catalog of where agents can run (Claude Code, Codex, Antigravity, OpenAI-compatible endpoint) with concurrency limits; tiers carry no model names |
 | Skills | SDD core, EARS requirements, acceptance criteria, context packs, project memory, handoff, token economy, evidence, mutation probes, gitflow, design lanes, design system, debugging, code principles, security audit |
 | Rules | Always-on core protocol, safety, economy and design rules |
 | Schemas | JSON Schemas for agent envelopes: `cortex.task/v1`, `cortex.result/v1`, `cortex.blocked/v1`, `cortex.verdict/v1`, `cortex.plan/v1`, `cortex.handoff/v1`, `cortex.lesson/v1`, `cortex.design/v1` and `cortex.observation/v1` |
