@@ -1,13 +1,13 @@
 # Spec 03 — Installer: init, update, sync and check
 
-- **Status:** validada
+- **Status:** em PR (#16)
 - **Nível:** completo
 - **Risco:** alto
 - **Depende de:** spec-02b
 - **Épico:** agent-kit v1
 - **Branch:** feature/spec-03-installer
 - **Jira:** —
-- **PR:** —
+- **PR:** #16
 - **Versão:** —
 - **ADR:** ADR-0003
 - **Contexto:** `docs/adr/0003-generated-per-cli-targets-and-lock.md`, `docs/adr/0001-typescript-cli-zero-runtime-deps.md`, `docs/ARCHITECTURE.md`, `docs/sdd/02a-contracts-core.md`, `docs/sdd/02b-cortex-envelopes.md`, `.claude/workflow.md`
