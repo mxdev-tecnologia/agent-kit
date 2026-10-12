@@ -1,0 +1,38 @@
+{
+  "format": "agent-kit-providers/v1",
+  "global_max_agents": 10,
+  "providers": [
+    {
+      "id": "local-cli",
+      "title": "Local CLI",
+      "kind": "cli",
+      "command": "local-cli",
+      "concurrency": {
+        "recommended": 1,
+        "max": 2
+      },
+      "tiers": {
+        "fast": "",
+        "standard": "",
+        "deep": ""
+      },
+      "capabilities": ["read", "search"]
+    },
+    {
+      "id": "remote",
+      "title": "Remote endpoint",
+      "kind": "endpoint",
+      "base_url_env": "REMOTE_BASE_URL",
+      "concurrency": {
+        "recommended": 1,
+        "max": 1
+      },
+      "tiers": {
+        "fast": "x",
+        "standard": "",
+        "deep": ""
+      },
+      "capabilities": []
+    }
+  ]
+}

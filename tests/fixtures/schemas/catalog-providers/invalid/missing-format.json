@@ -1,0 +1,21 @@
+{
+  "global_max_agents": 10,
+  "providers": [
+    {
+      "id": "claude-code",
+      "title": "Claude Code",
+      "kind": "cli",
+      "command": "claude",
+      "concurrency": {
+        "recommended": 2,
+        "max": 4
+      },
+      "tiers": {
+        "fast": "",
+        "standard": "",
+        "deep": ""
+      },
+      "capabilities": ["read", "edit"]
+    }
+  ]
+}

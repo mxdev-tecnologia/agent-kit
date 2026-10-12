@@ -1,0 +1,22 @@
+{
+  "format": "agent-kit-providers/v1",
+  "global_max_agents": 10,
+  "providers": [
+    {
+      "id": "Not A Name",
+      "title": "Claude Code",
+      "kind": "cli",
+      "command": "claude",
+      "concurrency": {
+        "recommended": 2,
+        "max": 4
+      },
+      "tiers": {
+        "fast": "",
+        "standard": "",
+        "deep": ""
+      },
+      "capabilities": ["read", "edit"]
+    }
+  ]
+}

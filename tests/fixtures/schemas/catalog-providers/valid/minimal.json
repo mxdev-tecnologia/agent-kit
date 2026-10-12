@@ -1,0 +1,18 @@
+{
+  "format": "agent-kit-providers/v1",
+  "global_max_agents": 1,
+  "providers": [
+    {
+      "id": "a",
+      "title": "A",
+      "kind": "cli",
+      "command": "a",
+      "concurrency": {
+        "recommended": 1,
+        "max": 1
+      },
+      "tiers": {},
+      "capabilities": []
+    }
+  ]
+}
