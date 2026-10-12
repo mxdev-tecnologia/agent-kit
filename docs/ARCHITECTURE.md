@@ -128,3 +128,31 @@ The largest kind is `task` (53,420 bytes); `observation` is the smallest (11,059
 A `v1` schema is never edited in an incompatible way after its first release: an incompatible change always ships as `v2` in a new file (for example `schemas/cortex/task.v2.schema.json`), and `v1` stays as published.
 
 An automatic guard for this rule (valid fixtures of a published version are append-only and must stay valid) is planned for spec-07.
+
+## Provider catalog
+
+The catalog declares where agents can run and how many can run at once. It is data only: agent-kit does not launch or schedule agents. Agents never name a model; they name an abstract `tier` (`fast`, `standard`, `deep`), and the provider catalog is where a tier may be mapped to something native.
+
+File: `catalog/providers.json`, validated by `schemas/catalog/providers.schema.json` (`urn:agent-kit:catalog:providers:v1`).
+
+### Fields
+
+- `format`: always `agent-kit-providers/v1`.
+- `global_max_agents`: integer from 1 to 10, the number of agents allowed at once across all providers. 10 is also the maximum `max_agents` of `cortex.plan/v1`.
+- `providers`: 1 to 16 entries, each with:
+  - `id` (a `name`), `title` and `capabilities` (zero to six unique values of the common capability enum; empty means text only).
+  - `kind`: `cli` or `endpoint`. A `cli` provider requires `command` (the executable name). An `endpoint` provider requires `base_url_env`, the name of an environment variable. The address itself is supplied by the user at run time and is never stored in the repository. Having both fields, or the one that does not match `kind`, is invalid.
+  - `concurrency`: `recommended` and `max`, integers from 1 to 64.
+  - `tiers`: optional `fast`, `standard` and `deep` strings.
+
+### Meaning of `tiers`
+
+Each value is a native hint of that provider for the tier, for example the name a CLI accepts for its model option. The shipped file sets all three to `""`, which means "use the CLI default". The kit never maps a tier to a concrete model; a user who wants to can fill the values in the local override.
+
+### Concurrency limits
+
+`recommended` is the number of agents to run in parallel by default and `max` is the ceiling for that provider. Rules checked by a test, not by the schema: `recommended` is at most `max`, `max` is at most `global_max_agents`, provider ids are unique and `global_max_agents` is at most 10. A plan never schedules more agents than the lowest applicable limit.
+
+### Installed copy and local override
+
+The installer copies `catalog/providers.json` to `.agents/providers.json` and keeps it managed like the other kit files. To change values, put a file at `.agents/local/providers.json`. Merging the local file over the shipped one is not implemented yet (roadmap); until then the local file is only a place to keep your own values.
