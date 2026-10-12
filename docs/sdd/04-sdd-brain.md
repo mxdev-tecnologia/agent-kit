@@ -1,6 +1,6 @@
 # Spec 04 — SDD brain: workflows, skills and rules
 
-- **Status:** em andamento
+- **Status:** validada
 - **Nível:** lite
 - **Risco:** médio
 - **Depende de:** spec-02a, spec-02b
@@ -162,31 +162,34 @@ pnpm --silent test:smoke                            # all pass, exit 0
 ## Traceability matrix
 | Requirement | CA | Verification | Files | Evidence |
 |---|---|---|---|---|
-| RF-01 | CA-01 | test | `catalog/workflows/`, `tests/catalog-brain.test.ts` ||
-| RF-02 | CA-02 | test | `catalog/workflows/`, `tests/catalog-brain.test.ts` ||
-| RF-03 | CA-03 | test | `catalog/workflows/`, `tests/catalog-brain.test.ts` ||
-| RF-04 | CA-04 | test | `catalog/workflows/`, `tests/catalog-brain.test.ts` ||
-| RF-05 | CA-05 | test + manual | `catalog/workflows/`, `tests/catalog-brain.test.ts` ||
-| RF-06 | CA-06, CA-07 | test + manual pendente | `catalog/workflows/spec.md`, `catalog/skills/ears-requirements/` ||
-| RF-07 | CA-08 | test | `catalog/skills/`, `tests/catalog-brain.test.ts` ||
-| RF-08 | CA-09 | test | `catalog/skills/`, `tests/catalog-brain.test.ts` ||
-| RF-09 | CA-10 | test | `catalog/skills/*/references/`, `tests/catalog-brain.test.ts` ||
-| RF-10 | CA-06, CA-07 | test + manual pendente | `catalog/skills/ears-requirements/references/` ||
-| RF-11 | CA-11 | test | `catalog/rules/`, `tests/catalog-brain.test.ts` ||
-| RF-12 | CA-12 | test | `catalog/rules/commit-format.md`, `tests/catalog-brain.test.ts` ||
-| RF-13 | CA-13 | manual | `catalog/rules/language.md` ||
-| RF-14 | CA-14 | test | `catalog/`, `tests/catalog-brain.test.ts` ||
-| RF-15 | CA-15 | test | `catalog/`, `tests/catalog-brain.test.ts` ||
-| RF-16 | CA-16 | command | `catalog/` ||
-| RF-17 | CA-19 | manual | `README.md` ||
-| RNF-01 | CA-17 | test | `catalog/skills/`, `tests/catalog-brain.test.ts` ||
-| RNF-02 | CA-16 | command | `catalog/` ||
-| RNF-03 | CA-14 | test | `catalog/`, `tests/catalog-brain.test.ts` ||
-| RNF-04 | CA-15 | test | `catalog/`, `tests/catalog-brain.test.ts` ||
-| RNF-05 | CA-18 | test | `catalog/workflows/`, `tests/catalog-brain.test.ts` ||
+| RF-01 | CA-01 | test | `catalog/workflows/`, `tests/catalog-brain.test.ts` | test tests/catalog-brain.test.ts (passed) |
+| RF-02 | CA-02 | test | `catalog/workflows/`, `tests/catalog-brain.test.ts` | test tests/catalog-brain.test.ts (passed) |
+| RF-03 | CA-03 | test | `catalog/workflows/`, `tests/catalog-brain.test.ts` | test tests/catalog-brain.test.ts (passed) |
+| RF-04 | CA-04 | test | `catalog/workflows/`, `tests/catalog-brain.test.ts` | test tests/catalog-brain.test.ts (passed) |
+| RF-05 | CA-05 | test + manual | `catalog/workflows/`, `tests/catalog-brain.test.ts` | test tests/catalog-brain.test.ts (passed); manual OK |
+| RF-06 | CA-06, CA-07 | test + manual pendente | `catalog/workflows/spec.md`, `catalog/skills/ears-requirements/` | test passed; CA-07 manual pendente |
+| RF-07 | CA-08 | test | `catalog/skills/`, `tests/catalog-brain.test.ts` | test tests/catalog-brain.test.ts (passed) |
+| RF-08 | CA-09 | test | `catalog/skills/`, `tests/catalog-brain.test.ts` | test tests/catalog-brain.test.ts (passed) |
+| RF-09 | CA-10 | test | `catalog/skills/*/references/`, `tests/catalog-brain.test.ts` | test tests/catalog-brain.test.ts (passed) |
+| RF-10 | CA-06, CA-07 | test + manual pendente | `catalog/skills/ears-requirements/references/` | test passed; CA-07 manual pendente |
+| RF-11 | CA-11 | test | `catalog/rules/`, `tests/catalog-brain.test.ts` | test tests/catalog-brain.test.ts (passed) |
+| RF-12 | CA-12 | test | `catalog/rules/commit-format.md`, `tests/catalog-brain.test.ts` | test tests/catalog-brain.test.ts (passed) |
+| RF-13 | CA-13 | manual | `catalog/rules/language.md` | manual OK (catalog/rules/language.md) |
+| RF-14 | CA-14 | test | `catalog/`, `tests/catalog-brain.test.ts` | test tests/catalog-brain.test.ts (passed) |
+| RF-15 | CA-15 | test | `catalog/`, `tests/catalog-brain.test.ts` | test tests/catalog-brain.test.ts (passed) |
+| RF-16 | CA-16 | command | `catalog/` | check --self OK |
+| RF-17 | CA-19 | manual | `README.md` | manual OK (README.md Skills row) |
+| RNF-01 | CA-17 | test | `catalog/skills/`, `tests/catalog-brain.test.ts` | test tests/catalog-brain.test.ts (passed) |
+| RNF-02 | CA-16 | command | `catalog/` | check --self OK |
+| RNF-03 | CA-14 | test | `catalog/`, `tests/catalog-brain.test.ts` | test tests/catalog-brain.test.ts (passed) |
+| RNF-04 | CA-15 | test | `catalog/`, `tests/catalog-brain.test.ts` | test tests/catalog-brain.test.ts (passed) |
+| RNF-05 | CA-18 | test | `catalog/workflows/`, `tests/catalog-brain.test.ts` | test tests/catalog-brain.test.ts (passed) |
 
 ## Execution notes
 - Implemented as designed; no deviations. CA-07 stays manual pending (needs spec-06 merged). CA-13 and CA-19 are manual reviews. Only `README.md` is affected among the docs.
 
 ## Validation report
-<!-- Filled by the validators (spec review and delivery validation). -->
+MODE: B · VERDICT: APROVADO (cycle 2)
+SMOKE: OK ()
+Cycle 1 finding 1 (docs/ARCHITECTURE.md) resolved by c0e1845: diff against origin/develop is empty. Scope: only catalog/{workflows,skills,rules}, README.md, this spec and tests/catalog-brain.test.ts.
+CA without evidence: none · MANUAL: CA-05, CA-13, CA-19 OK; CA-07 pending until spec-06 merge.
