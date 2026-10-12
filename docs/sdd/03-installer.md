@@ -222,52 +222,52 @@ pnpm --silent test:smoke                            # installs with the three CL
 ## Traceability matrix
 | Requirement | CA | Verification | Files | Evidence |
 |---|---|---|---|---|
-| RF-01 | CA-01 | test | `src/commands/init.ts`, `src/install/detect.ts`, `src/cli.ts` ||
-| RF-02 | CA-02 | test | `src/commands/init.ts`, `src/install/detect.ts`, `src/cli.ts` ||
-| RF-03 | CA-03 | test | `src/commands/init.ts`, `src/install/detect.ts`, `src/cli.ts` ||
-| RF-04 | CA-04 | test | `src/commands/init.ts`, `src/install/detect.ts`, `src/cli.ts` ||
-| RF-05 | CA-02, CA-05 | test | `src/commands/init.ts`, `src/install/detect.ts`, `src/cli.ts` ||
-| RF-06 | CA-05, CA-06 | test | `src/commands/init.ts`, `src/install/detect.ts`, `src/cli.ts` ||
-| RF-07 | CA-07, CA-43 | test | `src/install/targets.ts` ||
-| RF-08 | CA-08 | test | `src/install/managed-block.ts` ||
-| RF-09 | CA-09 | test | `src/install/managed-block.ts` ||
-| RF-10 | CA-10 | test | `src/install/managed-block.ts` ||
-| RF-11 | CA-11, CA-43 | test | `src/install/targets.ts` ||
-| RF-12 | CA-12 | test | `src/install/targets.ts` ||
-| RF-13 | CA-13, CA-43 | test | `src/install/targets.ts` ||
-| RF-14 | CA-13 | test | `src/install/targets.ts` ||
-| RF-15 | CA-14 | test | `src/install/targets.ts` ||
-| RF-16 | CA-15 | test | `src/install/plan.ts` ||
-| RF-17 | CA-15, CA-16 | test | `src/install/plan.ts` ||
-| RF-18 | CA-17 | test | `src/install/plan.ts` ||
-| RF-19 | CA-18 | test | `src/catalog/collisions.ts`, `src/commands/check-self.ts`, `src/install/plan.ts` ||
-| RF-20 | CA-19 | test | `src/catalog/collisions.ts`, `src/commands/check-self.ts`, `src/install/plan.ts` ||
-| RF-21 | CA-20 | test | `src/catalog/collisions.ts`, `src/commands/check-self.ts`, `src/install/plan.ts` ||
-| RF-22 | CA-21 | test | `src/install/lock.ts`, `schemas/install/lock.schema.json` ||
-| RF-23 | CA-21, CA-22 | test | `src/install/lock.ts`, `schemas/install/lock.schema.json` ||
-| RF-24 | CA-23 | test | `src/install/lock.ts`, `schemas/install/lock.schema.json` ||
-| RF-25 | CA-24 | test | `src/install/lock.ts`, `schemas/install/lock.schema.json` ||
-| RF-26 | CA-25 | test | `src/install/plan.ts`, `src/commands/update.ts`, `src/commands/sync.ts`, `src/commands/check.ts` ||
-| RF-27 | CA-26 | test | `src/install/plan.ts`, `src/commands/update.ts`, `src/commands/sync.ts`, `src/commands/check.ts` ||
-| RF-28 | CA-27 | test | `src/install/plan.ts`, `src/commands/update.ts`, `src/commands/sync.ts`, `src/commands/check.ts` ||
-| RF-29 | CA-28 | test | `src/install/plan.ts`, `src/commands/update.ts`, `src/commands/sync.ts`, `src/commands/check.ts` ||
-| RF-30 | CA-26, CA-29 | test | `src/install/plan.ts`, `src/commands/update.ts`, `src/commands/sync.ts`, `src/commands/check.ts` ||
-| RF-31 | CA-30, CA-44 | test | `src/install/plan.ts`, `src/commands/update.ts`, `src/commands/sync.ts`, `src/commands/check.ts` ||
-| RF-32 | CA-31 | test | `src/install/plan.ts`, `src/commands/update.ts`, `src/commands/sync.ts`, `src/commands/check.ts` ||
-| RF-33 | CA-06, CA-32 | test | `src/install/apply.ts` ||
-| RF-34 | CA-33 | test | `src/install/apply.ts` ||
-| RF-35 | CA-25, CA-34 | test | `src/install/apply.ts` ||
-| RF-36 | CA-35, CA-43 | test | `src/install/apply.ts` ||
-| RF-37 | CA-36 | manual | `docs/ARCHITECTURE.md`, `docs/INSTRUCTIONS.md`, `README.md` ||
-| RNF-01 | CA-37 | test | `tests/install/perf.test.ts` ||
-| RNF-02 | CA-35 | test | `src/install/apply.ts`, `tests/install/sync.test.ts` ||
-| RNF-03 | CA-16, CA-24, CA-32 | test | `src/install/apply.ts`, `src/install/lock.ts`, `tests/install/local.test.ts` ||
-| RNF-04 | CA-33, CA-34 | test | `src/install/apply.ts`, `tests/install/apply.test.ts` ||
-| RNF-05 | CA-22, CA-38 | test | `src/install/lock.ts`, `tests/install/lock.test.ts` ||
-| RNF-06 | CA-39 | test | `src/install/*.ts`, `tests/install/messages.test.ts` ||
-| RNF-07 | CA-40 | test | `package.json`, `tests/package-policy.test.ts` ||
-| RNF-08 | CA-41 | test | `src/install/apply.ts`, `tests/install/apply.test.ts` ||
-| RNF-09 | CA-42 | test | `src/install/targets.ts`, `tests/install/targets.test.ts` ||
+| RF-01 | CA-01 | test | `src/commands/init.ts`, `src/install/detect.ts`, `src/cli.ts` | detect.test: test_ca_01_* |
+| RF-02 | CA-02 | test | `src/commands/init.ts`, `src/install/detect.ts`, `src/cli.ts` | init.test: test_ca_02_* |
+| RF-03 | CA-03 | test | `src/commands/init.ts`, `src/install/detect.ts`, `src/cli.ts` | init.test: test_ca_03_* |
+| RF-04 | CA-04 | test | `src/commands/init.ts`, `src/install/detect.ts`, `src/cli.ts` | init.test: test_ca_04_* |
+| RF-05 | CA-02, CA-05 | test | `src/commands/init.ts`, `src/install/detect.ts`, `src/cli.ts` | init.test: test_ca_02_*, test_ca_05_* |
+| RF-06 | CA-05, CA-06 | test | `src/commands/init.ts`, `src/install/detect.ts`, `src/cli.ts` | init.test: test_ca_05_*, test_ca_06_* |
+| RF-07 | CA-07, CA-43 | test | `src/install/targets.ts` | targets.test: test_ca_07_*; smoke test_ca_43_* |
+| RF-08 | CA-08 | test | `src/install/managed-block.ts` | managed-block.test: test_ca_08_* |
+| RF-09 | CA-09 | test | `src/install/managed-block.ts` | targets.test: test_ca_09_* |
+| RF-10 | CA-10 | test | `src/install/managed-block.ts` | managed-block.test: test_ca_10_* |
+| RF-11 | CA-11, CA-43 | test | `src/install/targets.ts` | targets.test: test_ca_11_*; smoke |
+| RF-12 | CA-12 | test | `src/install/targets.ts` | targets.test: test_ca_12_* |
+| RF-13 | CA-13, CA-43 | test | `src/install/targets.ts` | targets.test: test_ca_13_*; smoke |
+| RF-14 | CA-13 | test | `src/install/targets.ts` | targets.test: test_ca_13_* |
+| RF-15 | CA-14 | test | `src/install/targets.ts` | init.test: test_ca_14_* (3) |
+| RF-16 | CA-15 | test | `src/install/plan.ts` | local.test: test_ca_15_* |
+| RF-17 | CA-15, CA-16 | test | `src/install/plan.ts` | local.test: test_ca_15_*, test_ca_16_* |
+| RF-18 | CA-17 | test | `src/install/plan.ts` | local.test: test_ca_17_* |
+| RF-19 | CA-18 | test | `src/catalog/collisions.ts`, `src/commands/check-self.ts`, `src/install/plan.ts` | collisions.test: test_ca_18_* |
+| RF-20 | CA-19 | test | `src/catalog/collisions.ts`, `src/commands/check-self.ts`, `src/install/plan.ts` | check-self.test: test_ca_19_* |
+| RF-21 | CA-20 | test | `src/catalog/collisions.ts`, `src/commands/check-self.ts`, `src/install/plan.ts` | apply.test: test_ca_20_* |
+| RF-22 | CA-21 | test | `src/install/lock.ts`, `schemas/install/lock.schema.json` | lock.test: test_ca_21_* |
+| RF-23 | CA-21, CA-22 | test | `src/install/lock.ts`, `schemas/install/lock.schema.json` | lock.test: test_ca_21_*, test_ca_22_* |
+| RF-24 | CA-23 | test | `src/install/lock.ts`, `schemas/install/lock.schema.json` | schemas-conformance (auto-discovers fixtures/schemas/install-lock) |
+| RF-25 | CA-24 | test | `src/install/lock.ts`, `schemas/install/lock.schema.json` | lock.test: test_ca_24_lock_% |
+| RF-26 | CA-25 | test | `src/install/plan.ts`, `src/commands/update.ts`, `src/commands/sync.ts`, `src/commands/check.ts` | update.test: test_ca_25_* |
+| RF-27 | CA-26 | test | `src/install/plan.ts`, `src/commands/update.ts`, `src/commands/sync.ts`, `src/commands/check.ts` | update.test: test_ca_26_* |
+| RF-28 | CA-27 | test | `src/install/plan.ts`, `src/commands/update.ts`, `src/commands/sync.ts`, `src/commands/check.ts` | update.test: test_ca_27_* (3) |
+| RF-29 | CA-28 | test | `src/install/plan.ts`, `src/commands/update.ts`, `src/commands/sync.ts`, `src/commands/check.ts` | update.test: test_ca_28_* |
+| RF-30 | CA-26, CA-29 | test | `src/install/plan.ts`, `src/commands/update.ts`, `src/commands/sync.ts`, `src/commands/check.ts` | update.test: test_ca_26_*; sync.test: test_ca_29_* |
+| RF-31 | CA-30, CA-44 | test | `src/install/plan.ts`, `src/commands/update.ts`, `src/commands/sync.ts`, `src/commands/check.ts` | check.test: test_ca_30_* (3); cli.test: test_ca_44_* |
+| RF-32 | CA-31 | test | `src/install/plan.ts`, `src/commands/update.ts`, `src/commands/sync.ts`, `src/commands/check.ts` | dry-run.test: test_ca_31_* |
+| RF-33 | CA-06, CA-32 | test | `src/install/apply.ts` | init.test: test_ca_06_*; apply.test: test_ca_32_* |
+| RF-34 | CA-33 | test | `src/install/apply.ts` | apply.test: test_ca_33_* (2) |
+| RF-35 | CA-25, CA-34 | test | `src/install/apply.ts` | update.test: test_ca_25_*, test_ca_34_* |
+| RF-36 | CA-35, CA-43 | test | `src/install/apply.ts` | sync.test: test_ca_35_*; smoke |
+| RF-37 | CA-36 | manual | `docs/ARCHITECTURE.md`, `docs/INSTRUCTIONS.md`, `README.md` | manual pendente (CA-36): docs conferidos, sem "links where the OS allows" |
+| RNF-01 | CA-37 | test | `tests/install/perf.test.ts` | perf.test: test_ca_37_* |
+| RNF-02 | CA-35 | test | `src/install/apply.ts`, `tests/install/sync.test.ts` | sync.test: test_ca_35_* |
+| RNF-03 | CA-16, CA-24, CA-32 | test | `src/install/apply.ts`, `src/install/lock.ts`, `tests/install/local.test.ts` | lock.test test_ca_24_lock_%; local.test test_ca_16_*; apply.test test_ca_32_* |
+| RNF-04 | CA-33, CA-34 | test | `src/install/apply.ts`, `tests/install/apply.test.ts` | apply.test: test_ca_33_*; update.test: test_ca_34_* |
+| RNF-05 | CA-22, CA-38 | test | `src/install/lock.ts`, `tests/install/lock.test.ts` | lock.test: test_ca_22_*, test_ca_38_* (2) |
+| RNF-06 | CA-39 | test | `src/install/*.ts`, `tests/install/messages.test.ts` | messages.test: test_ca_39_* |
+| RNF-07 | CA-40 | test | `package.json`, `tests/package-policy.test.ts` | package-policy.test: test_ca_07_* |
+| RNF-08 | CA-41 | test | `src/install/apply.ts`, `tests/install/apply.test.ts` | apply.test: test_ca_41_* |
+| RNF-09 | CA-42 | test | `src/install/targets.ts`, `tests/install/targets.test.ts` | targets.test: test_ca_42_* |
 
 ## Execution notes
 - Segment rule (RF-21/RF-24): path segments are limited to `A-Za-z0-9._-` (optional leading dot, at most 64 chars, depth at most 9); the lock key pattern encodes the same rule without lookaround (the ReDoS rule bans it), so `..` cannot match.
@@ -331,4 +331,29 @@ ACHADOS:
 5. [menor] Texts: Context (line 20) still says sync regenerates "from .agents/" (RF-30: package + .agents/local/); ADR-0003 says check "refuses to run" on version-mismatch (RF-31: reports it as a finding); the matrix row RNF-03 lacks CA-24.
 CA SEM EVIDÊNCIA: n/a (Modo A)   · MANUAIS: CA-36
 DECISÃO HUMANA NECESSÁRIA: second rejected cycle. Options: (a) apply the one-line fix of finding 1 (plus 2–5 if wanted) and approve without a third full cycle (recommended; the rest of the spec is consistent); (b) a third validation cycle.
+```
+
+### Delivery check (mecânico) — 2026-10-12
+```
+MODO: B · VEREDITO: APROVADO · VALIDADOR: spec-checker
+SMOKE: OK (SMOKE OK ())
+ACHADOS:
+1. [menor] Escopo: docs/adr/README.md, docs/sdd/README.md e .claude/workflow.md fora da lista fechada do Design (todos docs/allowlist; workflow.md = hotspot collisions.json->collisions.ts, previsto no Context). tests/schemas-conformance.test.ts:772 (ignora schemas/install/ na neutralidade) = desvio declarado, justificado (o lock nomeia as CLIs) -> registrado, aceitar.
+OK: 307 testes/gate (runner); zero deps (package.json e lockfile sem diff); docs na allowlist, sem "links where the OS allows", MCP roadmap em ARCHITECTURE:71-73 e README:48, 4 comandos em INSTRUCTIONS; commits no padrao com Refs; worktree limpo; CA-23 coberto pelo harness que descobre fixtures/schemas/install-lock por diretorio.
+CA SEM EVIDENCIA: nenhum   · MANUAIS: CA-36
+```
+
+### Delivery validation (profunda) — 2026-10-12
+```
+MODO: B · VEREDITO: REPROVADO · VALIDADOR: spec-validator (Opus high)
+SMOKE: OK (gate/spec-checker; 132 testes de install/conformance/cli/check-self reexecutados, worktree limpo)
+ACHADOS:
+1. [bloqueante] src/install/plan.ts:320,329 — AGENTS.md/CLAUDE.md são decodificados como UTF-8 e regravados: um AGENTS.md em Windows-1252 ("# A\xe7\xe3o") sai do init com os bytes e7 e3 trocados por ef bf bd (U+FFFD), exit 0. Viola RF-08 ("byte for byte"), perda silenciosa de texto do usuário. → Recusar arquivo que não faz round-trip UTF-8 (path + exit 1, nada escrito) ou emendar o bloco em bytes/latin1; caso no CA-08.
+2. [bloqueante] src/install/plan.ts:53 — `.env*` virou `^\.env(\..*)?$`: `.envrc`, `.env-prod`, `.env_local` (e `ID_RSA`, padrão `^id_` sem /i) em `.agents/local/skills/s/references/` são lidos e copiados para `.agents/skills/s/references/` e `.claude/skills/s/references/` com exit 0. Viola RF-17/RNF-03/RNF-08. → `/^\.env/i` e `/^id_/i`; incluir esses nomes no CA-16.
+3. [importante] src/install/apply.ts:188 — `ops.mkdir` fica fora do try: com `.claude/` somente leitura, o init grava `.agents/` e morre com exceção não tratada (EACCES, stack, caminho absoluto), sem mensagem com caminho relativo (RNF-06). O mesmo vale para `ops.readFile` sem tratamento em plan.ts:320/360/391 (arquivo ilegível). → Mover o mkdir para dentro do try e converter erros de leitura do plano em InstallError com o caminho relativo.
+4. [importante] docs/INSTRUCTIONS.md:48 — ainda diz que `check` sem `--self` é erro de uso (exit 2), o que contradiz a tabela nova e o RF-31. → Remover o trecho. No mais, o CA-36 está ok: Install model, lock, colisões, 4 comandos com opções, MCP como roadmap, sem "links".
+5. [menor] tests/install/local.test.ts:67 — o symlink do CA-16 fica em `skills/s/key`, não em `references/key` como diz o CA; o comportamento está coberto (scanLocal recusa), mas o caso do CA não é exercitado literalmente. → Mover o link para `references/key`.
+CONFIRMADO: CA-23 (lock registrado como urn:agent-kit:install:lock:v1; o harness descobre tests/fixtures/schemas/install-lock por registry.ids → fixtureFolder; 2 válidos e 12 inválidos batem com cases.json em keyword/instancePath/contagem); nenhum teste usa cwd/worktree como raiz (helpers sempre passam tempDir; os casos de erro de uso em cli.test saem antes de rodar; worktree sem .agents/ nem lock); realpath da raiz + lstat abaixo dela, symlink/junction/`..`/absoluto/não gerenciado recusados no plano e de novo no apply; lock validado antes de agir (chaves fora dos prefixos, `nul`/ponto final barrados pelo resolveDest); tudo ou nada; lock por último e só quando muda; convergência depois de abort; CRLF no hash e nos blocos; marcadores malformados e dentro do conteúdo; version-mismatch/downgrade; tools nunca omitido; retry 5x; bloco ≤ 24 KiB; 0 escritas na idempotência.
+CA SEM EVIDÊNCIA: nenhum   · MANUAIS: CA-36 (ok, exceto o achado 4)
+DECISÃO HUMANA NECESSÁRIA: nenhuma
 ```
