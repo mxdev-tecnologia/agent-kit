@@ -1,13 +1,13 @@
 # Spec 06 — Validators: validate spec, tasks, verdict, envelope and commit
 
-- **Status:** validada
+- **Status:** em PR (#15)
 - **Nível:** lite
 - **Risco:** médio
 - **Depende de:** spec-02b
 - **Épico:** agent-kit v1
 - **Branch:** feature/spec-06-validators
 - **Jira:** —
-- **PR:** —
+- **PR:** #15
 - **Versão:** —
 - **ADR:** —
 - **Contexto:** `docs/ARCHITECTURE.md` ("Rules the schemas do not encode"), `docs/sdd/02a-contracts-core.md`, `docs/sdd/02b-cortex-envelopes.md`, `docs/sdd/04-sdd-brain.md`, `docs/adr/0002-own-json-schema-subset-validator.md`, `.claude/workflow.md`
