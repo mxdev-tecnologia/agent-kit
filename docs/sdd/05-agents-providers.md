@@ -1,13 +1,13 @@
 # Spec 05 — Agents and provider catalog
 
-- **Status:** validada
+- **Status:** em PR (#14)
 - **Nível:** lite
 - **Risco:** médio
 - **Depende de:** spec-02a, spec-02b
 - **Épico:** agent-kit v1
 - **Branch:** feature/spec-05-agents-providers
 - **Jira:** —
-- **PR:** —
+- **PR:** #14
 - **Versão:** —
 - **ADR:** —
 - **Contexto:** `docs/ARCHITECTURE.md`, `docs/sdd/02a-contracts-core.md`, `docs/sdd/02b-cortex-envelopes.md`, `docs/sdd/03-installer.md`, `docs/sdd/04-sdd-brain.md`, `AGENTS.md`
