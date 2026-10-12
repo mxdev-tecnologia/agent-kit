@@ -1,13 +1,13 @@
 # Spec 04 — SDD brain: workflows, skills and rules
 
-- **Status:** validada
+- **Status:** em PR (#13)
 - **Nível:** lite
 - **Risco:** médio
 - **Depende de:** spec-02a, spec-02b
 - **Épico:** agent-kit v1
 - **Branch:** feature/spec-04-sdd-brain
 - **Jira:** —
-- **PR:** —
+- **PR:** #13
 - **Versão:** —
 - **ADR:** —
 - **Contexto:** `docs/ARCHITECTURE.md`, `docs/sdd/02a-contracts-core.md`, `docs/sdd/02b-cortex-envelopes.md`, `docs/sdd/03-installer.md`, `docs/sdd/05-agents-providers.md`, `docs/sdd/06-validators.md`, `AGENTS.md`
