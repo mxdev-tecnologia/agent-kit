@@ -1,14 +1,33 @@
 # Instructions — agent-kit
 
-> Not published yet. Commands below describe the planned interface (spec-03 and spec-07).
+> Not published yet. The commands below work from a local build.
 
 ## Use in a project
 
 ```bash
 npx @mxdev-tecnologia/agent-kit init      # detect CLIs and install the brain
-npx @mxdev-tecnologia/agent-kit update    # merge a newer version, keeping .agents/local/
-npx @mxdev-tecnologia/agent-kit check     # fail on drift or name collisions
+npx @mxdev-tecnologia/agent-kit update    # bring the project to the installed kit version
+npx @mxdev-tecnologia/agent-kit sync      # regenerate targets (kit + .agents/local/)
+npx @mxdev-tecnologia/agent-kit check     # report drift, names that collide; writes nothing
 ```
+
+| Command | Options | What it does |
+|---|---|---|
+| `init` | `--cli claude,codex,antigravity`, `--dry-run`, `--root <dir>` | Detects the CLIs (or uses `--cli`), prints the list, writes the files and `agent-kit.lock.json`. Never asks a question. |
+| `update` | `--force`, `--dry-run`, `--root <dir>` | Applies a newer kit version. Overwrites only files that still match the lock. |
+| `sync` | `--force`, `--dry-run`, `--root <dir>` | Regenerates targets from the installed package and `.agents/local/`. Stops with `version-mismatch` if the package differs from the lock. |
+| `check` | `--root <dir>` | Reports `missing`, `edited`, `orphan` and `version-mismatch` findings against the lock. Writes nothing. |
+
+Options:
+
+- `--cli`: only for `init`; comma-separated list of `claude`, `codex`, `antigravity`.
+- `--dry-run`: prints the plan and writes nothing (`init`, `update`, `sync`).
+- `--force`: overrides edited files that are in the lock, and allows `update` with an older package. It never overrides a file the kit did not create.
+- `--root <dir>`: project root (default: current directory). A directory that does not exist is a usage error.
+
+Conflicts are all-or-nothing: with any conflict and no `--force`, nothing is written and the exit code is 1. Put project-specific skills, agents, rules and workflows in `.agents/local/`; the installer never changes them.
+
+Exit codes of the install commands: `0` success, `1` failure or conflict, `2` usage error.
 
 ## Develop the kit
 
@@ -26,7 +45,7 @@ pnpm --silent test:smoke    # smoke tests (need a built dist/)
 pnpm --silent format        # Biome formatter
 ```
 
-CLI exit codes: `0` success, `1` a `check` invariant failed, `2` usage error (unknown command or option, or `check` without `--self`). Until the installer lands (spec-03), `check` only works with `--self` (optionally `--root <dir>`).
+CLI exit codes: `0` success, `1` a `check` invariant failed, `2` usage error (unknown command or option, or a root that does not exist). `check --self` (optionally `--root <dir>`) checks the kit repository itself, including name collisions; plain `check` checks an installed project.
 
 `check --self` also loads every schema under `schemas/` and validates the frontmatter of `catalog/` files against them. Each failure is one line with the file path (and the line number for parse errors). The success line ends with the number of catalog files checked: `OK: repository invariants hold (<root>, N catalog files)`.
 

@@ -252,3 +252,23 @@ describe("check --self: fail closed on unexpected catalog entries", () => {
     expect(r.err.trim().split("\n")).toHaveLength(3);
   });
 });
+
+describe("check --self: name collisions", () => {
+  it("test_ca_19_native_and_reserved_names_fail_with_the_catalog_path", () => {
+    const root = rootWithSchemas();
+    put(root, "catalog/skills/status/SKILL.md", plain("status"));
+    put(root, "catalog/agents/con.md", agent("con"));
+    const r = run(["check", "--self", "--root", root]);
+    expect(r.code).toBe(1);
+    expect(r.err).toMatch(
+      /catalog\/skills\/status\/SKILL\.md: name "status" collides with a native command of claude, codex, antigravity/,
+    );
+    expect(r.err).toMatch(/catalog\/agents\/con\.md: name "con" is a reserved Windows name/);
+  });
+
+  it("test_ca_19_the_real_catalog_passes", () => {
+    const r = run(["check", "--self", "--root", REPO_ROOT]);
+    expect(r.err).toBe("");
+    expect(r.code).toBe(0);
+  });
+});

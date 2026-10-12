@@ -1,5 +1,6 @@
 import { existsSync, lstatSync, readdirSync, readFileSync, statSync } from "node:fs";
 import { join } from "node:path";
+import { nameCollisions } from "../catalog/collisions.js";
 import { parseFrontmatter } from "../schemas/frontmatter.js";
 import { loadRegistry, type Registry, RegistryLoadError } from "../schemas/registry.js";
 import { truncate } from "../schemas/validate.js";
@@ -141,6 +142,7 @@ function checkCatalog(root: string, failures: string[]): number {
       failures.push(`${file.display}: ${file.problem}`);
       continue;
     }
+    for (const msg of nameCollisions(file.expectedName)) failures.push(`${file.display}: ${msg}`);
     if (!file.path) {
       failures.push(`${file.display}: skill folder has no SKILL.md`);
       continue;

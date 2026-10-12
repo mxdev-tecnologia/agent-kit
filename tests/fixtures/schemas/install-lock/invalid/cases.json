@@ -1,0 +1,50 @@
+{
+  "missing-format.json": {
+    "keyword": "required",
+    "instancePath": ""
+  },
+  "wrong-format.json": {
+    "keyword": "const",
+    "instancePath": "/format"
+  },
+  "hash-no-prefix.json": {
+    "keyword": "pattern",
+    "instancePath": "/files/AGENTS.md"
+  },
+  "extra-property.json": {
+    "keyword": "additionalProperties",
+    "instancePath": ""
+  },
+  "backslash-path.json": {
+    "keyword": "additionalProperties",
+    "instancePath": "/files"
+  },
+  "unknown-cli.json": {
+    "keyword": "enum",
+    "instancePath": "/clis/0"
+  },
+  "key-package-json.json": {
+    "keyword": "additionalProperties",
+    "instancePath": "/files"
+  },
+  "key-local.json": {
+    "keyword": "additionalProperties",
+    "instancePath": "/files"
+  },
+  "key-git.json": {
+    "keyword": "additionalProperties",
+    "instancePath": "/files"
+  },
+  "key-parent.json": {
+    "keyword": "additionalProperties",
+    "instancePath": "/files"
+  },
+  "key-dotdot-inside.json": {
+    "keyword": "additionalProperties",
+    "instancePath": "/files"
+  },
+  "key-dot-segment.json": {
+    "keyword": "additionalProperties",
+    "instancePath": "/files"
+  }
+}
