@@ -193,7 +193,7 @@ Delivery validation escalates to spec-validator (level "completo"; risk high: th
 - [x] `src/install/plan.ts` and `src/install/apply.ts` (conflicts, safety, atomicity, dry-run) with tests
 - [x] Commands `init`, `update`, `sync`, `check`, `src/cli.ts` dispatch and `tests/cli.test.ts`
 - [x] `tests/smoke/install.smoke.test.ts`
-- [ ] Docs updated (`docs/ARCHITECTURE.md`, `docs/INSTRUCTIONS.md`, `README.md`)
+- [x] Docs updated (`docs/ARCHITECTURE.md`, `docs/INSTRUCTIONS.md`, `README.md`)
 
 ## Aceite
 ```bash
@@ -274,7 +274,9 @@ pnpm --silent test:smoke                            # installs with the three CL
 - `tests/schemas-conformance.test.ts`: the provider-neutrality scan skips `schemas/install/` (the lock names the target CLIs by design).
 - Tests inject `packageRoot`, `version`, `env` and file-system `ops` through `RunContext` (commands are called directly); `tests/fixtures/install/helpers.ts` holds the fixture builders.
 - Items shared between local and kit are compared by namespace (skills and workflows share one; agents and rules each have their own).
-- Docs (CA-36, RF-37) are left to the doc-writer; Tasks keep that item open.
+- Lock key pattern (implementation detail of the Design): segments `\.?[A-Za-z0-9_-][A-Za-z0-9._-]{0,63}`, up to 9 levels, no lookaround.
+- Local collision namespaces: skills and workflows together; agents and rules separate.
+- Docs (CA-36, RF-37) updated by the doc-writer in `docs/ARCHITECTURE.md`, `docs/INSTRUCTIONS.md` and `README.md`; ADR-0003 stays `proposed` until approval.
 
 ## Validation report
 <!-- Filled by the validators (spec review and delivery validation). -->
