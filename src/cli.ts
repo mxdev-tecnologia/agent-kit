@@ -8,11 +8,14 @@ import { checkSelfReport } from "./commands/check-self.js";
 import { runInit } from "./commands/init.js";
 import { runSync } from "./commands/sync.js";
 import { runUpdate } from "./commands/update.js";
+import { runValidate, UsageError } from "./commands/validate.js";
 import { readVersion } from "./version.js";
 
 export interface Io {
   out: (text: string) => void;
   err: (text: string) => void;
+  /** Reads standard input for `validate <kind> -` (defaults to file descriptor 0). */
+  stdin?: () => string;
 }
 
 const USAGE = `Usage: agent-kit <command> [options]
@@ -26,6 +29,8 @@ Commands:
                                 Regenerate the targets from the package and .agents/local/
   check [--root <dir>]          Report drift against agent-kit.lock.json (writes nothing)
   check --self [--root <dir>]   Check the repository invariants
+  validate <kind> <file|->      Validate a spec, tasks, verdict, envelope or commit
+                                [--json] [--schemas <dir>]; kind: spec|tasks|verdict|envelope|commit
 
 Options:
   -v, --version   Print the version
@@ -57,6 +62,20 @@ export function main(argv: string[], io: Io): number {
   }
 
   const [command, ...rest] = positionals;
+  if (command === "validate") {
+    for (const flag of ["self", "cli", "dry-run", "force"] as const) {
+      if (values[flag] !== undefined) return usageError(`--${flag} does not apply to validate`);
+    }
+    try {
+      return runValidate(
+        { positionals: rest, json: values.json === true, schemas: values.schemas },
+        io,
+      );
+    } catch (error) {
+      if (error instanceof UsageError) return usageError(error.message);
+      throw error;
+    }
+  }
   const installer = { init: runInit, update: runUpdate, sync: runSync, check: runCheck };
   if (
     rest.length > 0 ||
@@ -64,6 +83,8 @@ export function main(argv: string[], io: Io): number {
   ) {
     return usageError(`unknown command: ${positionals.join(" ")}`);
   }
+  if (values.json !== undefined) return usageError("--json belongs to validate");
+  if (values.schemas !== undefined) return usageError("--schemas belongs to validate");
   if (command !== "check" && values.self) return usageError("--self belongs to check");
   if (command !== "init" && values.cli !== undefined) return usageError("--cli belongs to init");
   if ((command === "init" || command === "check") && values.force) {
@@ -103,6 +124,8 @@ function parse(argv: string[]) {
       cli: { type: "string" },
       "dry-run": { type: "boolean" },
       force: { type: "boolean" },
+      json: { type: "boolean" },
+      schemas: { type: "string" },
     },
   });
 }

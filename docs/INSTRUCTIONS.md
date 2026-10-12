@@ -29,6 +29,21 @@ Conflicts are all-or-nothing: with any conflict and no `--force`, nothing is wri
 
 Exit codes of the install commands: `0` success, `1` failure or conflict, `2` usage error.
 
+## Validate specs, plans, verdicts, envelopes and commits
+
+```bash
+agent-kit validate <kind> <file|-> [--json] [--schemas <dir>]
+```
+
+- `kind`: `spec` (SDD spec structure), `tasks` (`cortex.plan/v1` plus cross-field rules), `verdict` (`cortex.verdict/v1` plus cross-field rules), `envelope` (any `cortex.<kind>/v1`, chosen from the `schema` field) or `commit` (commit message).
+- `<file>` is the path to read; `-` reads standard input. Files over 1 MiB are rejected with the rule `too-large`.
+- `--json` prints one JSON object to stdout: `{ "valid": boolean, "errors": [ { "path", "rule", "message" } ] }`. Without it, each error is one line `<path>: <rule>: <message>` on stderr and an OK line goes to stdout.
+- `--schemas <dir>` loads the schemas from `<dir>`. Without it, the schemas of the installed package are used, never those of the current project.
+- At most 50 errors are listed. The path is `file:line` for `spec` and `commit` (`<stdin>` for standard input) and a JSON Pointer for the JSON kinds.
+- Exit codes: `0` valid, `1` invalid, `2` usage error (unknown kind, missing argument, unknown option or unreadable file; the usage goes to stderr).
+
+The command only reads; it writes nothing. The rules are listed in `docs/ARCHITECTURE.md` ("Rules the schemas do not encode").
+
 ## Develop the kit
 
 Requirements: Node.js 22+ and pnpm (provided by corepack).

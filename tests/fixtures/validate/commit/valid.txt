@@ -1,0 +1,5 @@
+feat(cli): adiciona o comando validate
+
+Corpo curto.
+
+Refs: spec-06, JIRA-1
