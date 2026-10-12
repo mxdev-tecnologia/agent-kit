@@ -1,4 +1,4 @@
-import { symlinkSync } from "node:fs";
+import { mkdirSync, symlinkSync } from "node:fs";
 import { join } from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
 import {
@@ -68,9 +68,12 @@ describe("local additions", () => {
     put(root, ".agents/local/skills/s/SKILL.md", skillMd("s"));
     put(root, ".agents/local/.env.local", "TOPSECRET");
     put(root, ".agents/local/id_rsa", "TOPSECRET");
+    mkdirSync(join(root, ".agents/local/skills/s/references"), { recursive: true });
     try {
       symlinkSync(join(outside, "secret.txt"), join(root, ".agents/local/skills/s/references/key"));
-    } catch {
+    } catch (error) {
+      const code = (error as NodeJS.ErrnoException).code;
+      if (code !== "EPERM" && code !== "EACCES") throw error;
       ctx.skip();
       return;
     }
@@ -80,7 +83,7 @@ describe("local additions", () => {
     for (const p of [
       ".agents/local/.env.local",
       ".agents/local/id_rsa",
-      ".agents/local/skills/s/key",
+      ".agents/local/skills/s/references/key",
     ]) {
       expect(r.err).toContain(p);
     }
