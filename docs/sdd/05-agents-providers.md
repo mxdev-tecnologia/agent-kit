@@ -1,6 +1,6 @@
 # Spec 05 — Agents and provider catalog
 
-- **Status:** em andamento
+- **Status:** validada
 - **Nível:** lite
 - **Risco:** médio
 - **Depende de:** spec-02a, spec-02b
@@ -73,7 +73,7 @@ Delivery validation is done by spec-checker (level "lite"; content plus one smal
 - `schemas/catalog/providers.schema.json`
 - `tests/catalog-agents.test.ts`, `tests/catalog-providers.test.ts`
 - `tests/fixtures/schemas/catalog-providers/{valid,invalid}/*.json` + `cases.json`
-- Docs: `docs/ARCHITECTURE.md` (new "Provider catalog" section at the end)
+- Docs: `docs/ARCHITECTURE.md` (new "Provider catalog" section at the end); `README.md` (one "Providers" line in "What is inside", added during delivery)
 - No change to `src/` (including `check-self.ts`), `package.json` or other specs' files.
 
 **Agents** (`tier`: abstract level; `capabilities` from the common enum; `emits` envelope kinds):
@@ -149,23 +149,23 @@ pnpm --silent test:smoke                            # all pass, exit 0
 ## Traceability matrix
 | Requirement | CA | Verification | Files | Evidence |
 |---|---|---|---|---|
-| RF-01 | CA-01, CA-17 | test | `catalog/agents/`, `tests/catalog-agents.test.ts` ||
-| RF-02 | CA-02 | test | `catalog/agents/`, `tests/catalog-agents.test.ts` ||
-| RF-03 | CA-03 | test | `catalog/agents/`, `tests/catalog-agents.test.ts` ||
-| RF-04 | CA-04 | test | `catalog/agents/`, `tests/catalog-agents.test.ts` ||
-| RF-05 | CA-05 | test | `catalog/agents/`, `tests/catalog-agents.test.ts` ||
-| RF-06 | CA-06, CA-18 | test + manual | `catalog/agents/`, `tests/catalog-agents.test.ts` ||
-| RF-07 | CA-07 | test | `catalog/providers.json`, `tests/catalog-providers.test.ts` ||
-| RF-08 | CA-08 | test | `schemas/catalog/providers.schema.json`, `tests/catalog-providers.test.ts` ||
-| RF-09 | CA-09 | test | `catalog/providers.json`, `tests/catalog-providers.test.ts` ||
-| RF-10 | CA-10 | test | `tests/catalog-providers.test.ts` ||
-| RF-11 | CA-11 | test | `tests/fixtures/schemas/catalog-providers/`, `tests/schemas-conformance.test.ts` ||
-| RF-12 | CA-12 | manual | `docs/ARCHITECTURE.md` ||
-| RNF-01 | CA-09, CA-13 | test | `catalog/agents/`, `catalog/providers.json`, `tests/catalog-agents.test.ts`, `tests/catalog-providers.test.ts` ||
-| RNF-02 | CA-02, CA-16 | test + command | `catalog/`, `schemas/catalog/` ||
-| RNF-03 | CA-14 | test | `schemas/catalog/providers.schema.json`, `tests/catalog-providers.test.ts` ||
-| RNF-04 | CA-15 | test | `catalog/agents/`, `tests/catalog-agents.test.ts` ||
-| RNF-05 | CA-11 | test | `tests/fixtures/schemas/catalog-providers/`, `tests/schemas-conformance.test.ts` ||
+| RF-01 | CA-01, CA-17 | test | `catalog/agents/`, `tests/catalog-agents.test.ts` | tests/catalog-agents.test.ts (passou) |
+| RF-02 | CA-02 | test | `catalog/agents/`, `tests/catalog-agents.test.ts` | tests/catalog-agents.test.ts (passou) |
+| RF-03 | CA-03 | test | `catalog/agents/`, `tests/catalog-agents.test.ts` | tests/catalog-agents.test.ts (passou) |
+| RF-04 | CA-04 | test | `catalog/agents/`, `tests/catalog-agents.test.ts` | tests/catalog-agents.test.ts (passou) |
+| RF-05 | CA-05 | test | `catalog/agents/`, `tests/catalog-agents.test.ts` | tests/catalog-agents.test.ts (passou) |
+| RF-06 | CA-06, CA-18 | test + manual | `catalog/agents/`, `tests/catalog-agents.test.ts` | teste passou; CA-18 manual: lido, sem persona, Role/Goal/rules específicos |
+| RF-07 | CA-07 | test | `catalog/providers.json`, `tests/catalog-providers.test.ts` | tests/catalog-providers.test.ts (passou) |
+| RF-08 | CA-08 | test | `schemas/catalog/providers.schema.json`, `tests/catalog-providers.test.ts` | tests/catalog-providers.test.ts + fixtures (passou) |
+| RF-09 | CA-09 | test | `catalog/providers.json`, `tests/catalog-providers.test.ts` | tests/catalog-providers.test.ts (passou) |
+| RF-10 | CA-10 | test | `tests/catalog-providers.test.ts` | tests/catalog-providers.test.ts (passou) |
+| RF-11 | CA-11 | test | `tests/fixtures/schemas/catalog-providers/`, `tests/schemas-conformance.test.ts` | tests/schemas-conformance.test.ts (passou, 2 valid/15 invalid) |
+| RF-12 | CA-12 | manual | `docs/ARCHITECTURE.md` | manual: docs/ARCHITECTURE.md:132-158 cobre campos, tiers, concorrência, cópia e override |
+| RNF-01 | CA-09, CA-13 | test | `catalog/agents/`, `catalog/providers.json`, `tests/catalog-agents.test.ts`, `tests/catalog-providers.test.ts` | catalog-agents/providers tests (passou) |
+| RNF-02 | CA-02, CA-16 | test + command | `catalog/`, `schemas/catalog/` | testes + check --self OK |
+| RNF-03 | CA-14 | test | `schemas/catalog/providers.schema.json`, `tests/catalog-providers.test.ts` | tests/catalog-providers.test.ts (passou) |
+| RNF-04 | CA-15 | test | `catalog/agents/`, `tests/catalog-agents.test.ts` | tests/catalog-agents.test.ts (passou) |
+| RNF-05 | CA-11 | test | `tests/fixtures/schemas/catalog-providers/`, `tests/schemas-conformance.test.ts` | conformance (passou) |
 
 ## Execution notes
 - Providers schema repeats the shared fields in the two `oneOf` branches through root `$defs` references (title, concurrency, tiers, capabilities); `cases.json` entries for provider-level errors use keyword `oneOf` at `/providers/N` because the validator reports only the combinator error.
@@ -173,4 +173,10 @@ pnpm --silent test:smoke                            # all pass, exit 0
 - Commits: git signing needs an SSH key passphrase unavailable to the subagent, so the work was left staged or unstaged for the caller to commit.
 
 ## Validation report
-<!-- Filled by the validators (spec review and delivery validation). -->
+MODO: B · VEREDITO: APROVADO
+SMOKE: OK (SMOKE OK ())
+ACHADOS:
+- [info] README.md:28 — fora da lista fechada do Design, mas na allowlist de docs e pedido pelo orquestrador; aceitar (registrar no Design).
+- [info] Desvio do oneOf: $defs na raiz e fixtures inválidas dentro de provider com keyword oneOf em /providers/0 atendem RF-08/CA-08/CA-11 (ainda rejeitadas por ambos validadores, harness concorda). Categorias missing/enum/extra cobertas.
+CA SEM EVIDÊNCIA: nenhum · MANUAIS: CA-12 (ok: seção cobre todos os itens do RF-12), CA-18 (ok: amostra security/ui-designer sem persona, específicos ao cargo; backstory curta)
+
