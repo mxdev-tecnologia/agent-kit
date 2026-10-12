@@ -3,7 +3,11 @@ import { realpathSync } from "node:fs";
 import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { parseArgs } from "node:util";
+import { runCheck } from "./commands/check.js";
 import { checkSelfReport } from "./commands/check-self.js";
+import { runInit } from "./commands/init.js";
+import { runSync } from "./commands/sync.js";
+import { runUpdate } from "./commands/update.js";
 import { readVersion } from "./version.js";
 
 export interface Io {
@@ -14,6 +18,13 @@ export interface Io {
 const USAGE = `Usage: agent-kit <command> [options]
 
 Commands:
+  init [--cli claude,codex,antigravity] [--root <dir>] [--dry-run]
+                                Install the kit in a project
+  update [--force] [--dry-run] [--root <dir>]
+                                Bring the project to the installed kit version
+  sync [--force] [--dry-run] [--root <dir>]
+                                Regenerate the targets from the package and .agents/local/
+  check [--root <dir>]          Report drift against agent-kit.lock.json (writes nothing)
   check --self [--root <dir>]   Check the repository invariants
 
 Options:
@@ -46,10 +57,29 @@ export function main(argv: string[], io: Io): number {
   }
 
   const [command, ...rest] = positionals;
-  if (command !== "check" || rest.length > 0) {
+  const installer = { init: runInit, update: runUpdate, sync: runSync, check: runCheck };
+  if (
+    rest.length > 0 ||
+    !(command === "check" || command === "init" || command === "update" || command === "sync")
+  ) {
     return usageError(`unknown command: ${positionals.join(" ")}`);
   }
-  if (!values.self) return usageError("check requires --self");
+  if (command !== "check" && values.self) return usageError("--self belongs to check");
+  if (command !== "init" && values.cli !== undefined) return usageError("--cli belongs to init");
+  if ((command === "init" || command === "check") && values.force) {
+    return usageError(`--force does not apply to ${command}`);
+  }
+  if (command === "check" && values["dry-run"])
+    return usageError("--dry-run does not apply to check");
+  if (!(command === "check" && values.self)) {
+    const args = {
+      root: values.root,
+      dryRun: values["dry-run"],
+      force: values.force,
+      cli: values.cli,
+    };
+    return installer[command](args, io);
+  }
 
   const root = resolve(values.root ?? process.cwd());
   const { failures, catalogFiles } = checkSelfReport(root);
@@ -70,6 +100,9 @@ function parse(argv: string[]) {
       help: { type: "boolean", short: "h" },
       self: { type: "boolean" },
       root: { type: "string" },
+      cli: { type: "string" },
+      "dry-run": { type: "boolean" },
+      force: { type: "boolean" },
     },
   });
 }
