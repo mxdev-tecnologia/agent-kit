@@ -4,17 +4,22 @@ import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { parseArgs } from "node:util";
 import { checkSelfReport } from "./commands/check-self.js";
+import { runValidate, UsageError } from "./commands/validate.js";
 import { readVersion } from "./version.js";
 
 export interface Io {
   out: (text: string) => void;
   err: (text: string) => void;
+  /** Reads standard input for `validate <kind> -` (defaults to file descriptor 0). */
+  stdin?: () => string;
 }
 
 const USAGE = `Usage: agent-kit <command> [options]
 
 Commands:
   check --self [--root <dir>]   Check the repository invariants
+  validate <kind> <file|->      Validate a spec, tasks, verdict, envelope or commit
+                                [--json] [--schemas <dir>]; kind: spec|tasks|verdict|envelope|commit
 
 Options:
   -v, --version   Print the version
@@ -46,6 +51,17 @@ export function main(argv: string[], io: Io): number {
   }
 
   const [command, ...rest] = positionals;
+  if (command === "validate") {
+    try {
+      return runValidate(
+        { positionals: rest, json: values.json === true, schemas: values.schemas },
+        io,
+      );
+    } catch (error) {
+      if (error instanceof UsageError) return usageError(error.message);
+      throw error;
+    }
+  }
   if (command !== "check" || rest.length > 0) {
     return usageError(`unknown command: ${positionals.join(" ")}`);
   }
@@ -70,6 +86,8 @@ function parse(argv: string[]) {
       help: { type: "boolean", short: "h" },
       self: { type: "boolean" },
       root: { type: "string" },
+      json: { type: "boolean" },
+      schemas: { type: "string" },
     },
   });
 }
