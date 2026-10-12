@@ -17,7 +17,7 @@ flowchart LR
   INIT --> LOCK["agent-kit.lock.json"]
 ```
 
-## Layout (planned)
+## Layout
 
 ```text
 agent-kit/
@@ -27,7 +27,7 @@ agent-kit/
 │   ├── skills/       # <name>/SKILL.md, references/, scripts/
 │   ├── workflows/    # slash-command procedures
 │   └── rules/        # always-on rules
-├── schemas/          # JSON Schema 2020-12: common.schema.json, frontmatter/*.schema.json, cortex/*.schema.json (cortex.*/v1 envelopes)
+├── schemas/          # JSON Schema 2020-12: common.schema.json, frontmatter/*.schema.json, cortex/*.schema.json (cortex.*/v1 envelopes), install/lock.schema.json
 ├── src/              # CLI (TypeScript, ESM, zero runtime dependencies)
 │   ├── cli.ts        # exports main(argv, io) returning the exit code; argument parsing, dispatch
 │   ├── version.ts    # reads the package version at runtime
@@ -36,18 +36,41 @@ agent-kit/
 │   │   ├── formats.ts      # date-time and uuid checks
 │   │   ├── registry.ts     # loadRegistry(dir), validate(id, value), $id and path rules
 │   │   └── frontmatter.ts  # frontmatter extraction and restricted YAML parser
-│   └── commands/     # one module per command (check-self today; install, sync, validate later)
+│   ├── catalog/
+│   │   └── collisions.ts   # COLLISIONS per CLI and RESERVED_NAMES (typed constant)
+│   ├── install/      # detect, targets, plan, apply, lock, managed-block
+│   └── commands/     # one module per command (init, update, sync, check, check-self; validate later)
 ├── tests/            # Vitest unit tests; tests/smoke runs the built dist/
 └── docs/
 ```
 
 ## Install model
 
-- The shared brain is `AGENTS.md` plus `.agents/` in the target project.
-- Codex and Antigravity read `AGENTS.md` and `.agents/skills/` natively; Antigravity also reads `.agents/rules/` and `.agents/workflows/`.
-- Claude Code gets `CLAUDE.md` importing `@AGENTS.md`, plus generated `.claude/skills/`, `.claude/agents/` and `.claude/commands/` (links where the OS allows, copies otherwise).
-- Project-specific additions go to `.agents/local/` and are never overwritten by `update`.
-- `agent-kit.lock.json` records the kit version, the target CLIs and a hash per installed file, so `check` can detect manual edits and drift.
+Every installed file is **generated**: a copy, or a transformed copy for a CLI-specific target. The installer never creates symlinks (ADR-0003). Generation is deterministic (LF, sorted keys, no timestamps), so a second run writes nothing.
+
+- The shared brain is `AGENTS.md` plus `.agents/` (`skills/`, `agents/`, `rules/`, `workflows/`, `providers.json`, and `schemas/` as a reference copy). The `AGENTS.md` block holds the index and the always-on rules, and is limited to 24 KiB.
+- Codex and Antigravity read `AGENTS.md` and `.agents/skills/` natively; Antigravity also reads `.agents/rules/` and `.agents/workflows/`. For Codex, workflows are written as skills.
+- Claude Code gets a `CLAUDE.md` managed block importing `@AGENTS.md`, plus generated `.claude/skills/`, `.claude/agents/` (frontmatter `name`, `description`, `tools`) and `.claude/commands/`.
+- Project-specific additions go to `.agents/local/`. The installer reads them, renders them to the same targets as kit items and never writes or deletes them.
+- `AGENTS.md` and `CLAUDE.md` are shared with hand-written text: only the block between `<!-- agent-kit:begin -->` and `<!-- agent-kit:end -->` is managed.
+
+### Lock
+
+`agent-kit.lock.json` (`agent-kit-lock/v1`, schema `schemas/install/lock.schema.json`) records the kit version, the target CLIs and a SHA-256 per generated file (block content only for `AGENTS.md` and `CLAUDE.md`). Text is hashed after CRLF to LF normalization. It does not list itself and is written last, so an interrupted run converges on the next one.
+
+The lock is untrusted input and is validated before use. File keys are relative paths with `/`, under the managed prefixes. The pattern has no lookaround (ReDoS rule): each segment is `\.?[A-Za-z0-9_-][A-Za-z0-9._-]{0,63}`, with up to 9 levels, so `..` cannot match.
+
+### Plan and conflicts
+
+One plan (desired state against disk and lock) feeds `--dry-run`, the real run and `check`. A file is overwritten or deleted only when its hash equals the lock. Conflicts are all-or-nothing: any conflict without `--force` writes nothing, lock included, and exits 1. A file at a destination path that the kit never created is a conflict that `--force` does not override. `sync` and `check` stop with `version-mismatch` when the package version differs from the lock; `update` with an older package reports `version-downgrade` unless `--force`. Writes stay inside `--root`, refuse symlinks in the destination path and are atomic (temporary file, then rename).
+
+### Name collisions
+
+`src/catalog/collisions.ts` lists the built-in command names of each CLI (`COLLISIONS`) and the names reserved on Windows (`RESERVED_NAMES`, such as `con` and `nul`). The install commands and `check --self` reject a kit or local item with such a name. Local items are compared by namespace: skills and workflows share one namespace, while agents and rules have one each.
+
+### Roadmap
+
+MCP access for agents is not installed yet: a Claude agent that declares `mcp` keeps the `tools` mapped from its other capabilities and gets no MCP access. MCP access for agents is roadmap.
 
 ## Contracts
 

@@ -66,7 +66,7 @@ smoke_tests()    { pnpm --silent test:smoke; }
 ```text
 package.json
 src/schemas/
-src/catalog/collisions.json
+src/catalog/collisions.ts
 ```
 
 ## Caminhos sensíveis
