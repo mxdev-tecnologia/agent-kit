@@ -1,0 +1,62 @@
+{
+  "missing-id.json": {
+    "keyword": "oneOf",
+    "instancePath": "/providers/0"
+  },
+  "kind-socket.json": {
+    "keyword": "oneOf",
+    "instancePath": "/providers/0"
+  },
+  "extra-property.json": {
+    "keyword": "oneOf",
+    "instancePath": "/providers/0"
+  },
+  "cli-without-command.json": {
+    "keyword": "oneOf",
+    "instancePath": "/providers/0"
+  },
+  "endpoint-without-base-url-env.json": {
+    "keyword": "oneOf",
+    "instancePath": "/providers/0"
+  },
+  "both-command-and-base-url-env.json": {
+    "keyword": "oneOf",
+    "instancePath": "/providers/0"
+  },
+  "concurrency-max-zero.json": {
+    "keyword": "oneOf",
+    "instancePath": "/providers/0"
+  },
+  "concurrency-max-65.json": {
+    "keyword": "oneOf",
+    "instancePath": "/providers/0"
+  },
+  "id-not-a-name.json": {
+    "keyword": "oneOf",
+    "instancePath": "/providers/0"
+  },
+  "duplicate-capabilities.json": {
+    "keyword": "oneOf",
+    "instancePath": "/providers/0"
+  },
+  "seven-capabilities.json": {
+    "keyword": "oneOf",
+    "instancePath": "/providers/0"
+  },
+  "global-max-agents-11.json": {
+    "keyword": "maximum",
+    "instancePath": "/global_max_agents"
+  },
+  "missing-format.json": {
+    "keyword": "required",
+    "instancePath": ""
+  },
+  "empty-providers.json": {
+    "keyword": "minItems",
+    "instancePath": "/providers"
+  },
+  "tier-not-a-string.json": {
+    "keyword": "oneOf",
+    "instancePath": "/providers/0"
+  }
+}

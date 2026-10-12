@@ -1,0 +1,70 @@
+{
+  "format": "agent-kit-providers/v1",
+  "global_max_agents": 10,
+  "providers": [
+    {
+      "id": "claude-code",
+      "title": "Claude Code",
+      "kind": "cli",
+      "command": "claude",
+      "concurrency": {
+        "recommended": 2,
+        "max": 4
+      },
+      "tiers": {
+        "fast": "",
+        "standard": "",
+        "deep": ""
+      },
+      "capabilities": ["read", "search", "edit", "shell", "web", "mcp"]
+    },
+    {
+      "id": "codex",
+      "title": "Codex CLI",
+      "kind": "cli",
+      "command": "codex",
+      "concurrency": {
+        "recommended": 1,
+        "max": 2
+      },
+      "tiers": {
+        "fast": "",
+        "standard": "",
+        "deep": ""
+      },
+      "capabilities": ["read", "search", "edit", "shell", "web", "mcp"]
+    },
+    {
+      "id": "antigravity",
+      "title": "Antigravity",
+      "kind": "cli",
+      "command": "agy",
+      "concurrency": {
+        "recommended": 2,
+        "max": 4
+      },
+      "tiers": {
+        "fast": "",
+        "standard": "",
+        "deep": ""
+      },
+      "capabilities": ["read", "search", "edit", "shell", "web", "mcp"]
+    },
+    {
+      "id": "openai-compatible",
+      "title": "OpenAI-compatible endpoint",
+      "kind": "endpoint",
+      "base_url_env": "CORTEX_OPENAI_BASE_URL",
+      "concurrency": {
+        "recommended": 1,
+        "max": 2
+      },
+      "tiers": {
+        "fast": "",
+        "standard": "",
+        "deep": ""
+      },
+      "capabilities": []
+    }
+  ]
+}
