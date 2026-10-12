@@ -1,6 +1,6 @@
 # Spec 06 — Validators: validate spec, tasks, verdict, envelope and commit
 
-- **Status:** em andamento
+- **Status:** validada
 - **Nível:** lite
 - **Risco:** médio
 - **Depende de:** spec-02b
@@ -160,33 +160,33 @@ pnpm --silent test:smoke                            # all pass, exit 0
 ## Traceability matrix
 | Requirement | CA | Verification | Files | Evidence |
 |---|---|---|---|---|
-| RF-01 | CA-01 | test | `src/commands/validate.ts`, `src/cli.ts`, `tests/validate/command.test.ts` ||
-| RF-02 | CA-02 | test | `src/commands/validate.ts`, `tests/validate/command.test.ts` ||
-| RF-03 | CA-03 | test | `src/commands/validate.ts`, `tests/validate/command.test.ts` ||
-| RF-04 | CA-04 | test | `src/commands/validate.ts`, `tests/validate/command.test.ts` ||
-| RF-05 | CA-05 | test | `src/commands/validate.ts`, `tests/validate/command.test.ts` ||
-| RF-06 | CA-06 | test | `src/commands/validate.ts`, `tests/validate/command.test.ts` ||
-| RF-07 | CA-07 | test | `src/validate/spec.ts`, `tests/validate/spec.test.ts` ||
-| RF-08 | CA-08 | test | `src/validate/spec.ts`, `tests/validate/spec.test.ts` ||
-| RF-09 | CA-09 | test | `src/validate/spec.ts`, `tests/validate/spec.test.ts` ||
-| RF-10 | CA-10 | test | `src/validate/spec.ts`, `tests/validate/spec.test.ts` ||
-| RF-11 | CA-11 | test | `src/validate/spec.ts`, `tests/validate/spec.test.ts` ||
-| RF-12 | CA-12 | test | `src/validate/spec.ts`, `tests/validate/spec-regression.test.ts` ||
-| RF-13 | CA-13, CA-14 | test | `src/validate/envelope-rules.ts`, `tests/validate/tasks.test.ts` ||
-| RF-14 | CA-15 | test | `src/validate/envelope-rules.ts`, `tests/validate/verdict.test.ts` ||
-| RF-15 | CA-16 | test | `src/validate/envelope-rules.ts`, `tests/validate/envelope.test.ts` ||
-| RF-16 | CA-17 | test | `src/commands/validate.ts`, `tests/validate/envelope.test.ts` ||
-| RF-17 | CA-18 | test | `src/validate/commit.ts`, `tests/validate/commit.test.ts` ||
-| RF-18 | CA-19 | test | `src/validate/commit.ts`, `tests/validate/commit.test.ts` ||
-| RF-19 | CA-20 | test | `src/validate/commit.ts`, `tests/validate/commit.test.ts` ||
-| RF-20 | CA-21 | test | `src/validate/commit.ts`, `tests/validate/commit.test.ts` ||
-| RF-21 | CA-21 | test | `src/validate/commit.ts`, `tests/validate/commit.test.ts` ||
-| RF-22 | CA-22 | manual | `docs/ARCHITECTURE.md`, `docs/INSTRUCTIONS.md` ||
-| RNF-01 | CA-23 | test | `src/validate/spec.ts`, `tests/validate/perf.test.ts` ||
-| RNF-02 | CA-24 | test | `package.json`, `tests/package-policy.test.ts` ||
-| RNF-03 | CA-25 | test | `src/commands/validate.ts`, `tests/validate/command.test.ts` ||
-| RNF-04 | CA-06, CA-26 | test | `src/commands/validate.ts`, `tests/validate/perf.test.ts` ||
-| RNF-05 | CA-04, CA-27 | test | `src/commands/validate.ts`, `tests/validate/command.test.ts` ||
+| RF-01 | CA-01 | test | `src/commands/validate.ts`, `src/cli.ts`, `tests/validate/command.test.ts` | tests pass (283) |
+| RF-02 | CA-02 | test | `src/commands/validate.ts`, `tests/validate/command.test.ts` | tests pass (283) |
+| RF-03 | CA-03 | test | `src/commands/validate.ts`, `tests/validate/command.test.ts` | tests pass (283) |
+| RF-04 | CA-04 | test | `src/commands/validate.ts`, `tests/validate/command.test.ts` | tests pass (283) |
+| RF-05 | CA-05 | test | `src/commands/validate.ts`, `tests/validate/command.test.ts` | tests pass (283) |
+| RF-06 | CA-06 | test | `src/commands/validate.ts`, `tests/validate/command.test.ts` | tests pass (283) |
+| RF-07 | CA-07 | test | `src/validate/spec.ts`, `tests/validate/spec.test.ts` | tests pass (283) |
+| RF-08 | CA-08 | test | `src/validate/spec.ts`, `tests/validate/spec.test.ts` | tests pass (283) |
+| RF-09 | CA-09 | test | `src/validate/spec.ts`, `tests/validate/spec.test.ts` | tests pass (283) |
+| RF-10 | CA-10 | test | `src/validate/spec.ts`, `tests/validate/spec.test.ts` | tests pass (283) |
+| RF-11 | CA-11 | test | `src/validate/spec.ts`, `tests/validate/spec.test.ts` | tests pass (283) |
+| RF-12 | CA-12 | test | `src/validate/spec.ts`, `tests/validate/spec-regression.test.ts` | tests pass (283) |
+| RF-13 | CA-13, CA-14 | test | `src/validate/envelope-rules.ts`, `tests/validate/tasks.test.ts` | tests pass (283) |
+| RF-14 | CA-15 | test | `src/validate/envelope-rules.ts`, `tests/validate/verdict.test.ts` | tests pass (283) |
+| RF-15 | CA-16 | test | `src/validate/envelope-rules.ts`, `tests/validate/envelope.test.ts` | tests pass (283) |
+| RF-16 | CA-17 | test | `src/commands/validate.ts`, `tests/validate/envelope.test.ts` | tests pass (283) |
+| RF-17 | CA-18 | test | `src/validate/commit.ts`, `tests/validate/commit.test.ts` | tests pass (283) |
+| RF-18 | CA-19 | test | `src/validate/commit.ts`, `tests/validate/commit.test.ts` | tests pass (283) |
+| RF-19 | CA-20 | test | `src/validate/commit.ts`, `tests/validate/commit.test.ts` | tests pass (283) |
+| RF-20 | CA-21 | test | `src/validate/commit.ts`, `tests/validate/commit.test.ts` | tests pass (283) |
+| RF-21 | CA-21 | test | `src/validate/commit.ts`, `tests/validate/commit.test.ts` | tests pass (283) |
+| RF-22 | CA-22 | manual | `docs/ARCHITECTURE.md`, `docs/INSTRUCTIONS.md` | read, OK |
+| RNF-01 | CA-23 | test | `src/validate/spec.ts`, `tests/validate/perf.test.ts` | tests pass (283) |
+| RNF-02 | CA-24 | test | `package.json`, `tests/package-policy.test.ts` | tests pass (283) |
+| RNF-03 | CA-25 | test | `src/commands/validate.ts`, `tests/validate/command.test.ts` | tests pass (283) |
+| RNF-04 | CA-06, CA-26 | test | `src/commands/validate.ts`, `tests/validate/perf.test.ts` | tests pass (283) |
+| RNF-05 | CA-04, CA-27 | test | `src/commands/validate.ts`, `tests/validate/command.test.ts` | tests pass (283) |
 
 ## Execution notes
 - `Io` in `src/cli.ts` gained an optional `stdin` seam so tests feed standard input in-process; the default reads fd 0.
@@ -195,4 +195,15 @@ pnpm --silent test:smoke                            # all pass, exit 0
 - Gate: lint, typecheck, test (283), build, check --self and test:smoke pass.
 
 ## Validation report
-<!-- Filled by the validators (spec review and delivery validation). -->
+```
+MODE: B · VERDICT: APROVADO
+SMOKE: OK
+FINDINGS:
+- [non-blocking] tests/validate/command.test.ts:51 and perf.test.ts:61 - the built-CLI checks return silently when dist/ is missing; CI runs `pnpm test` before `pnpm build`, so there the built-CLI part of CA-01/CA-23 never runs (gate here ran with dist present). In-process coverage is complete; consider a follow-up that runs it after build.
+- [info] src/cli.ts: change localized (import, optional `stdin?` in Io, USAGE line, validate branch, --json/--schemas options); no conflict beyond the expected spec-03 merge.
+SCOPE: diff within Design (src, tests, fixtures, 2 docs, spec); package.json, schemas/, catalog/, check-self untouched; zero runtime deps. No sensitive path touched.
+CA WITHOUT EVIDENCE: none. All CA-01..27 map to named tests (all 283 pass); CA-12 also verified: `validate spec` on specs 03, 04, 05 from main checkout exit 0.
+MANUAL: CA-22 - read: ARCHITECTURE points to src/validate/{envelope-rules,spec,commit}.ts and lists spec and commit rules; INSTRUCTIONS covers kinds, options, exit codes, --json, 50-error cap, 1 MiB. OK.
+DOCS: both in allowlist, updated. Project checklist OK (English, no secrets/models).
+DECLARED DEVIATIONS: root path "", sorted errors, unreadable --schemas = exit 2: acceptable.
+```
