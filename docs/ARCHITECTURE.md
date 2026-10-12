@@ -98,12 +98,17 @@ Every envelope requires `schema` (const `cortex.<kind>/v1`), `id` (UUID), `creat
 
 #### Rules the schemas do not encode
 
-These rules need cross-field checks that the validator subset cannot express. The schemas do not try to encode them. `agent-kit validate` (spec-06) enforces them:
+These rules need cross-field checks that the validator subset cannot express. The schemas do not try to encode them. `agent-kit validate` enforces them (spec-06). The cross-field rules live in `src/validate/envelope-rules.ts`, shared by `validate tasks`, `validate verdict` and `validate envelope`:
 
 - A `rejected` verdict needs at least one `blocker` or `major` finding.
 - `plan.steps[].depends_on` points to existing step ids, with no cycles. The ids of steps, `blocked.options`, `verdict.findings` and `task.acceptance` are unique within their list.
 - `mode: sequential` implies `max_agents` 1.
 - `parent_id` differs from `id`.
+
+The same command also checks what no schema covers:
+
+- Specs (`src/validate/spec.ts`): the `Status` header and the four required sections; RF lines in EARS form with `SHALL`; ids unique and sequential from 01 per family; CAs in Given/When/Then order that reference existing requirements; a traceability matrix with a row for every RF and RNF.
+- Commit messages (`src/validate/commit.ts`): header `<type>(<scope>)?: <description>` with a known type, at most 100 characters and no final period; a blank line before the body; a non-empty `Refs:` value when present. `Merge ` messages pass unchecked.
 
 #### Size bound
 

@@ -132,7 +132,7 @@ Delivery validation is done by spec-checker (level "lite"; read-only commands, n
 - [x] `src/validate/commit.ts` with tests
 - [x] `src/commands/validate.ts` and `src/cli.ts` dispatch; output, exit codes, limits
 - [x] Performance and bounded-input tests
-- [ ] Docs updated (`docs/ARCHITECTURE.md`, `docs/INSTRUCTIONS.md`)
+- [x] Docs updated (`docs/ARCHITECTURE.md`, `docs/INSTRUCTIONS.md`)
 
 ## Aceite
 ```bash
