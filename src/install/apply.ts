@@ -185,7 +185,6 @@ let tmpCounter = 0;
 
 function atomicWrite(abs: string, rel: string, data: Buffer, exec: boolean, ops: Ops): void {
   ops.stats.writes++;
-  ops.mkdir(dirname(abs));
   const tmp = join(dirname(abs), `.agent-kit-${process.pid}-${tmpCounter++}.tmp`);
   const cleanup = () => {
     try {
@@ -195,6 +194,7 @@ function atomicWrite(abs: string, rel: string, data: Buffer, exec: boolean, ops:
     }
   };
   try {
+    ops.mkdir(dirname(abs));
     ops.writeFile(tmp, data, exec ? 0o755 : 0o644);
     if (process.platform !== "win32") ops.chmod(tmp, exec ? 0o755 : 0o644);
     for (let attempt = 1; ; attempt++) {

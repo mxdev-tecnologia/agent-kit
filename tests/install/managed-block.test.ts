@@ -71,6 +71,18 @@ describe("managed block", () => {
     }
   });
 
+  it("test_ca_08_non_utf8_agents_md_is_refused", () => {
+    const pkg = makePackage();
+    const root = makeProject();
+    put(root, "AGENTS.md", Buffer.from([0x63, 0x61, 0x66, 0xe9, 0x0a])); // Windows-1252
+    const before = snapshot(root);
+    const r = doInit(root, pkg);
+    expect(r.code).toBe(1);
+    expect(r.err).toContain("AGENTS.md");
+    expect(r.err).toContain("UTF-8");
+    expect(snapshot(root)).toEqual(before);
+  });
+
   it("test_ca_10_markers_inside_inlined_content_are_refused", () => {
     const pkg = makePackage();
     put(

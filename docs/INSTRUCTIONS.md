@@ -45,7 +45,7 @@ pnpm --silent test:smoke    # smoke tests (need a built dist/)
 pnpm --silent format        # Biome formatter
 ```
 
-CLI exit codes: `0` success, `1` a `check` invariant failed, `2` usage error (unknown command or option, or `check` without `--self`). `check --self` (optionally `--root <dir>`) checks the kit repository itself, including name collisions; plain `check` checks an installed project.
+CLI exit codes: `0` success, `1` a `check` invariant failed, `2` usage error (unknown command or option, or a root that does not exist). `check --self` (optionally `--root <dir>`) checks the kit repository itself, including name collisions; plain `check` checks an installed project.
 
 `check --self` also loads every schema under `schemas/` and validates the frontmatter of `catalog/` files against them. Each failure is one line with the file path (and the line number for parse errors). The success line ends with the number of catalog files checked: `OK: repository invariants hold (<root>, N catalog files)`.
 

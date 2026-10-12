@@ -1,3 +1,5 @@
+import { chmodSync } from "node:fs";
+import { join } from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
 import {
   cleanup,
@@ -8,6 +10,7 @@ import {
   makePackage,
   makeProject,
   put,
+  ruleMd,
   skillMd,
 } from "../fixtures/install/helpers.js";
 
@@ -34,5 +37,32 @@ describe("messages", () => {
 
     const usage = doInit(makeProject(), pkg, { cli: "nope" });
     expect(usage.err).toContain("claude, codex, antigravity".replace(/, /g, ", "));
+  });
+
+  it("test_ca_39_unreadable_file_and_unwritable_dir_give_relative_paths", (ctx) => {
+    if (process.platform === "win32" || process.getuid?.() === 0) {
+      ctx.skip();
+      return;
+    }
+    const pkg = makePackage();
+    const root = installed(pkg);
+    const file = join(root, ".agents/rules/style.md");
+    chmodSync(file, 0o000);
+    const unreadable = doSync(root, pkg);
+    chmodSync(file, 0o644);
+    expect(unreadable.code).toBe(1);
+    expect(unreadable.err).toContain(".agents/rules/style.md: cannot be read");
+    expect(unreadable.err).not.toContain(root);
+    expect(unreadable.err).not.toMatch(/\n\s+at /);
+
+    const pkg2 = makePackage();
+    put(pkg2, "catalog/rules/fresh.md", ruleMd("fresh"));
+    const dir = join(root, ".agents/rules");
+    chmodSync(dir, 0o555);
+    const unwritable = doUpdate(root, pkg2, {}, { version: "1.1.0" });
+    chmodSync(dir, 0o755);
+    expect(unwritable.code).toBe(1);
+    expect(unwritable.err).toContain(".agents/rules/fresh.md");
+    expect(unwritable.err).not.toMatch(/\n\s+at /);
   });
 });

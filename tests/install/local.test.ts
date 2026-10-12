@@ -69,7 +69,7 @@ describe("local additions", () => {
     put(root, ".agents/local/.env.local", "TOPSECRET");
     put(root, ".agents/local/id_rsa", "TOPSECRET");
     try {
-      symlinkSync(join(outside, "secret.txt"), join(root, ".agents/local/skills/s/key"));
+      symlinkSync(join(outside, "secret.txt"), join(root, ".agents/local/skills/s/references/key"));
     } catch {
       ctx.skip();
       return;
@@ -88,6 +88,17 @@ describe("local additions", () => {
     for (const f of listFiles(root).filter((f) => !f.startsWith(".agents/local/"))) {
       expect(read(root, f)).not.toContain("TOPSECRET");
     }
+  });
+
+  it("test_ca_16_secret_name_patterns_are_case_insensitive_and_prefix_based", () => {
+    const pkg = makePackage();
+    const root = installed(pkg);
+    put(root, ".agents/local/skills/s/SKILL.md", skillMd("s"));
+    const names = [".envrc", ".env-prod", ".env_local", "ID_RSA"];
+    for (const n of names) put(root, `.agents/local/skills/s/references/${n}`, "TOPSECRET");
+    const r = doSync(root, pkg);
+    expect(r.code).toBe(1);
+    for (const n of names) expect(r.err).toContain(`references/${n}`);
   });
 
   it("test_ca_17_names_colliding_with_kit_native_or_reserved", () => {

@@ -50,7 +50,7 @@ export interface PlanInput {
   ops: Ops;
 }
 
-const SECRET = [/^\.env(\..*)?$/i, /\.pem$/i, /\.key$/i, /^id_/, /^service_account.*\.json$/i];
+const SECRET = [/^\.env/i, /\.pem$/i, /\.key$/i, /^id_/i, /^service_account.*\.json$/i];
 const isSecret = (name: string) => SECRET.some((re) => re.test(name));
 const FOLDERS: [ItemType, string][] = [
   ["skill", "skills"],
@@ -315,9 +315,31 @@ export function buildPlan(input: PlanInput): Plan {
     const inLock = lock?.files[d.path];
     const st = ops.lstat(abs);
     const desiredHash = hashContent(d.data);
+    const tryRead = (): Buffer | undefined => {
+      try {
+        return ops.readFile(abs);
+      } catch (error) {
+        const code = (error as NodeJS.ErrnoException).code ?? "unreadable";
+        errors.push(`${d.path}: cannot be read (${code})`);
+        return undefined;
+      }
+    };
 
     if (d.block) {
-      const existing = st ? ops.readFile(abs).toString("utf8") : undefined;
+      let existing: string | undefined;
+      if (st) {
+        const bytes = tryRead();
+        if (!bytes) continue;
+        try {
+          existing = new TextDecoder("utf-8", { fatal: true, ignoreBOM: true }).decode(bytes);
+        } catch {
+          existing = undefined;
+        }
+        if (existing === undefined || !Buffer.from(existing, "utf8").equals(bytes)) {
+          errors.push(`${d.path}: refused, the file is not valid UTF-8`);
+          continue;
+        }
+      }
       const state = existing === undefined ? { kind: "none" as const } : findBlock(existing);
       if (state.kind === "malformed") {
         errors.push(`${d.path}: malformed agent-kit markers (${state.reason})`);
@@ -357,7 +379,9 @@ export function buildPlan(input: PlanInput): Plan {
       files[d.path] = desiredHash;
       continue;
     }
-    const diskHash = hashContent(ops.readFile(abs));
+    const bytes = tryRead();
+    if (!bytes) continue;
+    const diskHash = hashContent(bytes);
     if (diskHash === desiredHash) {
       entries.push({ action: "unchanged", path: d.path });
       files[d.path] = desiredHash;
@@ -388,7 +412,16 @@ export function buildPlan(input: PlanInput): Plan {
       }
       const st = ops.lstat(abs);
       if (!st || path === "AGENTS.md" || path === "CLAUDE.md") continue; // entry dropped
-      const diskHash = hashContent(ops.readFile(abs));
+      let bytes: Buffer;
+      try {
+        bytes = ops.readFile(abs);
+      } catch (error) {
+        errors.push(
+          `${path}: cannot be read (${(error as NodeJS.ErrnoException).code ?? "unreadable"})`,
+        );
+        continue;
+      }
+      const diskHash = hashContent(bytes);
       if (diskHash === lock.files[path]) {
         entries.push({ action: "delete", path, detail: "orphan" });
         deletes.push(path);
