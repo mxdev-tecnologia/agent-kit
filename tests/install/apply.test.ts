@@ -45,12 +45,14 @@ describe("apply", () => {
       ".agents/local/skills/s/SKILL.md",
       `---\nformat: agent-kit/v1\nname: s\ndescription: S.\n---\nS.\n`,
     );
-    for (const bad of ["a:b", "trail.", "nul.md"])
-      put(root, `.agents/local/skills/s/references/${bad}`, "x");
+    // On Windows "a:b" names an alternate data stream of "a", so it never reaches the installer as a name.
+    const onDisk =
+      process.platform === "win32" ? ["trail.", "nul.md"] : ["a:b", "trail.", "nul.md"];
+    for (const bad of onDisk) put(root, `.agents/local/skills/s/references/${bad}`, "x");
     const before = snapshot(root);
     const r = doSync(root, pkg);
     expect(r.code).toBe(1);
-    for (const bad of ["a:b", "trail.", "nul.md"]) expect(r.err).toContain(`references/${bad}`);
+    for (const bad of onDisk) expect(r.err).toContain(`references/${bad}`);
     expect(snapshot(root)).toEqual(before);
   });
 
