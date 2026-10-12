@@ -25,7 +25,7 @@ Later, `agent-kit update` brings the project to a newer version and `agent-kit s
 |---|---|
 | Workflows | `/triage`, `/spec`, `/design`, `/tasks`, `/build`, `/verify`, `/ship`, `/sync`, `/ui-lanes`, `/debug`, `/critique`, `/learn`, `/progress` |
 | Agents | 13 roles with full job titles: orchestrator, scout, planner, architect, builder, verifier, reviewer, ui-designer, doc-writer, runner, security, releaser, observer |
-| Skills | SDD core, EARS requirements, acceptance criteria, context packs, project memory, handoff, token economy, evidence, mutation probes, gitflow, design lanes, design system, debugging, code principles, security audit |
+| Skills | EARS requirements, acceptance criteria, task breakdown, traceability, verification evidence, context budget, git flow, security audit, project memory, design lanes |
 | Rules | Always-on core protocol, safety, economy and design rules |
 | Schemas | JSON Schemas for agent envelopes: `cortex.task/v1`, `cortex.result/v1`, `cortex.blocked/v1`, `cortex.verdict/v1`, `cortex.plan/v1`, `cortex.handoff/v1`, `cortex.lesson/v1`, `cortex.design/v1` and `cortex.observation/v1` |
 | Validators | `agent-kit validate spec`, `tasks`, `commit`, `verdict`: deterministic gates that cost zero tokens |
