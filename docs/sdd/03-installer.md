@@ -1,6 +1,6 @@
 # Spec 03 — Installer: init, update, sync and check
 
-- **Status:** em andamento
+- **Status:** validada
 - **Nível:** completo
 - **Risco:** alto
 - **Depende de:** spec-02b
@@ -355,5 +355,22 @@ ACHADOS:
 5. [menor] tests/install/local.test.ts:67 — o symlink do CA-16 fica em `skills/s/key`, não em `references/key` como diz o CA; o comportamento está coberto (scanLocal recusa), mas o caso do CA não é exercitado literalmente. → Mover o link para `references/key`.
 CONFIRMADO: CA-23 (lock registrado como urn:agent-kit:install:lock:v1; o harness descobre tests/fixtures/schemas/install-lock por registry.ids → fixtureFolder; 2 válidos e 12 inválidos batem com cases.json em keyword/instancePath/contagem); nenhum teste usa cwd/worktree como raiz (helpers sempre passam tempDir; os casos de erro de uso em cli.test saem antes de rodar; worktree sem .agents/ nem lock); realpath da raiz + lstat abaixo dela, symlink/junction/`..`/absoluto/não gerenciado recusados no plano e de novo no apply; lock validado antes de agir (chaves fora dos prefixos, `nul`/ponto final barrados pelo resolveDest); tudo ou nada; lock por último e só quando muda; convergência depois de abort; CRLF no hash e nos blocos; marcadores malformados e dentro do conteúdo; version-mismatch/downgrade; tools nunca omitido; retry 5x; bloco ≤ 24 KiB; 0 escritas na idempotência.
 CA SEM EVIDÊNCIA: nenhum   · MANUAIS: CA-36 (ok, exceto o achado 4)
+DECISÃO HUMANA NECESSÁRIA: nenhuma
+```
+
+### Delivery validation (profunda, ciclo 2) — 2026-10-12
+```
+MODO: B · VEREDITO: APROVADO · VALIDADOR: spec-validator (Opus high)
+SMOKE: OK (gate a frio: 310 passaram, 0 pulados; tests/install reexecutado: 64/64, 0 pulados; worktree limpo)
+ACHADOS DO CICLO 1:
+1. resolvido — reproduzido com dist reconstruído: AGENTS.md em Windows-1252 → exit 1 "not valid UTF-8", bytes intactos (plan.ts, TextDecoder fatal + round-trip; o BOM é preservado). Teste test_ca_08_non_utf8_agents_md_is_refused.
+2. resolvido — reproduzido: .envrc, .env-prod, .env_local, ID_RSA e server.PEM recusados com o caminho, exit 1, nada copiado. Teste test_ca_16_secret_name_patterns_*.
+3. resolvido — reproduzido: .claude/ somente leitura → exit 1 "Error: .claude/agents/reviewer.md: write failed (EACCES …)", sem exceção. Leituras em plan.ts:320/360/391 viram erro com caminho relativo. Teste test_ca_39_unreadable_file_and_unwritable_dir_*.
+4. resolvido — docs/INSTRUCTIONS.md:48 corrigido.
+5. resolvido — o symlink do CA-16 agora fica em references/key e o teste só pula em EPERM/EACCES.
+REGRESSÕES: nenhuma.
+ACHADOS NOVOS:
+- [menor] src/install/plan.ts:96 (collectAssets) — um arquivo ilegível em .agents/local/skills/s/references/ (chmod 000) ainda sai como exceção EACCES não tratada, com caminho absoluto. O mesmo vale para check.ts:264 (ramo version-mismatch) e para readdir em scanLocal. Nada é escrito, então não há risco aos dados. → Usar o mesmo tryRead/InstallError numa próxima spec ou ajuste direto.
+CA SEM EVIDÊNCIA: nenhum   · MANUAIS: CA-36 (ok)
 DECISÃO HUMANA NECESSÁRIA: nenhuma
 ```
