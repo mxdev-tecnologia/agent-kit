@@ -1,6 +1,6 @@
 # Spec 03 — Installer: init, update, sync and check
 
-- **Status:** em PR (#16)
+- **Status:** entregue (2026-10-12)
 - **Nível:** completo
 - **Risco:** alto
 - **Depende de:** spec-02b

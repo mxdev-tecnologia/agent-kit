@@ -1,6 +1,6 @@
 # Spec 06 — Validators: validate spec, tasks, verdict, envelope and commit
 
-- **Status:** em PR (#15)
+- **Status:** entregue (2026-10-12)
 - **Nível:** lite
 - **Risco:** médio
 - **Depende de:** spec-02b

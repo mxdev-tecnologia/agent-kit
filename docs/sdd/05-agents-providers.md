@@ -1,6 +1,6 @@
 # Spec 05 — Agents and provider catalog
 
-- **Status:** em PR (#14)
+- **Status:** entregue (2026-10-12)
 - **Nível:** lite
 - **Risco:** médio
 - **Depende de:** spec-02a, spec-02b

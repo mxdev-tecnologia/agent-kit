@@ -24,10 +24,10 @@ Goal: a public, provider-neutral SDD brain that installs with one `npx` command 
 | spec-01b | CI and community files: GitHub Actions workflow, Dependabot, CONTRIBUTING and SECURITY | spec-01a | lite | delivered |
 | spec-02a | Contracts core: JSON Schema subset validator, schema registry, common definitions and the frontmatter format for agents, skills, workflows and rules | spec-01a | full | delivered |
 | spec-02b | Cortex envelopes: the nine `cortex.*/v1` JSON Schemas | spec-02a | full | delivered |
-| spec-03 | Installer: `agent-kit init`, `update`, `sync` and `check`; CLI detection, per-provider install, `agent-kit.lock.json`, merge with `.agents/local/`, name-collision checks | spec-02b | full | approved |
-| spec-04 | SDD brain: skills, workflows and rules (original content, in English) | spec-02a | lite | approved |
-| spec-05 | Agents: 13 roles with full job titles, and the provider catalog (Claude Code, Codex, Antigravity, any OpenAI-compatible endpoint) with concurrency limits | spec-02a | lite | approved |
-| spec-06 | Validators: `agent-kit validate spec`, `tasks`, `commit`, `verdict` | spec-02b | lite | approved |
+| spec-03 | Installer: `agent-kit init`, `update`, `sync` and `check`; CLI detection, per-provider install, `agent-kit.lock.json`, merge with `.agents/local/`, name-collision checks | spec-02b | full | delivered |
+| spec-04 | SDD brain: skills, workflows and rules (original content, in English) | spec-02a | lite | delivered |
+| spec-05 | Agents: 13 roles with full job titles, and the provider catalog (Claude Code, Codex, Antigravity, any OpenAI-compatible endpoint) with concurrency limits | spec-02a | lite | delivered |
+| spec-06 | Validators: `agent-kit validate spec`, `tasks`, `commit`, `verdict` | spec-02b | lite | delivered |
 | spec-07 | Publishing: `@mxdev-tecnologia/agent-kit` on npm with provenance from GitHub Actions; `next` pre-releases from `develop` | spec-03, spec-06 | full | planned |
 
 Suggested order: spec-01a → spec-01b → spec-02a → spec-02b → spec-03 and spec-06 (spec-04 and spec-05 only need spec-02a, so they can start as soon as it is merged) → spec-07.
