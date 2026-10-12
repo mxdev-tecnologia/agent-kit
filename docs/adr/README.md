@@ -12,3 +12,4 @@ Each ADR has: **Status** (proposed, accepted, superseded by ADR-NNNN), **Context
 |---|---|---|
 | [0001](0001-typescript-cli-zero-runtime-deps.md) | TypeScript CLI with zero runtime dependencies | proposed |
 | [0002](0002-own-json-schema-subset-validator.md) | Own validator for a JSON Schema subset, with an independent oracle in tests | proposed |
+| [0003](0003-generated-per-cli-targets-and-lock.md) | Generated per-CLI targets with a lock file of content hashes | proposed |
