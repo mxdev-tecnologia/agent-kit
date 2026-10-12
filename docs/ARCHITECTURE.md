@@ -49,6 +49,10 @@ agent-kit/
 - Project-specific additions go to `.agents/local/` and are never overwritten by `update`.
 - `agent-kit.lock.json` records the kit version, the target CLIs and a hash per installed file, so `check` can detect manual edits and drift.
 
+## SDD content (catalog)
+
+The kit ships its method as original content under `catalog/`: 13 workflows (`triage`, `spec`, `critique`, `design`, `tasks`, `build`, `verify`, `ship`, `sync`, `progress`, `debug`, `learn`, `ui-lanes`), 10 skills and 6 always-on rules. The text is in English, vendor-neutral and names no model. Skills keep long material in `references/`. `tests/catalog-brain.test.ts` checks the set, the cross-references and the absence of vendor names; `check --self` validates the frontmatter.
+
 ## Contracts
 
 - Agent, skill, workflow and rule files use a versioned frontmatter format.
