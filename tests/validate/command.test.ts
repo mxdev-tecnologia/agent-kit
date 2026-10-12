@@ -192,3 +192,23 @@ describe("validate command", () => {
     expect(j.code).toBe(1);
   });
 });
+
+describe("validate and installer options stay apart", () => {
+  it.each([["--force"], ["--dry-run"], ["--cli", "claude"], ["--self"]])(
+    "test_merge_validate_rejects_installer_option_%s",
+    (...flag) => {
+      const r = run(["validate", "spec", validFiles.spec as string, ...flag]);
+      expect(r.code).toBe(2);
+      expect(r.err).toContain("does not apply to validate");
+    },
+  );
+
+  it.each([
+    ["sync", "--json"],
+    ["check", "--schemas", "x"],
+  ])("test_merge_installer_rejects_validate_option_%s_%s", (...args) => {
+    const r = run(args);
+    expect(r.code).toBe(2);
+    expect(r.err).toContain("belongs to validate");
+  });
+});

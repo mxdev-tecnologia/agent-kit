@@ -15,9 +15,9 @@ npx @mxdev-tecnologia/agent-kit init
 1. Detects the CLIs installed on your machine and used by the project.
 2. Writes the shared brain: `AGENTS.md` and `.agents/` (skills, agents, workflows, rules).
 3. Adds each CLI's native glue: `CLAUDE.md` importing `@AGENTS.md` and `.claude/` for Claude Code; Codex and Antigravity read `AGENTS.md` and `.agents/` directly.
-4. Records the installed version and file hashes in `agent-kit.lock.json`.
+4. Records the installed version and file hashes in `agent-kit.lock.json`. All files are generated copies, never symlinks.
 
-Later, `agent-kit update` merges new versions while keeping your project-specific files in `.agents/local/`, and `agent-kit check` fails when generated files drift or a name collides with a CLI's built-in command.
+Later, `agent-kit update` brings the project to a newer version and `agent-kit sync` regenerates the targets, both keeping your project-specific files in `.agents/local/` and never overwriting files you edited without `--force`. `agent-kit check` fails when generated files drift or a name collides with a CLI's built-in command.
 
 ## What is inside
 
@@ -25,7 +25,7 @@ Later, `agent-kit update` merges new versions while keeping your project-specifi
 |---|---|
 | Workflows | `/triage`, `/spec`, `/design`, `/tasks`, `/build`, `/verify`, `/ship`, `/sync`, `/ui-lanes`, `/debug`, `/critique`, `/learn`, `/progress` |
 | Agents | 13 roles with full job titles: orchestrator, scout, planner, architect, builder, verifier, reviewer, ui-designer, doc-writer, runner, security, releaser, observer |
-| Skills | SDD core, EARS requirements, acceptance criteria, context packs, project memory, handoff, token economy, evidence, mutation probes, gitflow, design lanes, design system, debugging, code principles, security audit |
+| Skills | EARS requirements, acceptance criteria, task breakdown, traceability, verification evidence, context budget, git flow, security audit, project memory, design lanes |
 | Rules | Always-on core protocol, safety, economy and design rules |
 | Schemas | JSON Schemas for agent envelopes: `cortex.task/v1`, `cortex.result/v1`, `cortex.blocked/v1`, `cortex.verdict/v1`, `cortex.plan/v1`, `cortex.handoff/v1`, `cortex.lesson/v1`, `cortex.design/v1` and `cortex.observation/v1` |
 | Validators | `agent-kit validate spec`, `tasks`, `commit`, `verdict`: deterministic gates that cost zero tokens |
@@ -44,6 +44,10 @@ Later, `agent-kit update` merges new versions while keeping your project-specifi
 | Claude Code | `CLAUDE.md` → `@AGENTS.md` | `.claude/skills/` | `.claude/agents/` | `.claude/commands/` |
 | Codex | `AGENTS.md` | `.agents/skills/` | roles in `AGENTS.md` | as skills |
 | Antigravity | `AGENTS.md` | `.agents/skills/` | `.agents/agents/` | `.agents/workflows/` |
+
+MCP access for agents is on the roadmap; agents installed today get no MCP tools.
+
+See [`docs/INSTRUCTIONS.md`](docs/INSTRUCTIONS.md) for the commands and options.
 
 ## Contributing and security
 

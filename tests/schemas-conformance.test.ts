@@ -1,6 +1,6 @@
 import { mkdirSync, mkdtempSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
-import { dirname, join } from "node:path";
+import { dirname, join, sep } from "node:path";
 import Ajv2020 from "ajv/dist/2020.js";
 import { afterEach, describe, expect, it } from "vitest";
 import { isDateTime, isUuid } from "../src/schemas/formats.js";
@@ -769,7 +769,8 @@ function neutralityFindings(node: unknown, path = ""): string[] {
 
 describe("provider neutrality", () => {
   it("test_ca_21_schemas_name_no_model_or_vendor", () => {
-    const files = schemaFiles(REPO_SCHEMAS);
+    // The install lock names the target CLIs by design (managed paths and the `clis` enum).
+    const files = schemaFiles(REPO_SCHEMAS).filter((f) => !f.includes(`${sep}install${sep}`));
     expect(files.length).toBeGreaterThanOrEqual(5);
     for (const file of files) expect(neutralityFindings(readJson(file), file), file).toEqual([]);
   });
