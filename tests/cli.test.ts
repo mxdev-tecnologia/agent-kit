@@ -1,6 +1,6 @@
 import { mkdtempSync, readFileSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
-import { join } from "node:path";
+import { join, resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 import { main } from "../src/cli.js";
 
@@ -51,7 +51,7 @@ describe("cli", () => {
         ...(c === "init" ? ["--cli", "claude"] : []),
       ]);
       expect(r.code).toBe(2);
-      expect(r.err).toContain("/nonexistent/agent-kit-root");
+      expect(r.err).toContain(resolve("/nonexistent/agent-kit-root"));
     }
   });
 
